@@ -1,4 +1,5 @@
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 public class EnemyTest {
@@ -15,6 +16,10 @@ public class EnemyTest {
 		assertEquals(h.getHealth(), 200);
 		assertEquals(h.getPoints(), 20);
 
+		Enemy a = new Armored(1);
+		assertEquals(a.getHealth(), 100);
+		a.doDamage(10);
+		assertEquals(a.getHealth(), 99);
 	}
 	
 }
