@@ -1,3 +1,4 @@
+package model;
 
 public class Armored extends Enemy{
 
