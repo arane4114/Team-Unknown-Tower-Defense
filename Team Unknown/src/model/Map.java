@@ -1,14 +1,17 @@
 package model;
 import java.awt.Point;
+
 import java.util.ArrayList;
+import java.util.Observable;
 
-
-public class Map {
+public class Map extends Observable {
 	
 	private Cell[][] map;
 	private ArrayList<Point> leftPath;
 	private ArrayList<Point> middlePath;
 	private ArrayList<Point> rightPath;
+	
+	private boolean test = false;
 	
 	public Map() {
 		map = new Cell[50][50];
@@ -17,6 +20,7 @@ public class Map {
 				map[i][j] = new Cell();
 			}
 		}
+		test = true;
 		setPath();
 	}
 
@@ -67,6 +71,26 @@ public class Map {
 		}
 	}
 
+	public ArrayList<Point> getLeftPath(){
+		return this.leftPath;
+		
+	}
+	
+	public ArrayList<Point> getMiddlePath(){
+		return this.middlePath;
+		
+	}
+	
+	public ArrayList<Point> getRightPath(){
+		return this.rightPath;
+		
+	}
+	
+	public void forceUpdate(){
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
 	public void mapToString(){
 		for (int i = 0; i < 50; i++) {
 			for (int j = 0; j < 50; j++) {
@@ -79,8 +103,4 @@ public class Map {
 			System.out.println();
 		}
 	}
-	
-//	public static void main(String[] args) {
-//		new Map();
-//	}
 }
