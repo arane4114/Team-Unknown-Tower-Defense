@@ -1,6 +1,5 @@
 package model;
 import java.awt.Point;
-
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -79,7 +78,7 @@ public class Map extends Observable {
 	public ArrayList<Point> getMiddlePath(){
 		return this.middlePath;
 		
-	}
+	}	
 	
 	public ArrayList<Point> getRightPath(){
 		return this.rightPath;
@@ -89,6 +88,19 @@ public class Map extends Observable {
 	public void forceUpdate(){
 		this.setChanged();
 		this.notifyObservers();
+	}
+	
+	public boolean isValid(Point p){
+		if(p.x < 50 && p.y < 50 && p.x >= 0 && p.y >= 0){
+			if(!map[p.y][p.x].getPath()){
+				return true;
+			}
+		}    
+	return false;
+	}
+	
+	public ArrayList<Enemy> getListOfEnemies(Point p){
+		return map[p.y][p.x].getEnemies();
 	}
 	
 	public void mapToString(){
