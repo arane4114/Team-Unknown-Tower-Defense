@@ -2,8 +2,8 @@ package model;
 
 public class Armored extends Enemy{
 
-	public Armored(int multi) {
-		super(100 * multi);
+	public Armored(int multi, Cell c) {
+		super(100 * multi, c);
 	}
 
 	@Override

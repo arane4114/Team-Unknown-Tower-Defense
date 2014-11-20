@@ -5,10 +5,12 @@ public abstract class Enemy {
 	protected int health, points;
 	//private final static Image sprite;
 	//Will need to set sprites for each enemy
+	private Cell current;
 	
-	public Enemy(int h) {
+	public Enemy(int h, Cell c) {
 		health = h;
 		points = health/10;
+		current = c;
 	}
 	
 	abstract public void doDamage(int damage);	
@@ -22,6 +24,19 @@ public abstract class Enemy {
 
 	public int getHealth(){
 		return health;
+	}
+	
+	public void setCell(Cell n){
+		current = n;
+	}
+	
+	public Cell getCell(){
+		return current;
+	}
+	
+	public void moveToNext(){
+		//change current cell to next cell in map list.
+		//can be done in Enemy OR in the Game itself.
 	}
 
 }
