@@ -92,9 +92,7 @@ public class Map extends Observable {
 	
 	public boolean isValid(Point p){
 		if(p.x < 50 && p.y < 50 && p.x >= 0 && p.y >= 0){
-			if(!map[p.y][p.x].getPath()){
 				return true;
-			}
 		}    
 	return false;
 	}
