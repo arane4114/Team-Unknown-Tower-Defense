@@ -1,42 +1,63 @@
 package model;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.Timer;
 
 public abstract class Enemy {
 
-	protected int health, points;
+	protected int health, points, i;
 	//private final static Image sprite;
 	//Will need to set sprites for each enemy
-	private Cell current;
+	protected Point current;
+	protected Map map;
+	protected ArrayList<Point> path;
+	protected Timer timer;
+	protected int walkInterval = 100; 	// Not sure what the interval needs to be, adding 100 as a placeholder
 	
-	public Enemy(int h, Cell c) {
+	public Enemy(int h, Map m) {
 		health = h;
 		points = health/10;
-		current = c;
+		i = 0;
+		map = m;
+		path = map.getMiddlePath(); // Getting Middle Path to start with, we can randomize this if we need.
+		current = path.get(i);
+		this.timer = new Timer(this.walkInterval, new EnemyTimer());
+		timer.start();
 	}
 	
 	abstract public void doDamage(int damage);	
-	//Tower sends this command to an enemy to deal damage
-	//Making it abstract so we can change how much damage each enemy takes
-	// to account for armor or something
+	// Tower sends this command to an enemy to deal damage
+	// Making it abstract so we can change how much damage each enemy takes
+	//  to account for armor or something
 	
 	public int getPoints(){
-		return points; //Preliminary number of points given when enemy is killed
+		return points; 					//Preliminary number of points given when enemy is killed
 	}
 
 	public int getHealth(){
 		return health;
 	}
-	
-	public void setCell(Cell n){
-		current = n;
-	}
-	
-	public Cell getCell(){
+		
+	public Point getCurrent(){
 		return current;
 	}
 	
 	public void moveToNext(){
-		//change current cell to next cell in map list.
-		//can be done in Enemy OR in the Game itself.
+		i++;
+		current = path.get(i); 	//Walk to the next point in the list
+	}
+	
+	public boolean isDead(){
+		return health <= 0;
+	}
+	
+	private class EnemyTimer implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			moveToNext();
+		}
 	}
 
 }

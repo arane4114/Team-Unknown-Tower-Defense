@@ -1,24 +1,32 @@
 package model;
 import static org.junit.Assert.*;
 
+import java.awt.Point;
+
 import org.junit.Test;
 
 public class EnemyTest {
 
 	@Test
 	public void randomTests(){
-		Cell c = new Cell();
-		Enemy g = new Grunt(1,c);
+		Map m = new Map();
+		Enemy g = new Grunt(1,m);
+		Point p = new Point(0, 12);
 		assertEquals(g.getHealth(), 100);
 		assertEquals(g.getPoints(), 10);
+		assertEquals(g.getCurrent(), p);
+		g.moveToNext();
+		Point p2 = new Point(1, 12);
+		assertEquals(g.getCurrent(), p2);
 		g.doDamage(100);
 		assertEquals(g.getHealth(), 0);
-		
-		Enemy h = new Grunt(2,c);
+		assertTrue(g.isDead());
+				
+		Enemy h = new Grunt(2,m);
 		assertEquals(h.getHealth(), 200);
 		assertEquals(h.getPoints(), 20);
 
-		Enemy a = new Armored(1,c);
+		Enemy a = new Armored(1,m);
 		assertEquals(a.getHealth(), 100);
 		a.doDamage(10);
 		assertEquals(a.getHealth(), 99);

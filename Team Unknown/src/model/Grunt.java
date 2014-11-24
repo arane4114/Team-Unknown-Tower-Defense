@@ -2,8 +2,8 @@ package model;
 
 public class Grunt extends Enemy{
 
-	public Grunt(int multi, Cell c) { //Supply a multiplier to effect the unit's health from the base amount
-		super(100 * multi, c); 
+	public Grunt(int multi, Map m) { //Supply a multiplier to effect the unit's health from the base amount
+		super(100 * multi, m); 
 	}
 
 	@Override
