@@ -10,9 +10,7 @@ public class Map extends Observable {
 	private ArrayList<Point> middlePath;
 	private ArrayList<Point> rightPath;
 	private ArrayList<Point> towers;
-	
-	private boolean test = false;
-	
+		
 	public Map() {
 		map = new Cell[50][50];
 		for (int i = 0; i < 50; i++) {
@@ -20,8 +18,8 @@ public class Map extends Observable {
 				map[i][j] = new Cell();
 			}
 		}
-		test = true;
 		setPath();
+		this.towers = new ArrayList<Point>();
 	}
 
 	private void setPath() {
@@ -120,6 +118,10 @@ public class Map extends Observable {
 	return false;
 	}
 	
+	public boolean isPath(Point p){
+		return map[p.y][p.x].isPath();
+	}
+	
 	public boolean isEnemy(Point p) {
 		return map[p.y][p.x].isTower();
 	}
@@ -131,7 +133,7 @@ public class Map extends Observable {
 	public void mapToString(){
 		for (int i = 0; i < 50; i++) {
 			for (int j = 0; j < 50; j++) {
-				if(map[i][j].getPath()){
+				if(map[i][j].isPath()){
 					System.out.print("[P]");
 				}else{
 					System.out.print("[X]");

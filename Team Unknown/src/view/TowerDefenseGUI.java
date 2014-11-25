@@ -38,37 +38,25 @@ public class TowerDefenseGUI extends JFrame {
 	private class mouseListener implements MouseListener{
 
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void mouseClicked(MouseEvent e) {}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {}
+
+		@Override
+		public void mouseExited(MouseEvent e) {}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
 			Point p = new Point(e.getX() / 10, e.getY() / 10);
-			if(map.isValid(p)){
-			map.setTower(p); //Dont know what it should be just a hard code.
+			if(map.isValid(p) && !map.isPath(p)){
+				map.setTower(p); //Dont know what it should be just a hard code.
+				repaint();
 			}
 		}
 
 		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		
+		public void mouseReleased(MouseEvent e) {}
 	}
 
 	public static void main(String[] args) {

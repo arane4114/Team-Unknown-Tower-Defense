@@ -70,12 +70,10 @@ public class GamePlayPanel extends JPanel implements Observer{
 			}
 		}
 		
-//		g.setColor(Color.red);
-//		if(map.hasTowers()){
-//			for (Point p : this.map.getTowers()) {
-//				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 10, 10);
-//			}
-//		}
+		g.setColor(Color.red);
+		for (Point p : this.map.getTowers()) {
+			g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 10, 10);
+		}
 	}
 	
 }

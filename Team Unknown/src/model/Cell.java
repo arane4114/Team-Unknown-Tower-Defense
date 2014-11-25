@@ -29,7 +29,7 @@ public class Cell {
 		this.path = path;
 	}
 	
-	public boolean getPath(){
+	public boolean isPath(){
 		return path;
 	}
 	
