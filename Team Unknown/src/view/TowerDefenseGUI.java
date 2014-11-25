@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Observer;
 
+import model.Enemy;
+import model.Grunt;
 import model.Map;
 
 import javax.swing.JFrame;
@@ -50,7 +52,8 @@ public class TowerDefenseGUI extends JFrame {
 		public void mousePressed(MouseEvent e) {
 			Point p = new Point(e.getX() / 10, e.getY() / 10);
 			if(map.isValid(p) && !map.isPath(p)){
-				map.setTower(p); //Dont know what it should be just a hard code.
+				map.setTower(p);
+				Enemy g = new Grunt(1,map);
 				repaint();
 			}
 		}

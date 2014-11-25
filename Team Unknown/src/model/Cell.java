@@ -9,6 +9,12 @@ public class Cell {
 	private ArrayList<Enemy> enemies;
 	private Tower tower;
 	
+	public Cell() {
+		this.path = false;
+		this.isTower = false;
+		this.enemies = new ArrayList<Enemy>();
+	}
+	
 	public boolean isEnemy(){
 		if(enemies.isEmpty()){
 			return false;
@@ -18,11 +24,6 @@ public class Cell {
 	
 	public boolean isTower(){
 		return isTower;
-	}
-	
-	public Cell() {
-		this.path = false;
-		this.isTower = false;
 	}
 	
 	public void cellPath( boolean path){

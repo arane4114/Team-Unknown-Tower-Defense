@@ -3,6 +3,8 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Observable;
+
 import javax.swing.Timer;
 
 public abstract class Enemy {
@@ -23,6 +25,7 @@ public abstract class Enemy {
 		map = m;
 		path = map.getMiddlePath(); // Getting Middle Path to start with, we can randomize this if we need.
 		current = path.get(i);
+		map.addEnemy(current, this); //Added by Bryce
 		this.timer = new Timer(this.walkInterval, new EnemyTimer());
 		timer.start();
 	}
@@ -45,8 +48,10 @@ public abstract class Enemy {
 	}
 
 	public void moveToNext(){
+		map.removeEnemy(current, this); // Added by Bryce
 		i++;
 		current = path.get(i); 	//Walk to the next point in the list
+		map.addEnemy(current, this); // Added by Bryce
 	}
 
 	public boolean isDead(){
