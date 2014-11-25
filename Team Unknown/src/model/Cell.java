@@ -5,12 +5,24 @@ import java.util.ArrayList;
 
 public class Cell {
 	private boolean path;
+	private boolean isTower;
 	private ArrayList<Enemy> enemies;
 	private Tower tower;
 	
+	public boolean isEnemy(){
+		if(enemies.isEmpty()){
+			return false;
+		}
+	return true;
+	}
+	
+	public boolean isTower(){
+		return isTower;
+	}
 	
 	public Cell() {
 		this.path = false;
+		this.isTower = false;
 	}
 	
 	public void cellPath( boolean path){
@@ -22,10 +34,11 @@ public class Cell {
 	}
 	
 	public void setTower(Tower tower){
+		this.isTower = true;
 		this.tower = tower;
 	}
 	
-	public void setEnemy(Enemy enemy){
+	public void addEnemy(Enemy enemy){
 		this.enemies.add(enemy);
 	}
 	

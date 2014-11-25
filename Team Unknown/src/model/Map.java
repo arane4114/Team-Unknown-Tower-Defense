@@ -9,6 +9,7 @@ public class Map extends Observable {
 	private ArrayList<Point> leftPath;
 	private ArrayList<Point> middlePath;
 	private ArrayList<Point> rightPath;
+	private ArrayList<Point> towers;
 	
 	private boolean test = false;
 	
@@ -72,17 +73,18 @@ public class Map extends Observable {
 
 	public ArrayList<Point> getLeftPath(){
 		return this.leftPath;
-		
 	}
 	
 	public ArrayList<Point> getMiddlePath(){
 		return this.middlePath;
-		
 	}	
 	
 	public ArrayList<Point> getRightPath(){
 		return this.rightPath;
-		
+	}
+	
+	public ArrayList<Point> getTowers(){
+		return this.towers;
 	}
 	
 	public void forceUpdate(){
@@ -90,11 +92,28 @@ public class Map extends Observable {
 		this.notifyObservers();
 	}
 	
+	public void removeEnemy(Point p, Enemy e){
+		map[p.y][p.x].removeEnemy(e);
+	}
+	
+	public void addEnemy(Point p, Enemy e){
+		map[p.y][p.x].addEnemy(e);
+	}
+	
+	public void setTower(Point p, Tower t){
+		map[p.y][p.x].setTower(t);
+		towers.add(p);
+	}
+	
 	public boolean isValid(Point p){
 		if(p.x < 50 && p.y < 50 && p.x >= 0 && p.y >= 0){
 				return true;
 		}    
 	return false;
+	}
+	
+	public boolean isEnemy(Point p) {
+		return map[p.y][p.x].isTower();
 	}
 	
 	public ArrayList<Enemy> getListOfEnemies(Point p){

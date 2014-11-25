@@ -20,8 +20,8 @@ public class GamePlayPanel extends JPanel implements Observer{
 	
 	private final int DELTA_X = 10;
 	private final int DELTA_Y = 10;
-	private final int X_BASE = 5;
-	private final int Y_BASE = 5;
+	private final int X_BASE = 0;
+	private final int Y_BASE = 0;
 
 	public GamePlayPanel(){
 		
@@ -40,18 +40,42 @@ public class GamePlayPanel extends JPanel implements Observer{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.fillRect(X_BASE, Y_BASE, 500, 500);
-		g.setColor(Color.orange);
 
 		for (Point p : this.map.getLeftPath()) {
-			g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 10, 10);
+			if(map.isEnemy(p)){
+				g.setColor(Color.blue);
+				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 10, 10);
+			}else{
+				g.setColor(Color.orange);
+				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 10, 10);
+			}
 		}
 		
 		for (Point p : this.map.getMiddlePath()) {
-			g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 10, 10);
+			if(map.isEnemy(p)){
+				g.setColor(Color.blue);
+				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 10, 10);
+			}else{
+				g.setColor(Color.orange);
+				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 10, 10);
+			}
 		}
 		
 		for (Point p : this.map.getRightPath()) {
-			g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 10, 10);
+			if(map.isEnemy(p)){
+				g.setColor(Color.blue);
+				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 10, 10);
+			}else{
+				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 10, 10);
+			}
+		}
+		
+		g.setColor(Color.red);
+		
+		for (Point p : this.map.getTowers()) {
+			if(map.isEnemy(p)){
+				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 10, 10);
+			}
 		}
 	}
 	
