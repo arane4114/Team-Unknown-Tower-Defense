@@ -87,6 +87,13 @@ public class Map extends Observable {
 		return this.towers;
 	}
 	
+	public boolean hasTowers(){
+		if(towers.isEmpty()){
+			return false;
+		}
+	return true;
+	}
+	
 	public void forceUpdate(){
 		this.setChanged();
 		this.notifyObservers();
@@ -100,8 +107,9 @@ public class Map extends Observable {
 		map[p.y][p.x].addEnemy(e);
 	}
 	
-	public void setTower(Point p, Tower t){
-		map[p.y][p.x].setTower(t);
+	public void setTower(Point p){
+		//Tower t = new Tower(4, 10, map, p, 10);
+		//map[p.y][p.x].setTower(t);
 		towers.add(p);
 	}
 	
