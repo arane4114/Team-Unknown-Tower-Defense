@@ -55,11 +55,16 @@ public abstract class Enemy {
 
 	public void moveToNext(){
 		i++;
-		map.removeEnemy(current, this); // Added by Bryce
-		if(i < path.size() - 1){
+		if(health <= 0){
+			map.removeEnemy(current, this);
+			this.alive = false;
+			timer.stop();
+		}else if(i < path.size() - 1){
+			map.removeEnemy(current, this);
 			current = path.get(i); 	//Walk to the next point in the list
 			map.addEnemy(current, this); // Added by Bryce
 		}else{
+			map.removeEnemy(current, this);
 			this.alive = false;
 			timer.stop();
 		}
