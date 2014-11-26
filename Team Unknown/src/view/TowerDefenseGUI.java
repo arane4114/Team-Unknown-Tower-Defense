@@ -51,7 +51,7 @@ public class TowerDefenseGUI extends JFrame {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			Point p = new Point(e.getX() / 10, e.getY() / 10);
-			if(map.isValid(p) && !map.isPath(p)){
+			if(map.isValid(p) && !map.isPath(p) && !map.isTower(p)){
 				map.setTower(p);
 				Enemy g = new Grunt(1,map);
 				repaint();

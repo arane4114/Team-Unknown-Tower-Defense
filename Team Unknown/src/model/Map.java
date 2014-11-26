@@ -122,6 +122,10 @@ public class Map extends Observable {
 		return map[p.y][p.x].isPath();
 	}
 	
+	public boolean isTower(Point p){
+		return map[p.y][p.x].isTower();
+	}
+	
 	public boolean isEnemy(Point p) {
 		return map[p.y][p.x].isEnemy();
 	}
