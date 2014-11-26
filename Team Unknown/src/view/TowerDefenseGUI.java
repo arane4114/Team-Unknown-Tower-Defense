@@ -1,13 +1,13 @@
 package view;
 
 import java.awt.Point;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.List;
 import java.util.Observer;
-
 import javax.swing.JFrame;
-
 import model.Enemy;
 import model.Grunt;
 import model.Map;
@@ -29,6 +29,7 @@ public class TowerDefenseGUI extends JFrame {
 		
 		gamePanel = new GamePlayPanel();
 		gamePanel.addMouseListener(new mouseListener());
+		gamePanel.addMouseMotionListener(new mouseListener());
 		
 		this.add(gamePanel);
 		
@@ -38,7 +39,7 @@ public class TowerDefenseGUI extends JFrame {
 		this.map.forceUpdate();
 	}
 	
-	private class mouseListener implements MouseListener{
+	private class mouseListener implements MouseListener, MouseMotionListener{
 
 		@Override
 		public void mouseClicked(MouseEvent e) {}
@@ -65,6 +66,21 @@ public class TowerDefenseGUI extends JFrame {
 
 		@Override
 		public void mouseReleased(MouseEvent e) {}
+
+		@Override
+		public void mouseDragged(MouseEvent e) {}
+
+		@Override
+		public void mouseMoved(MouseEvent e) {
+			Point p = new Point(e.getX() / 10, e.getY() / 10);
+			if(map.isValid(p) && !map.isPath(p) && !map.isTower(p)){
+				map.setGhostTower(p);
+				repaint();
+			}else{
+				map.setGhostTower(new Point(-1, -1));
+				repaint();
+			}
+		}
 	}
 
 	public static void main(String[] args) {

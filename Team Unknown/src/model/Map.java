@@ -10,7 +10,8 @@ public class Map extends Observable {
 	private ArrayList<Point> middlePath;
 	private ArrayList<Point> rightPath;
 	private ArrayList<Point> towers;
-		
+	private Point ghostTower;
+	
 	public Map() {
 		map = new Cell[50][50];
 		for (int i = 0; i < 50; i++) {
@@ -20,6 +21,7 @@ public class Map extends Observable {
 		}
 		setPath();
 		this.towers = new ArrayList<Point>();
+		ghostTower = new Point(-1, -1);
 	}
 
 	private void setPath() {
@@ -132,6 +134,14 @@ public class Map extends Observable {
 	
 	public ArrayList<Enemy> getListOfEnemies(Point p){
 		return map[p.y][p.x].getEnemies();
+	}
+	
+	public void setGhostTower(Point p){
+		ghostTower = p;
+	}
+	
+	public Point getGhostTower(){
+		return ghostTower;
 	}
 	
 	public void mapToString(){
