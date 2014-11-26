@@ -3,13 +3,14 @@ package view;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 import java.util.Observer;
+
+import javax.swing.JFrame;
 
 import model.Enemy;
 import model.Grunt;
 import model.Map;
-
-import javax.swing.JFrame;
 
 
 public class TowerDefenseGUI extends JFrame {
@@ -53,6 +54,10 @@ public class TowerDefenseGUI extends JFrame {
 			Point p = new Point(e.getX() / 10, e.getY() / 10);
 			if(map.isValid(p) && !map.isPath(p) && !map.isTower(p)){
 				map.setTower(p);
+				List<Point> list = map.getTowers();
+				for(Point p1: list){
+					System.out.println("Tower at: "+p1);
+				}
 				Enemy g = new Grunt(1,map);
 				repaint();
 			}

@@ -54,11 +54,12 @@ public abstract class Tower {
 		if (currentTarget != null) {
 			Point targetLocation = currentTarget.getCurrent();
 			if (!currentTarget.isDead() && isInRange(targetLocation)) {
+				System.out.println("Current target "+currentTarget);
 				return;
 			} else {
 				System.out.println("Target released");
 				currentTarget = null;
-				System.out.println(currentTarget);
+				System.out.println("Current target "+currentTarget);
 			}
 		}
 
@@ -87,42 +88,42 @@ public abstract class Tower {
 				return;
 			}
 			// right
-			searchLocation = new Point(location.x + 1, location.y);
+			searchLocation = new Point(location.x + i, location.y);
 			if (map.isValid(searchLocation) && map.hasEnemy(searchLocation)) {
 				List<Enemy> enemyList = map.getListOfEnemies(searchLocation);
 				selectEnemyFromList(enemyList);
 				return;
 			}
 			// up right
-			searchLocation = new Point(location.x + 1, location.y - 1);
+			searchLocation = new Point(location.x + i, location.y - i);
 			if (map.isValid(searchLocation) && map.hasEnemy(searchLocation)) {
 				List<Enemy> enemyList = map.getListOfEnemies(searchLocation);
 				selectEnemyFromList(enemyList);
 				return;
 			}
 			// up
-			searchLocation = new Point(location.x, location.y - 1);
+			searchLocation = new Point(location.x, location.y - i);
 			if (map.isValid(searchLocation) && map.hasEnemy(searchLocation)) {
 				List<Enemy> enemyList = map.getListOfEnemies(searchLocation);
 				selectEnemyFromList(enemyList);
 				return;
 			}
 			// up left
-			searchLocation = new Point(location.x - 1, location.y - 1);
+			searchLocation = new Point(location.x - i, location.y - i);
 			if (map.isValid(searchLocation) && map.hasEnemy(searchLocation)) {
 				List<Enemy> enemyList = map.getListOfEnemies(searchLocation);
 				selectEnemyFromList(enemyList);
 				return;
 			}
 			// left
-			searchLocation = new Point(location.x - 1, location.y);
+			searchLocation = new Point(location.x - i, location.y);
 			if (map.isValid(searchLocation) && map.hasEnemy(searchLocation)) {
 				List<Enemy> enemyList = map.getListOfEnemies(searchLocation);
 				selectEnemyFromList(enemyList);
 				return;
 			}
 			// down left
-			searchLocation = new Point(location.x - 1, location.y + 1);
+			searchLocation = new Point(location.x - i, location.y + i);
 			if (map.isValid(searchLocation) && map.hasEnemy(searchLocation)) {
 				List<Enemy> enemyList = map.getListOfEnemies(searchLocation);
 				selectEnemyFromList(enemyList);
