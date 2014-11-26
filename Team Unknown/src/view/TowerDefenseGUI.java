@@ -53,13 +53,14 @@ public class TowerDefenseGUI extends JFrame {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			Point p = new Point(e.getX() / 10, e.getY() / 10);
-			if(map.isValid(p) && !map.isPath(p) && !map.isTower(p)){
+			if(map.isValid(p) && !map.isPath(p) && !map.isTower(p) && map.getPlayer().canBuy(5)){
+				map.getPlayer().buy(5);
 				map.setTower(p);
 				List<Point> list = map.getTowers();
 				for(Point p1: list){
 					System.out.println("Tower at: "+p1);
 				}
-				Enemy g = new Grunt(1,map);
+				//Enemy g = new Grunt(1,map);
 				repaint();
 			}
 		}

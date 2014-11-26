@@ -11,6 +11,9 @@ public class Map extends Observable {
 	private ArrayList<Point> rightPath;
 	private ArrayList<Point> towers;
 	private Point ghostTower;
+	private Player player;
+	private EnemySpawner enemySpawner;
+	private boolean spawner;
 	
 	public Map() {
 		map = new Cell[50][50];
@@ -21,7 +24,9 @@ public class Map extends Observable {
 		}
 		setPath();
 		this.towers = new ArrayList<Point>();
-		ghostTower = new Point(-1, -1);
+		this.ghostTower = new Point(-1, -1);
+		this.player = new Player();
+		this.spawner = false;
 	}
 
 	private void setPath() {
@@ -108,6 +113,10 @@ public class Map extends Observable {
 	}
 	
 	public void setTower(Point p){
+		if(spawner == false){
+			enemySpawner = new EnemySpawner(this);
+			spawner = true;
+		}
 		Tower t = new TestTower(5, 10, this, p, 1);
 		map[p.y][p.x].setTower(t);
 		towers.add(p);
@@ -142,6 +151,14 @@ public class Map extends Observable {
 	
 	public Point getGhostTower(){
 		return ghostTower;
+	}
+
+	public Player getPlayer(){
+		return player;
+	}
+	
+	public EnemySpawner getEnemySpawner(){
+		return enemySpawner;
 	}
 	
 	public void mapToString(){

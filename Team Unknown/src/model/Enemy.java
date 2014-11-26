@@ -56,6 +56,8 @@ public abstract class Enemy {
 	public void moveToNext(){
 		i++;
 		if(health <= 0){
+			map.getPlayer().addPoints(1);
+			map.getPlayer().earn(2);
 			map.removeEnemy(current, this);
 			this.alive = false;
 			timer.stop();
@@ -64,6 +66,7 @@ public abstract class Enemy {
 			current = path.get(i); 	//Walk to the next point in the list
 			map.addEnemy(current, this); // Added by Bryce
 		}else{
+			map.getPlayer().damage(1);
 			map.removeEnemy(current, this);
 			this.alive = false;
 			timer.stop();
