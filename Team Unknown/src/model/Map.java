@@ -123,7 +123,7 @@ public class Map extends Observable {
 	}
 	
 	public boolean isEnemy(Point p) {
-		return map[p.y][p.x].isTower();
+		return map[p.y][p.x].isEnemy();
 	}
 	
 	public ArrayList<Enemy> getListOfEnemies(Point p){

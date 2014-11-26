@@ -17,7 +17,8 @@ public abstract class Enemy {
 	protected ArrayList<Point> path;
 	protected Timer timer;
 	protected int walkInterval = 100; 	// Not sure what the interval needs to be, adding 100 as a placeholder
-
+	protected boolean alive;
+	
 	public Enemy(int h, Map m) {
 		health = h;
 		points = health/10;
@@ -27,6 +28,7 @@ public abstract class Enemy {
 		current = path.get(i);
 		map.addEnemy(current, this); //Added by Bryce
 		this.timer = new Timer(this.walkInterval, new EnemyTimer());
+		this.alive = true;
 		timer.start();
 	}
 
@@ -46,12 +48,21 @@ public abstract class Enemy {
 	public Point getCurrent(){
 		return current;
 	}
+	
+	public boolean getAlive(){
+		return alive;
+	}
 
 	public void moveToNext(){
-		map.removeEnemy(current, this); // Added by Bryce
 		i++;
-		current = path.get(i); 	//Walk to the next point in the list
-		map.addEnemy(current, this); // Added by Bryce
+		map.removeEnemy(current, this); // Added by Bryce
+		if(i < path.size() - 1){
+			current = path.get(i); 	//Walk to the next point in the list
+			map.addEnemy(current, this); // Added by Bryce
+		}else{
+			this.alive = false;
+			timer.stop();
+		}
 	}
 
 	public boolean isDead(){
@@ -62,6 +73,7 @@ public abstract class Enemy {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			moveToNext();
+			map.forceUpdate();
 		}
 	}
 
