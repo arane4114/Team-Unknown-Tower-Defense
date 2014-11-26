@@ -106,8 +106,8 @@ public class Map extends Observable {
 	}
 	
 	public void setTower(Point p){
-		//Tower t = new Tower(4, 10, map, p, 10);
-		//map[p.y][p.x].setTower(t);
+		Tower t = new TestTower(5, 100, this, p, 50);
+		map[p.y][p.x].setTower(t);
 		towers.add(p);
 	}
 	
@@ -145,5 +145,9 @@ public class Map extends Observable {
 			}
 			System.out.println();
 		}
+	}
+
+	public boolean hasEnemy(Point p) {
+		return !map[p.y][p.x].getEnemies().isEmpty();
 	}
 }

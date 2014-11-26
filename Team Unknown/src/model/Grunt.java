@@ -9,6 +9,7 @@ public class Grunt extends Enemy{
 	@Override
 	public void doDamage(int damage) {
 		health -= damage;
+		System.out.println("Grunt health: "+health);
 	}
 
 }
