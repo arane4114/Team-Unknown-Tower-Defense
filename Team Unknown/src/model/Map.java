@@ -108,7 +108,7 @@ public class Map extends Observable {
 	}
 	
 	public void setTower(Point p){
-		Tower t = new TestTower(5, 200, this, p, 20);
+		Tower t = new TestTower(5, 10, this, p, 1);
 		map[p.y][p.x].setTower(t);
 		towers.add(p);
 	}
