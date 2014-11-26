@@ -82,6 +82,8 @@ public class GamePlayPanel extends JPanel implements Observer{
 		g.drawString("                Money : "  + map.getPlayer().getMoney(), 350, 50);
 		g.drawString("                Points : " + map.getPlayer().getPoints(), 350, 70);
 		g.drawString("Points Needed : " + map.getPlayer().getPointsToWin(), 350, 90);
+		g.drawString("Towers cost 5 money.", 350, 110);
+		
 		
 		if(map.getPlayer().getPointsToWin() <= 0){
 			g.setColor(Color.green);

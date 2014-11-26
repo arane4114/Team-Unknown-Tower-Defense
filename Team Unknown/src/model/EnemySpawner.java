@@ -43,7 +43,7 @@ public class EnemySpawner {
 				Enemy g = new Grunt(1,map);
 				count++;
 			}else{
-				numberOfEnemies ++;
+				numberOfEnemies++;
 				timer.start();
 				timerTwo.stop();
 			}
