@@ -1,9 +1,10 @@
-package model;
+package enemy;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.Timer;
+
+import map.*;
 
 public class EnemySpawner {
 

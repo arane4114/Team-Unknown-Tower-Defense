@@ -1,11 +1,12 @@
-package model;
+package enemy;
+
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Observable;
-
 import javax.swing.Timer;
+
+import map.*;
 
 public abstract class Enemy {
 	

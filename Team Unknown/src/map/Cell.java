@@ -1,7 +1,9 @@
-package model;
+package map;
 
-import java.awt.Point;
 import java.util.ArrayList;
+
+import tower.*;
+import enemy.*;
 
 public class Cell {
 	private boolean path;

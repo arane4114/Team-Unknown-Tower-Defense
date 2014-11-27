@@ -1,19 +1,20 @@
 package view;
 
 import java.awt.Point;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.List;
 import java.util.Observer;
+
 import javax.swing.JFrame;
-import model.Enemy;
-import model.Grunt;
-import model.Map;
+
+import map.*;
 
 
 public class TowerDefenseGUI extends JFrame {
+	private static final long serialVersionUID = -1311464600599742255L;
+
 	private Map map;
 	
 	private GamePlayPanel gamePanel; 

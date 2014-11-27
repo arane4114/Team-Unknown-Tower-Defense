@@ -1,11 +1,13 @@
-package model;
+package tower;
 
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
 import javax.swing.Timer;
+
+import map.*;
+import enemy.*;
 
 public abstract class Tower {
 	protected int range;

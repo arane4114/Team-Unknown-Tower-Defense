@@ -1,7 +1,10 @@
-package model;
+package tower;
 
 import java.awt.Point;
 import java.util.List;
+
+import map.*;
+import enemy.*;
 
 /**
  * This tower is tower with an API for testing general tower functions. It can
@@ -12,7 +15,7 @@ import java.util.List;
  */
 public class TestTower extends Tower {
 
-	protected TestTower(int range, int fireInterval, Map map, Point location,
+	public TestTower(int range, int fireInterval, Map map, Point location,
 			int damageAmount) {
 		super(range, fireInterval, map, location, damageAmount);
 		System.out.println("Tower placed at:" + location);

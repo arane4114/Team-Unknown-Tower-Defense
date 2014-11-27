@@ -1,7 +1,12 @@
-package model;
+package map;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Observable;
+
+import tower.*;
+import model.*;
+import enemy.*;
 
 public class Map extends Observable {
 	

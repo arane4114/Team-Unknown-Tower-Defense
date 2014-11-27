@@ -1,9 +1,10 @@
-package model;
+package enemy;
+
 import static org.junit.Assert.*;
-
 import java.awt.Point;
-
 import org.junit.Test;
+
+import map.*;
 
 public class EnemyTest {
 

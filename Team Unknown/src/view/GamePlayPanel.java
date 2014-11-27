@@ -7,15 +7,14 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import model.Map;
+import map.*;
 
 public class GamePlayPanel extends JPanel implements Observer{
 
-	
+	private static final long serialVersionUID = -2788781914134666681L;
+
 	private Map map;
 	
 	private final int DELTA_X = 10;

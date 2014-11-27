@@ -1,4 +1,6 @@
-package model;
+package enemy;
+
+import map.*;
 
 public class Armored extends Enemy{
 
