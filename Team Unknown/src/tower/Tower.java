@@ -3,11 +3,13 @@ package tower;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import java.util.List;
+
 import javax.swing.Timer;
 
-import map.*;
-import enemy.*;
+import map.Map;
+import enemy.Enemy;
 
 public abstract class Tower {
 	protected int range;
@@ -18,6 +20,7 @@ public abstract class Tower {
 	protected Point location;
 	protected Enemy currentTarget;
 	protected final int damageAmount;
+	protected List<Point> validTargetPoints;
 
 	protected Tower(int range, int fireInterval, Map map, Point location,
 			int damageAmount) {
@@ -28,6 +31,50 @@ public abstract class Tower {
 		this.timer = new Timer(this.fireInterval, new TowerTimer());
 		this.currentTarget = null;
 		this.damageAmount = damageAmount;
+		this.validTargetPoints = new LinkedList<Point>();
+		for (int i = 1; i <= range; i++) {
+			Point searchLocation;
+			// down
+			searchLocation = new Point(location.x, location.y + i);
+			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
+				this.validTargetPoints.add(searchLocation);
+			}
+			// down right
+			searchLocation = new Point(location.x + i, location.y + i);
+			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
+				this.validTargetPoints.add(searchLocation);
+			}
+			// right
+			searchLocation = new Point(location.x + i, location.y);
+			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
+				this.validTargetPoints.add(searchLocation);
+			}
+			// up right
+			searchLocation = new Point(location.x + i, location.y - i);
+			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
+				this.validTargetPoints.add(searchLocation);
+			}
+			// up
+			searchLocation = new Point(location.x, location.y - i);
+			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
+				this.validTargetPoints.add(searchLocation);
+			}
+			// up left
+			searchLocation = new Point(location.x - i, location.y - i);
+			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
+				this.validTargetPoints.add(searchLocation);
+			}
+			// left
+			searchLocation = new Point(location.x - i, location.y);
+			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
+				this.validTargetPoints.add(searchLocation);
+			}
+			// down left
+			searchLocation = new Point(location.x - i, location.y + i);
+			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
+				this.validTargetPoints.add(searchLocation);
+			}
+		}
 		timer.start();
 	}
 
@@ -56,80 +103,20 @@ public abstract class Tower {
 		if (currentTarget != null) {
 			Point targetLocation = currentTarget.getCurrent();
 			if (!currentTarget.isDead() && isInRange(targetLocation)) {
-				System.out.println("Current target "+currentTarget);
+				System.out.println("Current target " + currentTarget);
 				return;
 			} else {
 				System.out.println("Target released");
 				currentTarget = null;
-				System.out.println("Current target "+currentTarget);
+				System.out.println("Current target " + currentTarget);
 			}
 		}
-
-		/*
-		 * Check in a counter clockwise loop starting at the 6 o' clock
-		 * position. Will check for enemies 1 spot radially outwards in all
-		 * directions. Then 2... until max range or enemy is found. Requires an
-		 * isInBounds and an enemies at location. Assumes enemies at location
-		 * sends a list of all enemies in location. If multiple enemies are
-		 * found will attack the weakest enemy;
-		 */
-		for (int i = 1; i <= range; i++) {
-			Point searchLocation;
-			// down
-			searchLocation = new Point(location.x, location.y + i);
-			if (map.isValid(searchLocation) && map.hasEnemy(searchLocation)) {
-				List<Enemy> enemyList = map.getListOfEnemies(searchLocation);
-				selectEnemyFromList(enemyList);
-				return;
-			}
-			// down right
-			searchLocation = new Point(location.x + i, location.y + i);
-			if (map.isValid(searchLocation) && map.hasEnemy(searchLocation)) {
-				List<Enemy> enemyList = map.getListOfEnemies(searchLocation);
-				selectEnemyFromList(enemyList);
-				return;
-			}
-			// right
-			searchLocation = new Point(location.x + i, location.y);
-			if (map.isValid(searchLocation) && map.hasEnemy(searchLocation)) {
-				List<Enemy> enemyList = map.getListOfEnemies(searchLocation);
-				selectEnemyFromList(enemyList);
-				return;
-			}
-			// up right
-			searchLocation = new Point(location.x + i, location.y - i);
-			if (map.isValid(searchLocation) && map.hasEnemy(searchLocation)) {
-				List<Enemy> enemyList = map.getListOfEnemies(searchLocation);
-				selectEnemyFromList(enemyList);
-				return;
-			}
-			// up
-			searchLocation = new Point(location.x, location.y - i);
-			if (map.isValid(searchLocation) && map.hasEnemy(searchLocation)) {
-				List<Enemy> enemyList = map.getListOfEnemies(searchLocation);
-				selectEnemyFromList(enemyList);
-				return;
-			}
-			// up left
-			searchLocation = new Point(location.x - i, location.y - i);
-			if (map.isValid(searchLocation) && map.hasEnemy(searchLocation)) {
-				List<Enemy> enemyList = map.getListOfEnemies(searchLocation);
-				selectEnemyFromList(enemyList);
-				return;
-			}
-			// left
-			searchLocation = new Point(location.x - i, location.y);
-			if (map.isValid(searchLocation) && map.hasEnemy(searchLocation)) {
-				List<Enemy> enemyList = map.getListOfEnemies(searchLocation);
-				selectEnemyFromList(enemyList);
-				return;
-			}
-			// down left
-			searchLocation = new Point(location.x - i, location.y + i);
-			if (map.isValid(searchLocation) && map.hasEnemy(searchLocation)) {
-				List<Enemy> enemyList = map.getListOfEnemies(searchLocation);
-				selectEnemyFromList(enemyList);
-				return;
+		
+		for(Point searchLocation: validTargetPoints){
+			List<Enemy> enemiesAtLocation = map.getListOfEnemies(searchLocation);
+			if(!enemiesAtLocation.isEmpty()){
+				selectEnemyFromList(enemiesAtLocation);
+				break;
 			}
 		}
 
