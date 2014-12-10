@@ -8,8 +8,7 @@ public class Enemy3 extends Enemy{
 		super(100 * multi, m);
 	}
 
-	@Override
-	public void doDamage(int damage) {
+	public void doDamage(double damage) {
 		health -= damage;
 		System.out.println("Enemy health: "+health);
 	}

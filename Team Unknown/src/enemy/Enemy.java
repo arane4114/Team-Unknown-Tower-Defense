@@ -33,7 +33,7 @@ public abstract class Enemy {
 		timer.start();
 	}
 
-	abstract public void doDamage(int damage);	
+	abstract public void doDamage(double damage);	
 	// Tower sends this command to an enemy to deal damage
 	// Making it abstract so we can change how much damage each enemy takes
 	//  to account for armor or something
