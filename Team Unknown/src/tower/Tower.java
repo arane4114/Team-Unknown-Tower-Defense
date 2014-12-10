@@ -10,6 +10,8 @@ import javax.swing.Timer;
 
 import map.Map;
 import enemy.Enemy;
+import enemy.Enemy1;
+import enemy.Enemy2;
 
 public abstract class Tower {
 	protected int range;
@@ -21,9 +23,13 @@ public abstract class Tower {
 	protected Enemy currentTarget;
 	protected final int damageAmount;
 	protected List<Point> validTargetPoints;
+	private final double enemy1Multiplier;
+	private final double enemy2Multiplier;
+	private final double enemy3Multiplier;
 
 	protected Tower(int range, int fireInterval, Map map, Point location,
-			int damageAmount) {
+			int damageAmount, double enemy1Multiplier, double enemy2Multiplier,
+			double enemy3Multiplier) {
 		this.range = range;
 		this.fireInterval = fireInterval;
 		this.map = map;
@@ -32,6 +38,9 @@ public abstract class Tower {
 		this.currentTarget = null;
 		this.damageAmount = damageAmount;
 		this.validTargetPoints = new LinkedList<Point>();
+		this.enemy1Multiplier = enemy1Multiplier;
+		this.enemy2Multiplier = enemy2Multiplier;
+		this.enemy3Multiplier = enemy3Multiplier;
 		for (int i = 1; i <= range; i++) {
 			Point searchLocation;
 			// down
@@ -79,7 +88,8 @@ public abstract class Tower {
 	}
 
 	protected Tower(int range, int fireInterval, Map map, Point location,
-			int damageAmount, boolean debug) {
+			int damageAmount, boolean debug, double enemy1Multiplier,
+			double enemy2Multiplier, double enemy3Multiplier) {
 		this.range = range;
 		this.fireInterval = fireInterval;
 		this.map = map;
@@ -87,6 +97,9 @@ public abstract class Tower {
 		this.timer = new Timer(this.fireInterval, new TowerTimer());
 		this.currentTarget = null;
 		this.damageAmount = damageAmount;
+		this.enemy1Multiplier = enemy1Multiplier;
+		this.enemy2Multiplier = enemy2Multiplier;
+		this.enemy3Multiplier = enemy3Multiplier;
 		if (!debug) {
 			timer.start();
 		}
@@ -111,10 +124,11 @@ public abstract class Tower {
 				System.out.println("Current target " + currentTarget);
 			}
 		}
-		
-		for(Point searchLocation: validTargetPoints){
-			List<Enemy> enemiesAtLocation = map.getListOfEnemies(searchLocation);
-			if(!enemiesAtLocation.isEmpty()){
+
+		for (Point searchLocation : validTargetPoints) {
+			List<Enemy> enemiesAtLocation = map
+					.getListOfEnemies(searchLocation);
+			if (!enemiesAtLocation.isEmpty()) {
 				selectEnemyFromList(enemiesAtLocation);
 				break;
 			}
@@ -129,9 +143,17 @@ public abstract class Tower {
 	}
 
 	/*
-	 * Allows specific turrets a way to target enemies.
+	 * Sets up a basic attack algorithm. Can be modified if the tower requires it (the random tower will do so).
 	 */
-	protected abstract void attackEnemy();
+	protected void attackEnemy() {
+		if (currentTarget instanceof Enemy1) {
+			currentTarget.doDamage(damageAmount * enemy1Multiplier);
+		} else if (currentTarget instanceof Enemy2) {
+			currentTarget.doDamage(damageAmount * enemy2Multiplier);
+		} else {
+			currentTarget.doDamage(damageAmount * enemy3Multiplier);
+		}
+	}
 
 	protected abstract void selectEnemyFromList(List<Enemy> listOfEnemies);
 

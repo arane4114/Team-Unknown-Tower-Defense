@@ -17,14 +17,8 @@ public class TestTower extends Tower {
 
 	public TestTower(int range, int fireInterval, Map map, Point location,
 			int damageAmount) {
-		super(range, fireInterval, map, location, damageAmount);
+		super(range, fireInterval, map, location, damageAmount, 1.0, 1.0, 1.0);
 		System.out.println("Tower placed at:" + location);
-	}
-
-	@Override
-	protected void attackEnemy() {
-		System.out.println("Atack enemy called");
-		currentTarget.doDamage(damageAmount);
 	}
 
 	@Override
