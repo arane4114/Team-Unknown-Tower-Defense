@@ -41,7 +41,7 @@ public class EnemySpawner {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(count < numberOfEnemies){
-				Enemy g = new Grunt(1,map);
+				Enemy g = new Enemy1(1,map);
 				count++;
 			}else{
 				numberOfEnemies++;
