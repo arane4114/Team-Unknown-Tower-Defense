@@ -27,14 +27,14 @@ public class Map extends Observable {
 				map[i][j] = new Cell();
 			}
 		}
-		setPath();
+		setPathOne();
 		this.towers = new ArrayList<Point>();
 		this.ghostTower = new Point(-1, -1);
 		this.player = new Player();
 		this.spawner = false;
 	}
 
-	private void setPath() {
+	private void setPathOne() {
 		this.leftPath = new ArrayList<Point>();
 		this.middlePath = new ArrayList<Point>();
 		this.rightPath = new ArrayList<Point>();
@@ -78,6 +78,126 @@ public class Map extends Observable {
 			}
 			map[39][i].cellPath(true);
 			rightPath.add(new Point(i,39));	
+		}
+	}
+	
+	private void setPathTwo() {
+		this.leftPath = new ArrayList<Point>();
+		this.middlePath = new ArrayList<Point>();
+		this.rightPath = new ArrayList<Point>();
+		
+		for(int i = 0; i < 38; i++){
+			rightPath.add(new Point(5,i));
+			map[i][5].cellPath(true);
+			if(i < 37){
+				middlePath.add(new Point(6,i));	
+				map[i][6].cellPath(true);	
+			}
+			if(i < 36){
+				leftPath.add(new Point(7,i));
+				map[i][7].cellPath(true);	
+			}
+		}
+		
+		for(int i = 5; i < 18; i++){
+			if(i > 6 && i < 16){
+				leftPath.add(new Point(i,36));
+				map[36][i].cellPath(true);
+			}
+			if(i > 5 && i < 17){
+				middlePath.add(new Point(i,37));
+				map[37][i].cellPath(true);	
+			}
+				rightPath.add(new Point(i,38));
+				map[38][i].cellPath(true);	
+		}
+		
+		for(int i = 37; i > 9; i--){
+			if(i > 11){
+				rightPath.add(new Point(17,i));	
+				map[i][17].cellPath(true);
+			}
+			if(i < 37 && i > 10){
+				map[i][16].cellPath(true);
+				middlePath.add(new Point(16,i));
+			}
+			if(i < 36){
+				map[i][15].cellPath(true);
+				leftPath.add(new Point(15,i));
+			}
+		}
+
+		for(int i = 16; i < 40; i++){
+			leftPath.add(new Point(i,10));
+			map[10][i].cellPath(true);
+			if(i > 16 && i < 39){
+				middlePath.add(new Point(i,11));
+				map[11][i].cellPath(true);	
+			}
+			if(i > 17 && i < 38){
+				rightPath.add(new Point(i,12));
+				map[12][i].cellPath(true);	
+			}
+		}
+		
+		for(int i = 11; i < 50; i++){
+				leftPath.add(new Point(39,i));			
+				map[i][39].cellPath(true);
+			if(i > 11){
+				map[i][38].cellPath(true);
+				middlePath.add(new Point(38,i));
+			}
+			if(i > 12){
+				map[i][37].cellPath(true);
+				rightPath.add(new Point(37,i));	
+			}
+		}
+	}
+	
+	private void setPathThree() {
+		this.leftPath = new ArrayList<Point>();
+		this.middlePath = new ArrayList<Point>();
+		this.rightPath = new ArrayList<Point>();
+		
+		for(int i = 0; i < 24; i++){
+			leftPath.add(new Point(i,10));
+			map[10][i].cellPath(true);
+			if(i < 22){
+				middlePath.add(new Point(i,12));
+				map[12][i].cellPath(true);	
+			}
+			if(i < 20){
+				rightPath.add(new Point(i,14));
+				map[14][i].cellPath(true);	
+			}
+		}
+		
+		for(int i = 10; i < 40; i++){
+			if(i < 37){
+				leftPath.add(new Point(24,i));			
+				map[i][24].cellPath(true);
+			}
+			if(i > 11 && i < 38){
+				map[i][22].cellPath(true);
+				middlePath.add(new Point(22,i));
+			}
+			if(i > 13){
+				map[i][20].cellPath(true);
+				rightPath.add(new Point(20,i));	
+			}
+		}
+		
+		for(int i = 20; i < 50; i++){
+			if(i > 24){
+				leftPath.add(new Point(i,36));			
+				map[36][i].cellPath(true);
+			}
+			if(i > 21){
+				map[38][i].cellPath(true);
+				middlePath.add(new Point(i,38));
+			}
+			map[40][i].cellPath(true);
+			rightPath.add(new Point(i,40));	
 		}
 	}
 
