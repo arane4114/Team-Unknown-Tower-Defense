@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -8,6 +10,7 @@ import java.util.List;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import map.*;
 
@@ -17,24 +20,40 @@ public class TowerDefenseGUI extends JFrame {
 
 	private Map map;
 	
-	private GamePlayPanel gamePanel; 
+	private GamePlayPanel gamePlayPanel;
+	private TowerSelectionPanel towerSelectionPanel; 
+	private PlayerInfoPanel playerInfoPanel; 
+	private ChatPanel chatPanel; 
+	private MiniMapPanel miniMapPanel; 
 
 	public TowerDefenseGUI() {
 		
 		this.map = new Map();
 		
 		setTitle("Tower Defense");
-		setSize(500, 520);
+		setSize(750, 540);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		gamePanel = new GamePlayPanel();
-		gamePanel.addMouseListener(new mouseListener());
-		gamePanel.addMouseMotionListener(new mouseListener());
+		gamePlayPanel = new GamePlayPanel();
+		gamePlayPanel.addMouseListener(new mouseListener());
+		gamePlayPanel.addMouseMotionListener(new mouseListener());
 		
-		this.add(gamePanel);
+		towerSelectionPanel = new TowerSelectionPanel();
+		playerInfoPanel = new PlayerInfoPanel();
 		
-		map.addObserver((Observer) gamePanel);
+		JPanel gamePanel = new JPanel();
+		gamePanel.add(gamePlayPanel);
+		
+		JPanel infoPanel = new JPanel();
+		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
+		infoPanel.add(towerSelectionPanel, BorderLayout.SOUTH);
+		
+		this.add(gamePanel, BorderLayout.WEST);
+		this.add(infoPanel, BorderLayout.EAST);
+		
+		
+		map.addObserver((Observer) gamePlayPanel);
 		
 		setVisible(true);
 		this.map.forceUpdate();
