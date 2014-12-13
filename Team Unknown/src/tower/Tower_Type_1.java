@@ -26,5 +26,9 @@ public class Tower_Type_1 extends Tower{
 		int randomValue = (int) Math.random() * listOfEnemies.size();
 		currentTarget = listOfEnemies.get(randomValue);
 	}
+	
+	public String toString(){
+		return "";
+	}
 
 }

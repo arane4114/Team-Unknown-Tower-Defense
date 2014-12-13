@@ -26,6 +26,16 @@ public abstract class Tower {
 	private final double enemy1Multiplier;
 	private final double enemy2Multiplier;
 	private final double enemy3Multiplier;
+	private int damageMultiplier;
+	private int level;
+	
+	public int getlevel(){
+		return level;
+	}
+	
+	public int getDamageMultiplier(){
+		return damageMultiplier;
+	}
 
 	protected Tower(int range, int fireInterval, Map map, Point location,
 			int damageAmount, double enemy1Multiplier, double enemy2Multiplier,
@@ -41,6 +51,8 @@ public abstract class Tower {
 		this.enemy1Multiplier = enemy1Multiplier;
 		this.enemy2Multiplier = enemy2Multiplier;
 		this.enemy3Multiplier = enemy3Multiplier;
+		this.damageMultiplier = 1;
+		this.level = 1;
 		for (int i = 1; i <= range; i++) {
 			Point searchLocation;
 			// down
@@ -85,6 +97,11 @@ public abstract class Tower {
 			}
 		}
 		timer.start();
+	}
+
+	public void levelUp() {
+		this.level++;
+		this.damageMultiplier *= 2;
 	}
 
 	protected Tower(int range, int fireInterval, Map map, Point location,
@@ -143,15 +160,19 @@ public abstract class Tower {
 	}
 
 	/*
-	 * Sets up a basic attack algorithm. Can be modified if the tower requires it (the random tower will do so).
+	 * Sets up a basic attack algorithm. Can be modified if the tower requires
+	 * it (the random tower will do so).
 	 */
 	protected void attackEnemy() {
 		if (currentTarget instanceof Enemy1) {
-			currentTarget.doDamage(damageAmount * enemy1Multiplier);
+			currentTarget.doDamage(damageAmount * enemy1Multiplier
+					* damageMultiplier);
 		} else if (currentTarget instanceof Enemy2) {
-			currentTarget.doDamage(damageAmount * enemy2Multiplier);
+			currentTarget.doDamage(damageAmount * enemy2Multiplier
+					* damageMultiplier);
 		} else {
-			currentTarget.doDamage(damageAmount * enemy3Multiplier);
+			currentTarget.doDamage(damageAmount * enemy3Multiplier
+					* damageMultiplier);
 		}
 	}
 
