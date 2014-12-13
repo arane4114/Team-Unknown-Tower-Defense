@@ -1,57 +1,57 @@
 package view;
 
 import java.awt.BorderLayout;
-
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import java.util.Observer;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import map.*;
-
+import map.Map;
+import controller.NRCClient;
 
 public class TowerDefenseGUI extends JFrame {
 	private static final long serialVersionUID = -1311464600599742255L;
 
-
 	private Map map;
-	
+
 	private String currentString = "Tower One";
-	
+
 	private static String towerOne = "Tower One";
 	private static String towerTwo = "Tower Two";
 	private static String twoerThree = "Tower Three";
-	
+
 	private GamePlayPanel gamePlayPanel;
-	private TowerSelectionPanel towerSelectionPanel; 
-	private PlayerInfoPanel playerInfoPanel; 
-	private ChatPanel chatPanel; 
-	private MiniMapPanel miniMapPanel; 
+	private TowerSelectionPanel towerSelectionPanel;
+	private PlayerInfoPanel playerInfoPanel;
+	private ChatPanel chatPanel;
+	private MiniMapPanel miniMapPanel;
+
+	private NRCClient chatClient;
 
 	public TowerDefenseGUI() {
-		
-		this.map = new Map(3); //GET SELECTED MAP
-		
+
+		this.map = new Map(3); // GET SELECTED MAP
+
 		setTitle("Tower Defense");
 		setSize(750, 560);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		JMenuItem menu = new JMenu("Menu");
 		JMenuItem menuItemRules = new JMenuItem("Rules");
@@ -62,7 +62,7 @@ public class TowerDefenseGUI extends JFrame {
 		menu.add(menuItemSpeed);
 		setJMenuBar(menuBar);
 		menuBar.add(menu);
-		
+
 		ButtonGroup group = new ButtonGroup();
 		JPanel buttonPanel = new JPanel(new GridLayout(3, 0));
 
@@ -85,75 +85,89 @@ public class TowerDefenseGUI extends JFrame {
 		group.add(towerThreeButton);
 		buttonPanel.add(towerThreeButton);
 
-		
+		this.chatClient = new NRCClient();
+		this.chatPanel = this.chatClient.getChatPanel();
+
 		gamePlayPanel = new GamePlayPanel();
 		gamePlayPanel.addMouseListener(new mouseListener());
 		gamePlayPanel.addMouseMotionListener(new mouseListener());
-		
+
 		towerSelectionPanel = new TowerSelectionPanel();
 		playerInfoPanel = new PlayerInfoPanel();
-		
+
 		JPanel gamePanel = new JPanel();
 		gamePanel.add(gamePlayPanel);
-		
+
 		JPanel infoPanel = new JPanel();
 		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
 		infoPanel.add(buttonPanel, BorderLayout.SOUTH);
-		
+
 		this.add(gamePanel, BorderLayout.WEST);
 		this.add(infoPanel, BorderLayout.EAST);
-		
+
 		map.addObserver((Observer) gamePlayPanel);
-		
+
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent arg0) {
+				chatClient.willClose();
+			}
+		});
+
 		setVisible(true);
 		this.map.forceUpdate();
 	}
-	
-	private class mouseListener implements MouseListener, MouseMotionListener{
+
+	private class mouseListener implements MouseListener, MouseMotionListener {
 
 		@Override
-		public void mouseClicked(MouseEvent e) {}
+		public void mouseClicked(MouseEvent e) {
+		}
 
 		@Override
-		public void mouseEntered(MouseEvent e) {}
+		public void mouseEntered(MouseEvent e) {
+		}
 
 		@Override
-		public void mouseExited(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {
+		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
 			Point p = new Point(e.getX() / 10, e.getY() / 10);
-			if(map.isValid(p) && !map.isPath(p) && !map.isTower(p) && map.getPlayer().canBuy(5)){
+			if (map.isValid(p) && !map.isPath(p) && !map.isTower(p)
+					&& map.getPlayer().canBuy(5)) {
 				map.getPlayer().buy(5);
 				map.setTower(p);
 				List<Point> list = map.getTowers();
-				for(Point p1: list){
-					System.out.println("Tower at: "+p1);
+				for (Point p1 : list) {
+					System.out.println("Tower at: " + p1);
 				}
-				//Enemy g = new Grunt(1,map);
+				// Enemy g = new Grunt(1,map);
 				repaint();
 			}
 		}
 
 		@Override
-		public void mouseReleased(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {
+		}
 
 		@Override
-		public void mouseDragged(MouseEvent e) {}
+		public void mouseDragged(MouseEvent e) {
+		}
 
 		@Override
 		public void mouseMoved(MouseEvent e) {
 			Point p = new Point(e.getX() / 10, e.getY() / 10);
-			if(map.isValid(p) && !map.isPath(p) && !map.isTower(p)){
+			if (map.isValid(p) && !map.isPath(p) && !map.isTower(p)) {
 				map.setGhostTower(p);
 				repaint();
-			}else{
+			} else {
 				map.setGhostTower(new Point(-1, -1));
 				repaint();
 			}
 		}
 	}
-	
+
 	private class buttonListener implements ActionListener {
 
 		@Override
@@ -164,5 +178,5 @@ public class TowerDefenseGUI extends JFrame {
 
 	public static void main(String[] args) {
 		new TowerDefenseGUI();
-	}	
+	}
 }
