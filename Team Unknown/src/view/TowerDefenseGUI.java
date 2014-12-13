@@ -8,8 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.List;
 import java.util.Observer;
 
@@ -82,19 +80,19 @@ public class TowerDefenseGUI extends JFrame {
 		JRadioButton towerOneButton = new JRadioButton(towerOne);
 		towerOneButton.setActionCommand(towerOne);
 		towerOneButton.setSelected(true);
-		towerOneButton.addActionListener(new buttonListener());
+		towerOneButton.addActionListener(new towerButtonListener());
 		group.add(towerOneButton);
 		buttonPanel.add(towerOneButton);
 
 		JRadioButton towerTwoButton = new JRadioButton(towerTwo);
 		towerTwoButton.setActionCommand(towerTwo);
-		towerTwoButton.addActionListener(new buttonListener());
+		towerTwoButton.addActionListener(new towerButtonListener());
 		group.add(towerTwoButton);
 		buttonPanel.add(towerTwoButton);
 
 		JRadioButton towerThreeButton = new JRadioButton(twoerThree);
 		towerThreeButton.setActionCommand(twoerThree);
-		towerThreeButton.addActionListener(new buttonListener());
+		towerThreeButton.addActionListener(new towerButtonListener());
 		group.add(towerThreeButton);
 		buttonPanel.add(towerThreeButton);
 
@@ -179,7 +177,7 @@ public class TowerDefenseGUI extends JFrame {
 		}
 	}
 
-	private class buttonListener implements ActionListener {
+	private class towerButtonListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
