@@ -11,7 +11,6 @@ public class Enemy1 extends Enemy{
 	@Override
 	public void doDamage(double damage) {
 		health -= damage;
-		System.out.println("Enemy health: "+health);
 	}
 
 }

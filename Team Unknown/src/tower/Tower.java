@@ -123,12 +123,9 @@ public abstract class Tower {
 		if (currentTarget != null) {
 			Point targetLocation = currentTarget.getCurrent();
 			if (!currentTarget.isDead() && isInRange(targetLocation)) {
-				System.out.println("Current target " + currentTarget);
 				return;
 			} else {
-				System.out.println("Target released");
 				currentTarget = null;
-				System.out.println("Current target " + currentTarget);
 			}
 		}
 
@@ -144,8 +141,6 @@ public abstract class Tower {
 	}
 
 	private boolean isInRange(Point p) {
-		System.out.println("Distance " + p.distance(location));
-		System.out.println(Math.abs(p.distance(location)) <= range);
 		return Math.abs(p.distance(location)) <= range;
 	}
 

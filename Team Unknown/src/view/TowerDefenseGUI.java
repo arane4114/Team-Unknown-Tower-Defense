@@ -141,10 +141,6 @@ public class TowerDefenseGUI extends JFrame {
 				map.getPlayer().buy(5);
 				map.setTower(p);
 				List<Point> list = map.getTowers();
-				for (Point p1 : list) {
-					System.out.println("Tower at: " + p1);
-				}
-				// Enemy g = new Grunt(1,map);
 				repaint();
 			}
 		}
