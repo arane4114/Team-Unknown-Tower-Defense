@@ -75,6 +75,7 @@ public class GamePlayPanel extends JPanel implements Observer{
 				g.setColor(Color.blue);
 				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 10, 10);
 			}else{
+				g.setColor(Color.orange);
 				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 10, 10);
 			}
 		}
