@@ -38,7 +38,7 @@ public class Map extends Observable {
 		}else{
 			setPathOne();
 		}
-		setPathOne();
+		
 		this.towers = new ArrayList<Point>();
 		this.ghostTower = new Point(-1, -1);
 		this.player = new Player();
