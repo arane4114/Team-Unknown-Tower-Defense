@@ -1,20 +1,26 @@
 package view;
 
 import java.awt.BorderLayout;
+
+import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.List;
 import java.util.Observer;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 import map.*;
 
@@ -22,7 +28,14 @@ import map.*;
 public class TowerDefenseGUI extends JFrame {
 	private static final long serialVersionUID = -1311464600599742255L;
 
+
 	private Map map;
+	
+	private String currentString = "Tower One";
+	
+	private static String towerOne = "Tower One";
+	private static String towerTwo = "Tower Two";
+	private static String twoerThree = "Tower Three";
 	
 	private GamePlayPanel gamePlayPanel;
 	private TowerSelectionPanel towerSelectionPanel; 
@@ -49,8 +62,29 @@ public class TowerDefenseGUI extends JFrame {
 		menu.add(menuItemSpeed);
 		setJMenuBar(menuBar);
 		menuBar.add(menu);
-
 		
+		ButtonGroup group = new ButtonGroup();
+		JPanel buttonPanel = new JPanel(new GridLayout(3, 0));
+
+		JRadioButton towerOneButton = new JRadioButton(towerOne);
+		towerOneButton.setActionCommand(towerOne);
+		towerOneButton.setSelected(true);
+		towerOneButton.addActionListener(new buttonListener());
+		group.add(towerOneButton);
+		buttonPanel.add(towerOneButton);
+
+		JRadioButton towerTwoButton = new JRadioButton(towerTwo);
+		towerTwoButton.setActionCommand(towerTwo);
+		towerTwoButton.addActionListener(new buttonListener());
+		group.add(towerTwoButton);
+		buttonPanel.add(towerTwoButton);
+
+		JRadioButton towerThreeButton = new JRadioButton(twoerThree);
+		towerThreeButton.setActionCommand(twoerThree);
+		towerThreeButton.addActionListener(new buttonListener());
+		group.add(towerThreeButton);
+		buttonPanel.add(towerThreeButton);
+
 		
 		gamePlayPanel = new GamePlayPanel();
 		gamePlayPanel.addMouseListener(new mouseListener());
@@ -64,11 +98,10 @@ public class TowerDefenseGUI extends JFrame {
 		
 		JPanel infoPanel = new JPanel();
 		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
-		infoPanel.add(towerSelectionPanel, BorderLayout.SOUTH);
+		infoPanel.add(buttonPanel, BorderLayout.SOUTH);
 		
 		this.add(gamePanel, BorderLayout.WEST);
 		this.add(infoPanel, BorderLayout.EAST);
-		
 		
 		map.addObserver((Observer) gamePlayPanel);
 		
@@ -118,6 +151,15 @@ public class TowerDefenseGUI extends JFrame {
 				map.setGhostTower(new Point(-1, -1));
 				repaint();
 			}
+		}
+	}
+	
+	
+	private class buttonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			currentString = e.getActionCommand();
 		}
 	}
 
