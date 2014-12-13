@@ -10,7 +10,7 @@ public class EnemyTest {
 
 	@Test
 	public void randomTests(){
-		Map m = new Map();
+		Map m = new Map(1);
 		Enemy g = new Enemy1(1,m);
 		Point p = new Point(0, 12);
 		assertEquals(g.getHealth(), 100);
