@@ -28,13 +28,13 @@ public class GamePlayPanel extends JPanel implements Observer{
 	public GamePlayPanel(){
 		this.setPreferredSize(new Dimension(500, 500));
 		
-		if(map.getMapNumber() == 2){
-			//TODO: 1
-		}else if(map.getMapNumber() == 3){
-			//TODO: 2
-		}else{
-			//TODO: 3
-		}
+//		if(map.getMapNumber() == 2){
+//			//TODO: 1
+//		}else if(map.getMapNumber() == 3){
+//			//TODO: 2
+//		}else{
+//			//TODO: 3
+//		}
 		
 	}
 
