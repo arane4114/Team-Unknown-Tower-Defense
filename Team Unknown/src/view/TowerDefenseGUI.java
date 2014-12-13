@@ -47,6 +47,7 @@ public class TowerDefenseGUI extends JFrame {
 	private JMenuItem menuItemRules;
 	private JMenuItem menuItemPause;
 	private JMenuItem menuItemSpeed;
+	private JMenuItem menuItemSave;
 
 	public TowerDefenseGUI() {
 
@@ -67,6 +68,8 @@ public class TowerDefenseGUI extends JFrame {
 		menuItemPause.addActionListener(buttonListener);
 		menuItemSpeed = new JMenuItem("Speed");
 		menuItemSpeed.addActionListener(buttonListener);
+		menuItemSave = new JMenuItem("Save");
+		menuItemSave.addActionListener(buttonListener);
 		menu.add(menuItemRules);
 		menu.add(menuItemPause);
 		menu.add(menuItemSpeed);
@@ -194,8 +197,13 @@ public class TowerDefenseGUI extends JFrame {
 					    JOptionPane.PLAIN_MESSAGE);
 			}else if(e.getSource() == menuItemSpeed){
 				System.out.println("SPEED");
+			}else if(e.getSource() == menuItemSave){
+				System.out.println("Save");
 			}else{
-				System.out.println("PAUSE");
+				JOptionPane.showMessageDialog(new JFrame(),
+					    "Continue to end pause.",
+					    "Paused",
+					    JOptionPane.PLAIN_MESSAGE);
 			}
 			
 		}
