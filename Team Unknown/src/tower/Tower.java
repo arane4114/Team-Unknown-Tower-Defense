@@ -98,28 +98,18 @@ public abstract class Tower {
 		}
 		timer.start();
 	}
+	
+	public void pause(){
+		this.timer.stop();
+	}
+	
+	public void upPause(){
+		this.timer.start();
+	}
 
 	public void levelUp() {
 		this.level++;
 		this.damageMultiplier *= 2;
-	}
-
-	protected Tower(int range, int fireInterval, Map map, Point location,
-			int damageAmount, boolean debug, double enemy1Multiplier,
-			double enemy2Multiplier, double enemy3Multiplier) {
-		this.range = range;
-		this.fireInterval = fireInterval;
-		this.map = map;
-		this.location = location;
-		this.timer = new Timer(this.fireInterval, new TowerTimer());
-		this.currentTarget = null;
-		this.damageAmount = damageAmount;
-		this.enemy1Multiplier = enemy1Multiplier;
-		this.enemy2Multiplier = enemy2Multiplier;
-		this.enemy3Multiplier = enemy3Multiplier;
-		if (!debug) {
-			timer.start();
-		}
 	}
 
 	private void fireTurret() {

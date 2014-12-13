@@ -13,18 +13,20 @@ import enemy.*;
  * @author Abhishek
  *
  */
-public class TestTower extends Tower {
+public class Standard_Tower extends Tower {
 
-	public TestTower(int range, int fireInterval, Map map, Point location,
+	public Standard_Tower(int range, int fireInterval, Map map, Point location,
 			int damageAmount) {
 		super(range, fireInterval, map, location, damageAmount, 1.0, 1.0, 1.0);
-		System.out.println("Tower placed at:" + location);
 	}
 
 	@Override
 	protected void selectEnemyFromList(List<Enemy> listOfEnemies) {
 		int randomValue = (int) Math.random() * listOfEnemies.size();
 		currentTarget = listOfEnemies.get(randomValue);
-		System.out.println("Target selected at " + currentTarget.getCurrent());
+	}
+	
+	public String toString(){
+		return "This you bog standard tower. Does the same amound of damage to all enemies.";
 	}
 }
