@@ -25,7 +25,7 @@ public abstract class Enemy {
 		points = health/10;
 		i = 0;
 		map = m;
-		path = map.getMiddlePath(); // Getting Middle Path to start with, we can randomize this if we need.
+		path = map.getRightPath(); // Getting Middle Path to start with, we can randomize this if we need.
 		current = path.get(i);
 		map.addEnemy(current, this); //Added by Bryce
 		this.timer = new Timer(this.walkInterval, new EnemyTimer());

@@ -102,18 +102,18 @@ public class TowerDefenseGUI extends JFrame {
 		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
 		infoPanel.add(buttonPanel, BorderLayout.SOUTH);
 		
-		infoPanel.add(chatPanel);
+		//infoPanel.add(chatPanel);
 
 		this.add(gamePanel, BorderLayout.WEST);
 		this.add(infoPanel, BorderLayout.EAST);
 
 		map.addObserver((Observer) gamePlayPanel);
 
-		this.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent arg0) {
-				chatClient.willClose();
-			}
-		});
+//		this.addWindowListener(new WindowAdapter() {
+//			public void windowClosing(WindowEvent arg0) {
+//				chatClient.willClose();
+//			}
+//		});
 
 		setVisible(true);
 		this.map.forceUpdate();
