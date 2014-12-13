@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import chatPanelModel.Command;
-import chatPanelModel.DisconnectCommand;
-import chatPanelModel.UpdateClientCommand;
+import serverCommands.Command;
+import serverCommands.DisconnectCommand;
+import serverCommands.UpdateClientCommand;
 
 /**
  * This class is the server side of NRC. The server communicates with clients, 

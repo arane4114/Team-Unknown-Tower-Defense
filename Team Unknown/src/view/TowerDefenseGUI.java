@@ -85,8 +85,8 @@ public class TowerDefenseGUI extends JFrame {
 		group.add(towerThreeButton);
 		buttonPanel.add(towerThreeButton);
 
-		this.chatClient = new NRCClient();
-		this.chatPanel = this.chatClient.getChatPanel();
+	//	this.chatClient = new NRCClient();
+		//this.chatPanel = this.chatClient.getChatPanel();
 
 		gamePlayPanel = new GamePlayPanel();
 		gamePlayPanel.addMouseListener(new mouseListener());
@@ -99,8 +99,8 @@ public class TowerDefenseGUI extends JFrame {
 		gamePanel.add(gamePlayPanel);
 
 		JPanel infoPanel = new JPanel();
-//		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
-//		infoPanel.add(buttonPanel, BorderLayout.SOUTH);
+		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
+		infoPanel.add(buttonPanel, BorderLayout.SOUTH);
 		
 		infoPanel.add(chatPanel);
 

@@ -257,7 +257,7 @@ public class Map extends Observable {
 			enemySpawner = new EnemySpawner(this);
 			spawner = true;
 		}
-		Tower t = new TestTower(5, 10, this, p, 1);
+		Tower t = new Standard_Tower(5, 10, this, p, 1);
 		map[p.y][p.x].setTower(t);
 		towers.add(p);
 	}
