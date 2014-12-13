@@ -28,7 +28,7 @@ public class TowerDefenseGUI extends JFrame {
 
 	public TowerDefenseGUI() {
 		
-		this.map = new Map();
+		this.map = new Map(1); //GET SELECTED MAP
 		
 		setTitle("Tower Defense");
 		setSize(750, 540);

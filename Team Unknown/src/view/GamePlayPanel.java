@@ -5,8 +5,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.JPanel;
 
 import map.*;
@@ -16,6 +18,7 @@ public class GamePlayPanel extends JPanel implements Observer{
 	private static final long serialVersionUID = -2788781914134666681L;
 
 	private Map map;
+	private BufferedImage mapImage;
 	
 	private final int DELTA_X = 10;
 	private final int DELTA_Y = 10;
@@ -23,8 +26,15 @@ public class GamePlayPanel extends JPanel implements Observer{
 	private final int Y_BASE = 0;
 
 	public GamePlayPanel(){
-		
 		this.setPreferredSize(new Dimension(500, 500));
+		
+		if(map.getMapNumber() == 2){
+			//TODO: 1
+		}else if(map.getMapNumber() == 3){
+			//TODO: 2
+		}else{
+			//TODO: 3
+		}
 		
 	}
 

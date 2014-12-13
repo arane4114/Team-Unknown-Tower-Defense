@@ -19,19 +19,34 @@ public class Map extends Observable {
 	private Player player;
 	private EnemySpawner enemySpawner;
 	private boolean spawner;
+	private int mapNumber;
 	
-	public Map() {
+	public Map(int mapNumber) {
 		map = new Cell[50][50];
 		for (int i = 0; i < 50; i++) {
 			for (int j = 0; j < 50; j++) {
 				map[i][j] = new Cell();
 			}
 		}
+		
+		this.mapNumber = mapNumber;
+		
+		if(mapNumber == 2){
+			setPathTwo();
+		}else if(mapNumber == 3){
+			setPathThree();
+		}else{
+			setPathOne();
+		}
 		setPathOne();
 		this.towers = new ArrayList<Point>();
 		this.ghostTower = new Point(-1, -1);
 		this.player = new Player();
 		this.spawner = false;
+	}
+	
+	public int getMapNumber(){
+		return mapNumber;
 	}
 
 	private void setPathOne() {
