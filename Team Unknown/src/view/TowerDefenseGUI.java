@@ -48,7 +48,7 @@ public class TowerDefenseGUI extends JFrame {
 		this.map = new Map(3); // GET SELECTED MAP
 
 		setTitle("Tower Defense");
-		setSize(750, 560);
+		setSize(1000, 810);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -135,7 +135,7 @@ public class TowerDefenseGUI extends JFrame {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			Point p = new Point(e.getX() / 10, e.getY() / 10);
+			Point p = new Point(e.getX() / 15, e.getY() / 15);
 			if (map.isValid(p) && !map.isPath(p) && !map.isTower(p)
 					&& map.getPlayer().canBuy(5)) {
 				map.getPlayer().buy(5);
@@ -155,7 +155,7 @@ public class TowerDefenseGUI extends JFrame {
 
 		@Override
 		public void mouseMoved(MouseEvent e) {
-			Point p = new Point(e.getX() / 10, e.getY() / 10);
+			Point p = new Point(e.getX() / 15, e.getY() / 15);
 			if (map.isValid(p) && !map.isPath(p) && !map.isTower(p)) {
 				map.setGhostTower(p);
 				repaint();
