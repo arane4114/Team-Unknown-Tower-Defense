@@ -42,6 +42,10 @@ public class TowerDefenseGUI extends JFrame {
 	private MiniMapPanel miniMapPanel;
 
 	private NRCClient chatClient;
+	
+	private JMenuItem menuItemRules;
+	private JMenuItem menuItemPause;
+	private JMenuItem menuItemSpeed;
 
 	public TowerDefenseGUI() {
 
@@ -52,11 +56,16 @@ public class TowerDefenseGUI extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		ActionListener buttonListener = new ButtonListener();
+		
 		JMenuBar menuBar = new JMenuBar();
 		JMenuItem menu = new JMenu("Menu");
-		JMenuItem menuItemRules = new JMenuItem("Rules");
-		JMenuItem menuItemPause = new JMenuItem("Pause");
-		JMenuItem menuItemSpeed = new JMenuItem("Speed");
+		menuItemRules = new JMenuItem("Rules");
+		menuItemRules.addActionListener(buttonListener);
+		menuItemPause = new JMenuItem("Pause");
+		menuItemPause.addActionListener(buttonListener);
+		menuItemSpeed = new JMenuItem("Speed");
+		menuItemSpeed.addActionListener(buttonListener);
 		menu.add(menuItemRules);
 		menu.add(menuItemPause);
 		menu.add(menuItemSpeed);
@@ -174,6 +183,20 @@ public class TowerDefenseGUI extends JFrame {
 		}
 	}
 
+	private class ButtonListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == menuItemRules){
+				System.out.println("RULES");
+			}else if(e.getSource() == menuItemSpeed){
+				System.out.println("SPEED");
+			}else{
+				System.out.println("PAUSE");
+			}
+			
+		}
+	}
+	
 	public static void main(String[] args) {
 		new TowerDefenseGUI();
 	}
