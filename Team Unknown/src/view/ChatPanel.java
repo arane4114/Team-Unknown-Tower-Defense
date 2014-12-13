@@ -13,7 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import chatPanelModel.AddMessageCommand;
+import serverCommands.AddMessageCommand;
 
 /**
  * This class encapsulates the NRC chat components. It writes out commands to the server in response to user input

@@ -1,4 +1,4 @@
-package chatPanelModel;
+package serverCommands;
 
 import java.util.List;
 import java.util.LinkedList;

@@ -1,7 +1,5 @@
 package controller;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,11 +8,10 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import chatPanelModel.Command;
-import chatPanelModel.DisconnectCommand;
+import serverCommands.Command;
+import serverCommands.DisconnectCommand;
 import view.ChatPanel;
 
 /**
