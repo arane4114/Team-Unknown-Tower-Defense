@@ -1,28 +1,28 @@
 package view;
 
 import java.awt.BorderLayout;
-
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import java.util.Observer;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import map.*;
+import map.Map;
+import controller.NRCClient;
 
 
 public class TowerDefenseGUI extends JFrame {
@@ -42,6 +42,8 @@ public class TowerDefenseGUI extends JFrame {
 	private PlayerInfoPanel playerInfoPanel; 
 	private ChatPanel chatPanel; 
 	private MiniMapPanel miniMapPanel; 
+	
+	private NRCClient chatClient;
 
 	public TowerDefenseGUI() {
 		
@@ -84,7 +86,9 @@ public class TowerDefenseGUI extends JFrame {
 		towerThreeButton.addActionListener(new buttonListener());
 		group.add(towerThreeButton);
 		buttonPanel.add(towerThreeButton);
-
+		
+		this.chatClient = new NRCClient();
+		this.chatPanel = this.chatClient.getChatPanel();
 		
 		gamePlayPanel = new GamePlayPanel();
 		gamePlayPanel.addMouseListener(new mouseListener());
@@ -98,7 +102,8 @@ public class TowerDefenseGUI extends JFrame {
 		
 		JPanel infoPanel = new JPanel();
 		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
-		infoPanel.add(buttonPanel, BorderLayout.SOUTH);
+		infoPanel.add(buttonPanel, BorderLayout.CENTER);
+		infoPanel.add(chatPanel, BorderLayout.SOUTH);
 		
 		this.add(gamePanel, BorderLayout.WEST);
 		this.add(infoPanel, BorderLayout.EAST);
@@ -107,6 +112,12 @@ public class TowerDefenseGUI extends JFrame {
 		
 		setVisible(true);
 		this.map.forceUpdate();
+		
+		this.addWindowListener(new WindowAdapter(){
+			public void windowClosing(WindowEvent arg0) {
+				chatClient.willClose();
+			}
+		});
 	}
 	
 	private class mouseListener implements MouseListener, MouseMotionListener{

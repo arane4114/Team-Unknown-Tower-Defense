@@ -23,7 +23,7 @@ import view.ChatPanel;
  * 
  * @author Gabriel Kishi
  */
-public class NRCClient extends JFrame {
+public class NRCClient {
 	private String clientName; // user name of the client
 	private ChatPanel chatPanel;
 	
@@ -76,21 +76,6 @@ public class NRCClient extends JFrame {
 			// write out the name of this client
 			out.writeObject(clientName);
 			
-			// add a listener that sends a disconnect command to when closing
-			this.addWindowListener(new WindowAdapter(){
-				public void windowClosing(WindowEvent arg0) {
-					try {
-						out.writeObject(new DisconnectCommand(clientName));
-						out.close();
-						in.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			});
-			
-			setupGUI();
-			
 			// start a thread for handling server events
 			new Thread(new ServerHandler()).start();
 			
@@ -98,21 +83,24 @@ public class NRCClient extends JFrame {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public void willClose(){
+		try {
+			out.writeObject(new DisconnectCommand(clientName));
+			out.close();
+			in.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	/**
 	 * 	Creates a ChatPanel and adds it to this frame
 	 */
-	private void setupGUI() {
-		this.setSize(800, 600);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		// create chatPanel
+	public ChatPanel getChatPanel() {
 		chatPanel = new ChatPanel(clientName, out);
-		
-		// add a Chat Panel
-		this.add(chatPanel);
-		
-		this.setVisible(true);
+		return chatPanel;
 	}
 
 	public static void main(String[] args){
