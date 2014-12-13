@@ -12,6 +12,7 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
@@ -34,10 +35,11 @@ public class TowerDefenseGUI extends JFrame {
 		this.map = new Map(1); //GET SELECTED MAP
 		
 		setTitle("Tower Defense");
-		setSize(750, 540);
+		setSize(750, 560);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		JMenuBar menuBar = new JMenuBar();
 		JMenuItem menu = new JMenu("Menu");
 		JMenuItem menuItemRules = new JMenuItem("Rules");
 		JMenuItem menuItemPause = new JMenuItem("Pause");
@@ -45,6 +47,8 @@ public class TowerDefenseGUI extends JFrame {
 		menu.add(menuItemRules);
 		menu.add(menuItemPause);
 		menu.add(menuItemSpeed);
+		setJMenuBar(menuBar);
+		menuBar.add(menu);
 
 		
 		
@@ -62,7 +66,6 @@ public class TowerDefenseGUI extends JFrame {
 		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
 		infoPanel.add(towerSelectionPanel, BorderLayout.SOUTH);
 		
-		this.add(menu);
 		this.add(gamePanel, BorderLayout.WEST);
 		this.add(infoPanel, BorderLayout.EAST);
 		
