@@ -99,8 +99,10 @@ public class TowerDefenseGUI extends JFrame {
 		gamePanel.add(gamePlayPanel);
 
 		JPanel infoPanel = new JPanel();
-		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
-		infoPanel.add(buttonPanel, BorderLayout.SOUTH);
+//		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
+//		infoPanel.add(buttonPanel, BorderLayout.SOUTH);
+		
+		infoPanel.add(chatPanel);
 
 		this.add(gamePanel, BorderLayout.WEST);
 		this.add(infoPanel, BorderLayout.EAST);

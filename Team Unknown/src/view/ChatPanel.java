@@ -57,14 +57,14 @@ public class ChatPanel extends JPanel{
 		
 		/* Setup the GUI */
 		this.setLayout(new BorderLayout());
-		this.setPreferredSize(new Dimension(800, 600));
+		this.setPreferredSize(new Dimension(200, 250));
 		
 		// create gui components
 		textField = new JTextField();
 		JButton enterButton = new JButton("Send");
 		
-		textField.setPreferredSize(new Dimension(600, 40));
-		enterButton.setPreferredSize(new Dimension(100, 40));
+		textField.setPreferredSize(new Dimension(200, 20));
+		enterButton.setPreferredSize(new Dimension(20, 20));
 		
 		// add button and field to a lower panel
 		JPanel bottomPanel = new JPanel();
