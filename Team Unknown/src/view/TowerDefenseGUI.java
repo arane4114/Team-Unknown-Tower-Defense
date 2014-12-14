@@ -111,13 +111,14 @@ public class TowerDefenseGUI extends JFrame {
 
 		JPanel infoPanel = new JPanel();
 		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
-		infoPanel.add(buttonPanel, BorderLayout.SOUTH);
+		//infoPanel.add(buttonPanel, BorderLayout.SOUTH);
 		
 		//infoPanel.add(chatPanel);
 
 		this.add(gamePanel, BorderLayout.WEST);
 		this.add(infoPanel, BorderLayout.EAST);
 
+		map.addObserver((Observer) playerInfoPanel); // ADDed observer
 		map.addObserver((Observer) gamePlayPanel);
 
 //		this.addWindowListener(new WindowAdapter() {
@@ -151,7 +152,6 @@ public class TowerDefenseGUI extends JFrame {
 					&& map.getPlayer().canBuy(5)) {
 				map.getPlayer().buy(5);
 				map.setTower(p);
-				List<Point> list = map.getTowers();
 				repaint();
 			}
 		}
