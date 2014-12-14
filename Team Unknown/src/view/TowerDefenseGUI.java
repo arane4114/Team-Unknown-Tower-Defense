@@ -32,13 +32,16 @@ public class TowerDefenseGUI extends JFrame {
 
 	private static String towerOne = "Tower One";
 	private static String towerTwo = "Tower Two";
-	private static String twoerThree = "Tower Three";
+	private static String towerThree = "Tower Three";
+	private static String towerFour = "Tower Four";
 
 	private GamePlayPanel gamePlayPanel;
 	private TowerSelectionPanel towerSelectionPanel;
 	private PlayerInfoPanel playerInfoPanel;
 	private ChatPanel chatPanel;
 	private MiniMapPanel miniMapPanel;
+	
+	private JPanel buttonPanel;
 
 	private NRCClient chatClient;
 	
@@ -75,7 +78,7 @@ public class TowerDefenseGUI extends JFrame {
 		menuBar.add(menu);
 
 		ButtonGroup group = new ButtonGroup();
-		JPanel buttonPanel = new JPanel(new GridLayout(3, 0));
+		buttonPanel = new JPanel(new GridLayout(3, 0));
 
 		JRadioButton towerOneButton = new JRadioButton(towerOne);
 		towerOneButton.setActionCommand(towerOne);
@@ -90,12 +93,21 @@ public class TowerDefenseGUI extends JFrame {
 		group.add(towerTwoButton);
 		buttonPanel.add(towerTwoButton);
 
-		JRadioButton towerThreeButton = new JRadioButton(twoerThree);
-		towerThreeButton.setActionCommand(twoerThree);
+		JRadioButton towerThreeButton = new JRadioButton(towerThree);
+		towerThreeButton.setActionCommand(towerThree);
 		towerThreeButton.addActionListener(new towerButtonListener());
 		group.add(towerThreeButton);
 		buttonPanel.add(towerThreeButton);
+		
+		JRadioButton towerFourButton = new JRadioButton(towerFour);
+		towerFourButton.setActionCommand(towerFour);
+		towerFourButton.addActionListener(new towerButtonListener());
+		group.add(towerFourButton);
+		buttonPanel.add(towerFourButton);
 
+//		JPanel buttonPanelHolder = new JPanel();
+//		buttonPanelHolder.add(buttonPanel);
+		
 	//	this.chatClient = new NRCClient();
 		//this.chatPanel = this.chatClient.getChatPanel();
 
@@ -111,7 +123,7 @@ public class TowerDefenseGUI extends JFrame {
 
 		JPanel infoPanel = new JPanel();
 		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
-		//infoPanel.add(buttonPanel, BorderLayout.SOUTH);
+		infoPanel.add(buttonPanel, BorderLayout.SOUTH);
 		
 		//infoPanel.add(chatPanel);
 
