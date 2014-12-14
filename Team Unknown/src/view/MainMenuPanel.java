@@ -23,7 +23,7 @@ public class MainMenuPanel extends JPanel{
 			mainMenuImage = ImageIO.read(new File("Pictures" + File.separator
 					+ "MainMenu.jpg"));
 		} catch (IOException e) {
-			System.out.println("Could Not Print Image");
+			System.out.println("Could Not Load MainMenu.jpg");
 		}
 		
 		repaint();

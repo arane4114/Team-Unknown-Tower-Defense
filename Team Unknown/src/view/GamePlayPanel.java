@@ -6,9 +6,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import map.*;
@@ -25,16 +28,31 @@ public class GamePlayPanel extends JPanel implements Observer{
 	private final int X_BASE = 0;
 	private final int Y_BASE = 0;
 
-	public GamePlayPanel(){
+	public GamePlayPanel(int mapSelected){
 		this.setPreferredSize(new Dimension(750, 750));
 		
-//		if(map.getMapNumber() == 2){
-//			//TODO: 1
-//		}else if(map.getMapNumber() == 3){
-//			//TODO: 2
-//		}else{
-//			//TODO: 3
-//		}
+		if(mapSelected == 2){
+			try {
+				mapImage = ImageIO.read(new File("Pictures" + File.separator
+						+ "Background2.jpg"));
+			} catch (IOException e) {
+				System.out.println("Could Not Load Background2.jpg");
+			}
+		}else if(mapSelected == 3){
+			try {
+				mapImage = ImageIO.read(new File("Pictures" + File.separator
+						+ "Background3.jpg"));
+			} catch (IOException e) {
+				System.out.println("Could Not Load Background3.jpg");
+			}
+		}else{
+			try {
+				mapImage = ImageIO.read(new File("Pictures" + File.separator
+						+ "Background1.png"));
+			} catch (IOException e) {
+				System.out.println("Could Not Load Background.png");
+			}
+		}
 		
 	}
 
@@ -48,7 +66,7 @@ public class GamePlayPanel extends JPanel implements Observer{
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.fillRect(X_BASE, Y_BASE, 1000, 1000);
+		g.drawImage(mapImage, 0, 0, 750, 750, null);
 
 		for (Point p : this.map.getLeftPath()) {
 			if(map.isEnemy(p)){

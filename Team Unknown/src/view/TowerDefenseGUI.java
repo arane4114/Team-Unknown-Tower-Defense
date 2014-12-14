@@ -99,7 +99,7 @@ public class TowerDefenseGUI extends JFrame {
 	//	this.chatClient = new NRCClient();
 		//this.chatPanel = this.chatClient.getChatPanel();
 
-		gamePlayPanel = new GamePlayPanel();
+		gamePlayPanel = new GamePlayPanel(mapSelected);
 		gamePlayPanel.addMouseListener(new mouseListener());
 		gamePlayPanel.addMouseMotionListener(new mouseListener());
 
