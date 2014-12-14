@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 public class MainMenuGUI extends JFrame {
 	
 	private MainMenuPanel mainMenuPanel;
+	private TowerDefenseGUI towerDefenseGUI; 
 	
 	public MainMenuGUI(){
 		setTitle("Tower Defense");
@@ -32,15 +33,18 @@ public class MainMenuGUI extends JFrame {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			if(e.getX() >= 475 && e.getX() <= 645 && e.getY() >= 264 && e.getY() <= 300){
-				System.out.println("Level 1");
+				setVisible(false);
+				towerDefenseGUI = new TowerDefenseGUI(1);
 			}else if(e.getX() >= 475 && e.getX() <= 645 && e.getY() >= 333 && e.getY() <= 370){
-				System.out.println("Level 2");
+				setVisible(false);
+				towerDefenseGUI = new TowerDefenseGUI(2);
 			}else if(e.getX() >= 475 && e.getX() <= 645 && e.getY() >= 404 && e.getY() <= 440){
-				System.out.println("Level 3");
+				setVisible(false);
+				towerDefenseGUI = new TowerDefenseGUI(3);
 			}else if(e.getX() >= 475 && e.getX() <= 672 && e.getY() >= 472 && e.getY() <= 510){
 				System.out.println("2 Player");
 			}else if(e.getX() >= 475 && e.getX() <= 720 && e.getY() >= 543 && e.getY() <= 580){
-				System.out.println("Exit Game");
+				System.exit(0);
 			}
 		}
 

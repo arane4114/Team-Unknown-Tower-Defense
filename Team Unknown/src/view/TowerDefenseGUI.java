@@ -47,9 +47,9 @@ public class TowerDefenseGUI extends JFrame {
 	private JMenuItem menuItemSpeed;
 	private JMenuItem menuItemSave;
 
-	public TowerDefenseGUI() {
+	public TowerDefenseGUI(int mapSelected) {
 
-		this.map = new Map(3); // GET SELECTED MAP
+		this.map = new Map(mapSelected);
 
 		setTitle("Tower Defense");
 		setSize(1000, 810);
@@ -208,6 +208,6 @@ public class TowerDefenseGUI extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new TowerDefenseGUI();
+		new TowerDefenseGUI(1);
 	}
 }
