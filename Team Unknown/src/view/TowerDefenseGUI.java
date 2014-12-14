@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -104,9 +105,6 @@ public class TowerDefenseGUI extends JFrame {
 		towerFourButton.addActionListener(new towerButtonListener());
 		group.add(towerFourButton);
 		buttonPanel.add(towerFourButton);
-
-//		JPanel buttonPanelHolder = new JPanel();
-//		buttonPanelHolder.add(buttonPanel);
 		
 	//	this.chatClient = new NRCClient();
 		//this.chatPanel = this.chatClient.getChatPanel();
@@ -122,6 +120,7 @@ public class TowerDefenseGUI extends JFrame {
 		gamePanel.add(gamePlayPanel);
 
 		JPanel infoPanel = new JPanel();
+		infoPanel.setPreferredSize(new Dimension(250, 750));
 		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
 		infoPanel.add(buttonPanel, BorderLayout.SOUTH);
 		
