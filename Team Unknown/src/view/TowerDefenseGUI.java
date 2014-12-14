@@ -206,8 +206,4 @@ public class TowerDefenseGUI extends JFrame {
 			
 		}
 	}
-	
-	public static void main(String[] args) {
-		new TowerDefenseGUI(1);
-	}
 }
