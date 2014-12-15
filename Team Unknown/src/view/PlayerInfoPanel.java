@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.Observable;
@@ -30,6 +31,11 @@ public class PlayerInfoPanel extends JPanel implements Observer{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.fillRect(0, 0, 250, 375);
+		g.setColor(Color.WHITE);
+		g.drawString("Health : " + map.getPlayer().getHealth(), 20, 30);
+		g.drawString("Money : "  + map.getPlayer().getMoney(), 20, 50);
+		g.drawString("Points : " + map.getPlayer().getPoints(), 20, 70);
+		g.drawString("Points Needed : " + map.getPlayer().getPointsToWin(), 20, 90);
 	}
 }
 

@@ -75,7 +75,7 @@ public abstract class Enemy {
 			map.removeEnemy(current, this);
 			this.alive = false;
 			timer.stop();
-		}else if(i < path.size() - 1){
+		}else if(i < path.size()){
 			map.removeEnemy(current, this);
 			current = path.get(i); 	//Walk to the next point in the list
 			map.addEnemy(current, this); // Added by Bryce

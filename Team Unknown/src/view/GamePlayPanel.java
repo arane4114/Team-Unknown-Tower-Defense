@@ -12,6 +12,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import map.*;
@@ -103,26 +105,19 @@ public class GamePlayPanel extends JPanel implements Observer{
 			g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 15, 15);
 		}
 		
-		g.setColor(Color.white);
+		g.setColor(Color.WHITE);
 		g.fillRect(((map.getGhostTower().x * DELTA_X) + X_BASE),((map.getGhostTower().y * DELTA_Y) + Y_BASE), 15, 15);
-		
-		g.drawString("                Health : " + map.getPlayer().getHealth(), 350, 30);
-		g.drawString("                Money : "  + map.getPlayer().getMoney(), 350, 50);
-		g.drawString("                Points : " + map.getPlayer().getPoints(), 350, 70);
-		g.drawString("Points Needed : " + map.getPlayer().getPointsToWin(), 350, 90);
-		g.drawString("Towers cost 5 money.", 350, 110);
-		
-		
+				
 		if(map.getPlayer().getPointsToWin() <= 0){
-			g.setColor(Color.green);
-			g.setFont(new Font("TimesRoman", Font.PLAIN, 50));
-			g.drawString("WINNER", 150, 75);
-			map.getEnemySpawner().timerStop();
+//			JOptionPane.showMessageDialog(new JFrame(),
+//				    "Winner!!!",
+//				    "Winner",
+//				    JOptionPane.PLAIN_MESSAGE);
 		}else if(map.getPlayer().getHealth() <= 0){
-			g.setColor(Color.red);
-			g.setFont(new Font("TimesRoman", Font.PLAIN, 50));
-			g.drawString("GAME OVER", 100, 75);
-			map.getEnemySpawner().timerStop();
+//			JOptionPane.showMessageDialog(new JFrame(),
+//				    "Game Over",
+//				    "Game Over",
+//				    JOptionPane.PLAIN_MESSAGE);
 		}
 
 	}
