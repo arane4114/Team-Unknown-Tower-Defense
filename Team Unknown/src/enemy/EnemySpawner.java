@@ -57,7 +57,7 @@ public class EnemySpawner {
 				}
 				count++;
 			}else{
-				numberOfEnemies = numberOfEnemies * 3;
+				numberOfEnemies = numberOfEnemies * 2;
 				timer.start();
 				timerTwo.stop();
 			}

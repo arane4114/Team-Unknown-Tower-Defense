@@ -17,11 +17,11 @@ public class MainMenuGUI extends JFrame {
 		setSize(750, 750);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		mainMenuPanel = new MainMenuPanel();
 		mainMenuPanel.addMouseListener(new mouseListener());
 		add(mainMenuPanel);
-		
+
 		setVisible(true);
 		mainMenuGUI = this;
 	}
