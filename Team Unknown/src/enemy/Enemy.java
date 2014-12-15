@@ -77,8 +77,8 @@ public abstract class Enemy {
 			timer.stop();
 		}else if(i < path.size()){
 			map.removeEnemy(current, this);
-			current = path.get(i); 	//Walk to the next point in the list
-			map.addEnemy(current, this); // Added by Bryce
+			current = path.get(i);
+			map.addEnemy(current, this);
 		}else{
 			map.getPlayer().damage(1);
 			map.removeEnemy(current, this);

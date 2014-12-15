@@ -2,6 +2,7 @@ package enemy;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.Timer;
 
 import map.*;
@@ -15,6 +16,7 @@ public class EnemySpawner {
 	private int enemyInterval = 150;
 	private int numberOfEnemies;
 	private int count;
+	private Enemy enemyToMake;
 	
 	public EnemySpawner(Map map){
 		this.map = map;
@@ -41,10 +43,21 @@ public class EnemySpawner {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(count < numberOfEnemies){
-				Enemy g = new Enemy1(1,map);
+				int random = (int) (Math.random() * 3);
+				switch(random){
+				case 0:
+					enemyToMake = new Enemy1(1,map);
+					break;
+				case 1:
+					enemyToMake = new Enemy2(2,map);
+					break;
+				case 2:
+					enemyToMake = new Enemy3(3,map);
+					break;
+				}
 				count++;
 			}else{
-				numberOfEnemies++;
+				numberOfEnemies = numberOfEnemies * 3;
 				timer.start();
 				timerTwo.stop();
 			}

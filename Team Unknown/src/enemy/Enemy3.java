@@ -10,7 +10,6 @@ public class Enemy3 extends Enemy{
 
 	public void doDamage(double damage) {
 		health -= damage;
-		System.out.println("Enemy health: "+health);
 	}
 
 }

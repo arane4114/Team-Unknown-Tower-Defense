@@ -25,7 +25,6 @@ import map.Map;
 import controller.NRCClient;
 
 public class TowerDefenseGUI extends JFrame {
-	private static final long serialVersionUID = -1311464600599742255L;
 
 	private Map map;
 
@@ -41,6 +40,7 @@ public class TowerDefenseGUI extends JFrame {
 	private PlayerInfoPanel playerInfoPanel;
 	private ChatPanel chatPanel;
 	private MiniMapPanel miniMapPanel;
+	private MainMenuGUI mainMenuGUI;
 	
 	private JPanel buttonPanel;
 
@@ -51,10 +51,10 @@ public class TowerDefenseGUI extends JFrame {
 	private JMenuItem menuItemSpeed;
 	private JMenuItem menuItemSave;
 
-	public TowerDefenseGUI(int mapSelected) {
-
+	public TowerDefenseGUI(int mapSelected, MainMenuGUI mainMenuGUI) {
 		this.map = new Map(mapSelected);
-
+		this.mainMenuGUI = mainMenuGUI;
+		
 		setTitle("Tower Defense");
 		setSize(1000, 810);
 		setResizable(false);
@@ -109,7 +109,7 @@ public class TowerDefenseGUI extends JFrame {
 	//	this.chatClient = new NRCClient();
 		//this.chatPanel = this.chatClient.getChatPanel();
 
-		gamePlayPanel = new GamePlayPanel(mapSelected);
+		gamePlayPanel = new GamePlayPanel(mapSelected, this);
 		gamePlayPanel.addMouseListener(new mouseListener());
 		gamePlayPanel.addMouseMotionListener(new mouseListener());
 
@@ -140,6 +140,14 @@ public class TowerDefenseGUI extends JFrame {
 
 		setVisible(true);
 		this.map.forceUpdate();
+	}
+	
+	public void visibleFalse(){
+		setVisible(false);
+	}
+	
+	public void mainMenuVisible(){
+		mainMenuGUI.setVisible(true);
 	}
 
 	private class mouseListener implements MouseListener, MouseMotionListener {
@@ -225,7 +233,12 @@ public class TowerDefenseGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == menuItemRules){
 				JOptionPane.showMessageDialog(new JFrame(),
-					    "...............",
+					    "The goal of tower defense is to try to stop enemies \n"
+					    + "from crossing the map by building towers which shoot \n"
+					    + "at them as they pass. Enemies and towers \n"
+					    + "have varied abilities, costs, and upgrade prices. \n"
+					    + "When an enemy is defeated, the player earns money, \n"
+					    + "which can be used to buy or upgrade towers.",
 					    "Rules",
 					    JOptionPane.PLAIN_MESSAGE);
 			}else if(e.getSource() == menuItemSpeed){

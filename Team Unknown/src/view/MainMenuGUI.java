@@ -10,6 +10,7 @@ public class MainMenuGUI extends JFrame {
 	
 	private MainMenuPanel mainMenuPanel;
 	private TowerDefenseGUI towerDefenseGUI; 
+	private MainMenuGUI mainMenuGUI;
 	
 	public MainMenuGUI(){
 		setTitle("Tower Defense");
@@ -22,7 +23,7 @@ public class MainMenuGUI extends JFrame {
 		add(mainMenuPanel);
 		
 		setVisible(true);
-	
+		mainMenuGUI = this;
 	}
 	
 	private class mouseListener implements MouseListener {
@@ -34,13 +35,13 @@ public class MainMenuGUI extends JFrame {
 		public void mousePressed(MouseEvent e) {
 			if(e.getX() >= 475 && e.getX() <= 645 && e.getY() >= 264 && e.getY() <= 300){
 				setVisible(false);
-				towerDefenseGUI = new TowerDefenseGUI(1);
+				towerDefenseGUI = new TowerDefenseGUI(1, mainMenuGUI);
 			}else if(e.getX() >= 475 && e.getX() <= 645 && e.getY() >= 333 && e.getY() <= 370){
 				setVisible(false);
-				towerDefenseGUI = new TowerDefenseGUI(2);
+				towerDefenseGUI = new TowerDefenseGUI(2, mainMenuGUI);
 			}else if(e.getX() >= 475 && e.getX() <= 645 && e.getY() >= 404 && e.getY() <= 440){
 				setVisible(false);
-				towerDefenseGUI = new TowerDefenseGUI(3);
+				towerDefenseGUI = new TowerDefenseGUI(3, mainMenuGUI);
 			}else if(e.getX() >= 475 && e.getX() <= 672 && e.getY() >= 472 && e.getY() <= 510){
 				System.out.println("2 Player");
 			}else if(e.getX() >= 475 && e.getX() <= 720 && e.getY() >= 543 && e.getY() <= 580){
