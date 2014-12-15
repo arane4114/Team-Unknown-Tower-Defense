@@ -16,6 +16,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import tower.Tower_Type_0;
+import tower.Tower_Type_1;
+import tower.Tower_Type_2;
+import tower.Tower_Type_3;
 import map.*;
 
 public class GamePlayPanel extends JPanel implements Observer{
@@ -100,9 +104,22 @@ public class GamePlayPanel extends JPanel implements Observer{
 			}
 		}
 		
-		g.setColor(Color.red);
+		
 		for (Point p : this.map.getTowers()) {
-			g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 15, 15);
+			if(map.getTower(p) instanceof Tower_Type_0){
+				g.setColor(Color.red);
+				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 15, 15);
+			}else if(map.getTower(p) instanceof Tower_Type_1){
+				g.setColor(Color.yellow	);
+				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 15, 15);
+			}else if(map.getTower(p) instanceof Tower_Type_2){
+				g.setColor(Color.green);
+				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 15, 15);
+			}else if(map.getTower(p) instanceof Tower_Type_3){
+				g.setColor(Color.blue);
+				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 15, 15);
+			}
+			
 		}
 		
 		g.setColor(Color.WHITE);

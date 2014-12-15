@@ -159,11 +159,35 @@ public class TowerDefenseGUI extends JFrame {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			Point p = new Point(e.getX() / 15, e.getY() / 15);
-			if (map.isValid(p) && !map.isPath(p) && !map.isTower(p)
-					&& map.getPlayer().canBuy(5)) {
-				map.getPlayer().buy(5);
-				map.setTower(p);
-				repaint();
+			
+			if(currentString == "Tower One"){
+				if (map.isValid(p) && !map.isPath(p) && !map.isTower(p)
+						&& map.getPlayer().canBuy(5)) {
+					map.getPlayer().buy(5);
+					map.setTower( 1, p);
+					repaint();
+				}
+			}else if(currentString == "Tower Two"){
+				if (map.isValid(p) && !map.isPath(p) && !map.isTower(p)
+						&& map.getPlayer().canBuy(10)) {
+					map.getPlayer().buy(10);
+					map.setTower(2, p);
+					repaint();
+				}
+			}else if(currentString == "Tower Three"){
+				if (map.isValid(p) && !map.isPath(p) && !map.isTower(p)
+						&& map.getPlayer().canBuy(15)) {
+					map.getPlayer().buy(15);
+					map.setTower(3, p);
+					repaint();
+				}
+			}else if(currentString == "Tower Four"){
+				if (map.isValid(p) && !map.isPath(p) && !map.isTower(p)
+						&& map.getPlayer().canBuy(20)) {
+					map.getPlayer().buy(20);
+					map.setTower(4, p);
+					repaint();
+				}
 			}
 		}
 

@@ -252,14 +252,32 @@ public class Map extends Observable {
 		map[p.y][p.x].addEnemy(e);
 	}
 	
-	public void setTower(Point p){
+	public void setTower(int towerType, Point p){
 		if(spawner == false){
 			enemySpawner = new EnemySpawner(this);
 			spawner = true;
 		}
-		Tower t = new Standard_Tower(5, 10, this, p, 2);
-		map[p.y][p.x].setTower(t);
-		towers.add(p);
+		if(towerType == 1){
+			Tower t = new Tower_Type_0(5, 10, this, p, 2);
+			map[p.y][p.x].setTower(t);
+			towers.add(p);
+		}else if(towerType == 2){
+			Tower t = new Tower_Type_1(5, 10, this, p, 4);
+			map[p.y][p.x].setTower(t);
+			towers.add(p);
+		}else if(towerType == 3){
+			Tower t = new Tower_Type_2(5, 10, this, p, 6);
+			map[p.y][p.x].setTower(t);
+			towers.add(p);
+		}else if(towerType == 4){
+			Tower t = new Tower_Type_3(5, 10, this, p, 8);
+			map[p.y][p.x].setTower(t);
+			towers.add(p);
+		}
+	}
+	
+	public Tower getTower(Point p){
+		return map[p.y][p.x].getTower();
 	}
 	
 	public boolean isValid(Point p){

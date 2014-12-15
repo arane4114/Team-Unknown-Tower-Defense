@@ -13,9 +13,9 @@ import enemy.*;
  * @author Abhishek
  *
  */
-public class Standard_Tower extends Tower {
+public class Tower_Type_0 extends Tower {
 
-	public Standard_Tower(int range, int fireInterval, Map map, Point location,
+	public Tower_Type_0(int range, int fireInterval, Map map, Point location,
 			int damageAmount) {
 		super(range, fireInterval, map, location, damageAmount, 1.0, 1.0, 1.0);
 	}
