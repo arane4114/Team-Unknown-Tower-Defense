@@ -1,5 +1,6 @@
-package server;
+package network;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
@@ -9,17 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import serverCommands.Command;
-import serverCommands.DisconnectCommand;
-import serverCommands.UpdateChatClient;
-
 /**
  * This class is the server side of NRC. The server communicates with clients, 
  * sends and receives commands, and holds the chat log
  * 
  * @author Gabriel Kishi
  */
-public class NRCServer {
+public class TowerServer {
 	private ServerSocket socket; // the server socket
 	
 	private List<String> messages;	// the chat log
@@ -39,8 +36,8 @@ public class NRCServer {
 			try{
 				while(true){
 					// read a command from the client, execute on the server
-					Command<NRCServer> command = (Command<NRCServer>)input.readObject();
-					command.execute(NRCServer.this);
+					Command<TowerServer> command = (Command<TowerServer>)input.readObject();
+					command.execute(TowerServer.this);
 					
 					// terminate if client is disconnecting
 					if (command instanceof DisconnectCommand){
@@ -84,7 +81,7 @@ public class NRCServer {
 		}
 	}
 	
-	public NRCServer(){
+	public TowerServer(){
 		this.messages = new ArrayList<String>(); // create the chat log
 		this.outputs = new HashMap<String, ObjectOutputStream>(); // setup the map
 		
@@ -127,13 +124,18 @@ public class NRCServer {
 	}
 	
 	public static void main(String[] args){
-		new NRCServer();
+		new TowerServer();
 	}
 	
-	public void sendHealth(String client){
-		for(Entry<String, ObjectOutputStream> name: outputs.entrySet()){
-			if(!name.getKey().equals(client)){
-				// send health command
+	public void sendMoney(String sender, Integer money){
+		for(Entry<String, ObjectOutputStream> hashMapItem: outputs.entrySet()){
+			if(!hashMapItem.getKey().equals(sender)){
+				ReceiveMoneyCommand command = new ReceiveMoneyCommand(money);
+				try {
+					hashMapItem.getValue().writeObject(command);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -151,6 +153,18 @@ public class NRCServer {
 			addMessage(clientName + " disconnected");
 		} catch(Exception e){
 			e.printStackTrace();
+		}
+	}
+
+	public void hasBeenHit(String clientName) {
+		for(Entry<String, ObjectOutputStream> hashMapItem: outputs.entrySet()){
+			if(!hashMapItem.getKey().equals(clientName)){
+				try {
+					hashMapItem.getValue().writeObject(new OtherPlayerHasBeenHitCommand());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 }

@@ -8,7 +8,7 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
-import map.Map;
+import model.Map;
 
 public class PlayerInfoPanel extends JPanel implements Observer{
 

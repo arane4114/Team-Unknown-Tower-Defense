@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import map.Map;
+import model.Map;
 
 public class CellInfoPanel extends JPanel {
 	private JTextArea text;

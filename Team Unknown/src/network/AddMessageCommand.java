@@ -1,11 +1,10 @@
-package serverCommands;
+package network;
 
-import server.NRCServer;
 
 /**
  *	Adds a text message to the server's chat log
  */
-public class AddMessageCommand extends Command<NRCServer>{
+public class AddMessageCommand extends Command<TowerServer>{
 	private static final long serialVersionUID = 8394654307009158284L;
 	private String message; // message from client
 	
@@ -18,7 +17,7 @@ public class AddMessageCommand extends Command<NRCServer>{
 		this.message = message;
 	}
 	
-	public void execute(server.NRCServer executeOn) {
+	public void execute(TowerServer executeOn) {
 		// add message to server's chat log
 		executeOn.addMessage(message);
 	}

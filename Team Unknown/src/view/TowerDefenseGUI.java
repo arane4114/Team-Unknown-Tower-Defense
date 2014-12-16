@@ -22,8 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingUtilities;
 
-import map.Map;
-import controller.NRCClient;
+import network.TowerClient;
+import model.Map;
 
 public class TowerDefenseGUI extends JFrame {
 
@@ -47,7 +47,7 @@ public class TowerDefenseGUI extends JFrame {
 
 	private JPanel buttonPanel;
 
-	private NRCClient chatClient;
+	private TowerClient chatClient;
 
 	private JMenuItem menuItemRules;
 	private JMenuItem menuItemPause;
@@ -184,21 +184,21 @@ public class TowerDefenseGUI extends JFrame {
 						}
 					} else if (currentString == "Tower Three") {
 						if (!map.isPath(p) && !map.isTower(p)
-								&& map.getPlayer().canBuy(15)) {
+								&& map.getPlayer().canBuy(10)) {
 							map.getPlayer().buy(15);
 							map.setTower(3, p);
 							repaint();
 						}
 					} else if (currentString == "Tower Four") {
 						if (!map.isPath(p) && !map.isTower(p)
-								&& map.getPlayer().canBuy(20)) {
+								&& map.getPlayer().canBuy(10)) {
 							map.getPlayer().buy(20);
 							map.setTower(4, p);
 							repaint();
 						}
 					} else if (currentString == "Tower Five") {
 						if (!map.isPath(p) && !map.isTower(p)
-								&& map.getPlayer().canBuy(10)) {
+								&& map.getPlayer().canBuy(20)) {
 							map.getPlayer().buy(10);
 							map.setTower(5, p);
 							repaint();

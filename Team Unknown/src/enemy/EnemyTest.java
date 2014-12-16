@@ -1,10 +1,13 @@
 package enemy;
 
-import static org.junit.Assert.*;
-import java.awt.Point;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import map.*;
+import java.awt.Point;
+
+import model.Map;
+
+import org.junit.Test;
 
 public class EnemyTest {
 

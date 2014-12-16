@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import map.Map;
+import model.Map;
 import tower.Tower_Type_0;
 import tower.Tower_Type_1;
 import tower.Tower_Type_2;

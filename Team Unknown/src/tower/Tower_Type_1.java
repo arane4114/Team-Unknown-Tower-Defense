@@ -3,7 +3,7 @@ package tower;
 import java.awt.Point;
 import java.util.List;
 
-import map.Map;
+import model.Map;
 import enemy.Enemy;
 import enemy.Enemy1;
 

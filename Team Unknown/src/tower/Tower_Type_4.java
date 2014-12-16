@@ -3,16 +3,15 @@ package tower;
 import java.awt.Point;
 import java.util.List;
 
-import map.Map;
+import model.Map;
 import enemy.Enemy;
 
 public class Tower_Type_4 extends Tower {
 
 	public Tower_Type_4(int range, int fireInterval, Map map,
-			Point location, int damageAmount, double enemy1Multiplier,
-			double enemy2Multiplier, double enemy3Multiplier, int upgradeCost) {
-		super(range, fireInterval, map, location, damageAmount, enemy1Multiplier,
-				enemy2Multiplier, enemy3Multiplier, upgradeCost);
+			Point location) {
+		super(range, fireInterval, map, location, 0, 0,
+				0, 0, 20);
 	}
 
 	@Override

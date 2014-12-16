@@ -3,8 +3,8 @@ package tower;
 import java.awt.Point;
 import java.util.List;
 
-import map.*;
-import enemy.*;
+import model.Map;
+import enemy.Enemy;
 
 /**
  * This tower is tower with an API for testing general tower functions. It can

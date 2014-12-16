@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
-import map.*;
+import model.Map;
 
 public class EnemySpawner {
 

@@ -1,6 +1,6 @@
 package enemy;
 
-import map.*;
+import model.Map;
 
 public class Enemy2 extends Enemy{
 

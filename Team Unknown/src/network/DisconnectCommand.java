@@ -1,13 +1,12 @@
-package serverCommands;
+package network;
 
-import server.NRCServer;
 /**
  * This command is sent by a client that is disconnecting
  * 
  * @author Gabriel Kishi
  *
  */
-public class DisconnectCommand extends Command<NRCServer>{
+public class DisconnectCommand extends Command<TowerServer>{
 	private static final long serialVersionUID = -8557424886231888586L;
 	private String clientName; // client who is disconnecting
 	
@@ -21,7 +20,7 @@ public class DisconnectCommand extends Command<NRCServer>{
 	}
 	
 	@Override
-	public void execute(NRCServer executeOn) {
+	public void execute(TowerServer executeOn) {
 		// disconnect client
 		executeOn.disconnect(clientName);
 	}

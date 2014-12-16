@@ -1,9 +1,7 @@
-package serverCommands;
+package network;
 
 import java.util.List;
 import java.util.LinkedList;
-
-import controller.NRCClient;
 
 /**
  * Updates a client with the current list of chat messages
@@ -11,7 +9,7 @@ import controller.NRCClient;
  * @author Gabriel Kishi
  *
  */
-public class UpdateChatClient extends Command<NRCClient> {
+public class UpdateChatClient extends Command<TowerClient> {
 	private static final long serialVersionUID = 4222014184904080846L;
 	private List<String> messages; // the message log from the server
 	
@@ -23,8 +21,7 @@ public class UpdateChatClient extends Command<NRCClient> {
 		this.messages = new LinkedList<String>(messages); // note: we are making a copy of the given list
 	}
 
-	public void execute(NRCClient executeOn) {
-		// update the client
+	public void execute(TowerClient executeOn) {
 		executeOn.update(messages);
 	}
 }

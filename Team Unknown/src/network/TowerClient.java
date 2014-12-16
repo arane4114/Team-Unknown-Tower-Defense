@@ -1,4 +1,4 @@
-package controller;
+package network;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -10,8 +10,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import serverCommands.Command;
-import serverCommands.DisconnectCommand;
+import model.Player;
 import view.ChatPanel;
 
 /**
@@ -20,13 +19,14 @@ import view.ChatPanel;
  * 
  * @author Gabriel Kishi
  */
-public class NRCClient {
+public class TowerClient {
 	private String clientName; // user name of the client
 	private ChatPanel chatPanel;
 	
 	private Socket server; // connection to server
 	private ObjectOutputStream out; // output stream
 	private ObjectInputStream in; // input stream
+	private Player player;
 
 	/**
 	 * This class reads and executes commands sent from the server
@@ -39,8 +39,8 @@ public class NRCClient {
 			try{
 				while(true){
 					// read a command from server and execute it
-					Command<NRCClient> c = (Command<NRCClient>)in.readObject();
-					c.execute(NRCClient.this);
+					Command<TowerClient> c = (Command<TowerClient>)in.readObject();
+					c.execute(TowerClient.this);
 				}
 			}
 			catch(SocketException e){
@@ -55,7 +55,7 @@ public class NRCClient {
 		}
 	}
 	
-	public NRCClient(){
+	public TowerClient(){
 		// ask the user for a host, port, and user name
 		String host = JOptionPane.showInputDialog("Host address:");
 		String port = "9000";
@@ -99,9 +99,23 @@ public class NRCClient {
 		chatPanel = new ChatPanel(clientName, out);
 		return chatPanel;
 	}
-
-	public static void main(String[] args){
-		new NRCClient();
+	
+	public void hasBeenHit(){
+		
+	}
+	
+	public boolean sendMoney(Integer money){
+		try {
+			out.writeObject(new SendMoneyCommand(money, clientName));
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public void addMoney(Integer money){
+		player.earn(money);
 	}
 
 	/**
@@ -111,5 +125,9 @@ public class NRCClient {
 	 */
 	public void update(List<String> messages) {
 		chatPanel.update(messages);
+	}
+
+	public void otherPlayerHasBeenHit() {
+		player.damage(1);
 	}
 }

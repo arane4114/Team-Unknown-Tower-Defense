@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.swing.Timer;
 
-import map.Map;
+import model.Map;
 import enemy.Enemy;
 import enemy.Enemy1;
 import enemy.Enemy2;
