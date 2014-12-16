@@ -8,7 +8,7 @@ import enemy.Enemy;
 
 public class Tower_Type_4 extends Tower {
 
-	protected Tower_Type_4(int range, int fireInterval, Map map,
+	public Tower_Type_4(int range, int fireInterval, Map map,
 			Point location, int damageAmount, double enemy1Multiplier,
 			double enemy2Multiplier, double enemy3Multiplier, int upgradeCost) {
 		super(range, fireInterval, map, location, damageAmount, enemy1Multiplier,

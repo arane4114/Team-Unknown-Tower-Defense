@@ -21,6 +21,7 @@ import tower.Tower_Type_0;
 import tower.Tower_Type_1;
 import tower.Tower_Type_2;
 import tower.Tower_Type_3;
+import tower.Tower_Type_4;
 import enemy.Enemy1;
 import enemy.Enemy2;
 import enemy.Enemy3;
@@ -161,8 +162,10 @@ public class GamePlayPanel extends JPanel implements Observer{
 			}else if(map.getTower(p) instanceof Tower_Type_3){
 				g.setColor(Color.blue);
 				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 15, 15);
+			}else if(map.getTower(p) instanceof Tower_Type_4){
+				g.setColor(Color.black);
+				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 15, 15);
 			}
-			
 		}
 		
 		if(this.pointsInRange != null){

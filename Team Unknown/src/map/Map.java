@@ -273,6 +273,12 @@ public class Map extends Observable {
 			Tower t = new Tower_Type_3(6, 10, this, p, 5);
 			map[p.y][p.x].setTower(t);
 			towers.add(p);
+		}else if(towerType == 5){
+			Tower t = new Tower_Type_4(int range, int fireInterval, Map map,
+					Point location, int damageAmount, double enemy1Multiplier,
+					double enemy2Multiplier, double enemy3Multiplier, int upgradeCost);
+			map[p.y][p.x].setTower(t);
+			towers.add(p);
 		}
 	}
 	

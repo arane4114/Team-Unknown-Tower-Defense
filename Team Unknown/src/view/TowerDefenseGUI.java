@@ -35,6 +35,7 @@ public class TowerDefenseGUI extends JFrame {
 	private static String towerTwo = "Tower Two";
 	private static String towerThree = "Tower Three";
 	private static String towerFour = "Tower Four";
+	private static String towerFive = "Tower Five";
 
 	private GamePlayPanel gamePlayPanel;
 	private TowerSelectionPanel towerSelectionPanel;
@@ -107,6 +108,12 @@ public class TowerDefenseGUI extends JFrame {
 		towerFourButton.addActionListener(new towerButtonListener());
 		group.add(towerFourButton);
 		buttonPanel.add(towerFourButton);
+		
+		JRadioButton towerFiveButton = new JRadioButton(towerFive);
+		towerFiveButton.setActionCommand(towerFive);
+		towerFiveButton.addActionListener(new towerButtonListener());
+		group.add(towerFiveButton);
+		buttonPanel.add(towerFiveButton);
 
 		// this.chatClient = new NRCClient();
 		// this.chatPanel = this.chatClient.getChatPanel();
@@ -177,16 +184,23 @@ public class TowerDefenseGUI extends JFrame {
 						}
 					} else if (currentString == "Tower Three") {
 						if (!map.isPath(p) && !map.isTower(p)
-								&& map.getPlayer().canBuy(10)) {
+								&& map.getPlayer().canBuy(15)) {
 							map.getPlayer().buy(15);
 							map.setTower(3, p);
 							repaint();
 						}
 					} else if (currentString == "Tower Four") {
 						if (!map.isPath(p) && !map.isTower(p)
-								&& map.getPlayer().canBuy(10)) {
+								&& map.getPlayer().canBuy(20)) {
 							map.getPlayer().buy(20);
 							map.setTower(4, p);
+							repaint();
+						}
+					} else if (currentString == "Tower Five") {
+						if (!map.isPath(p) && !map.isTower(p)
+								&& map.getPlayer().canBuy(10)) {
+							map.getPlayer().buy(10);
+							map.setTower(5, p);
 							repaint();
 						}
 					}
