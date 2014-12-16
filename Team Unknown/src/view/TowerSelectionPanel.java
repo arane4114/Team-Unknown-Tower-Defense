@@ -17,7 +17,7 @@ public class TowerSelectionPanel extends JPanel {
 	
 	private static String towerOne = "Tower One";
 	private static String towerTwo = "Tower Two";
-	private static String twoerThree = "Tower Three";
+	private static String towerThree = "Tower Three";
 	
 	public TowerSelectionPanel(){
 		
@@ -39,8 +39,8 @@ public class TowerSelectionPanel extends JPanel {
 		group.add(towerTwoButton);
 		buttonPanel.add(towerTwoButton);
 
-		JRadioButton towerThreeButton = new JRadioButton(twoerThree);
-		towerThreeButton.setActionCommand(twoerThree);
+		JRadioButton towerThreeButton = new JRadioButton(towerThree);
+		towerThreeButton.setActionCommand(towerThree);
 		towerThreeButton.addActionListener(new buttonListener());
 		group.add(towerThreeButton);
 		buttonPanel.add(towerThreeButton);

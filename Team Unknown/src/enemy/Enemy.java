@@ -19,12 +19,14 @@ public abstract class Enemy {
 	protected Timer timer;
 	protected int walkInterval = 100; 	// Not sure what the interval needs to be, adding 100 as a placeholder
 	protected boolean alive;
+	protected int baseHealth;
 	
 	public Enemy(int h, Map m) {
 		health = h;
 		points = health/10;
 		i = 0;
 		map = m;
+		this.baseHealth = health;
 		int random = (int) (Math.random() * 3);
 		
 		switch(random){
@@ -89,6 +91,14 @@ public abstract class Enemy {
 
 	public boolean isDead(){
 		return health <= 0;
+	}
+	
+	public void kill(){
+		this.health = 0;
+	}
+	
+	public void restoreHealth(){
+		this.health = this.baseHealth;
 	}
 
 	private class EnemyTimer implements ActionListener {
