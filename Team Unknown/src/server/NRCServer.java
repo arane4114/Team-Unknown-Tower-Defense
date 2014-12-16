@@ -7,10 +7,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import serverCommands.Command;
 import serverCommands.DisconnectCommand;
-import serverCommands.UpdateClientCommand;
+import serverCommands.UpdateChatClient;
 
 /**
  * This class is the server side of NRC. The server communicates with clients, 
@@ -115,7 +116,7 @@ public class NRCServer {
 	 */
 	public void updateClients() {
 		// make an UpdateClientCommmand, write to all connected users
-		UpdateClientCommand update = new UpdateClientCommand(messages);
+		UpdateChatClient update = new UpdateChatClient(messages);
 		try{
 			for (ObjectOutputStream out : outputs.values())
 				out.writeObject(update);
@@ -128,7 +129,15 @@ public class NRCServer {
 	public static void main(String[] args){
 		new NRCServer();
 	}
-
+	
+	public void sendHealth(String client){
+		for(Entry<String, ObjectOutputStream> name: outputs.entrySet()){
+			if(!name.getKey().equals(client)){
+				// send health command
+			}
+		}
+	}
+	
 	/**
 	 * Disconnects a given user from the server gracefully
 	 * @param clientName	user to disconnect

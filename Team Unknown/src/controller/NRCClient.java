@@ -58,7 +58,7 @@ public class NRCClient {
 	public NRCClient(){
 		// ask the user for a host, port, and user name
 		String host = JOptionPane.showInputDialog("Host address:");
-		String port = JOptionPane.showInputDialog("Host port:");
+		String port = "9000";
 		clientName = JOptionPane.showInputDialog("User name:");
 		
 		if (host == null || port == null || clientName == null)
