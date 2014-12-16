@@ -137,8 +137,8 @@ public class TowerDefenseGUI extends JFrame {
 
 		// infoPanel.add(chatPanel);
 
-		this.add(gamePanel, BorderLayout.WEST);
-		this.add(infoPanel, BorderLayout.EAST);
+		this.add(gamePanel, BorderLayout.CENTER);
+		this.add(infoPanel, BorderLayout.WEST);
 
 		map.addObserver((Observer) playerInfoPanel); // ADDed observer
 		map.addObserver((Observer) gamePlayPanel);

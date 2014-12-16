@@ -4,9 +4,14 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Observable;
 
-import tower.*;
-import model.*;
-import enemy.*;
+import tower.Tower;
+import tower.Tower_Type_0;
+import tower.Tower_Type_1;
+import tower.Tower_Type_2;
+import tower.Tower_Type_3;
+import tower.Tower_Type_4;
+import enemy.Enemy;
+import enemy.EnemySpawner;
 
 public class Map extends Observable {
 
