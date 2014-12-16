@@ -258,19 +258,19 @@ public class Map extends Observable {
 			spawner = true;
 		}
 		if(towerType == 1){
-			Tower t = new Tower_Type_0(6, 10, this, p, 2);
+			Tower t = new Tower_Type_0(6, 10, this, p, 4);
 			map[p.y][p.x].setTower(t);
 			towers.add(p);
 		}else if(towerType == 2){
-			Tower t = new Tower_Type_1(5, 10, this, p, 4);
+			Tower t = new Tower_Type_1(6, 10, this, p, 5);
 			map[p.y][p.x].setTower(t);
 			towers.add(p);
 		}else if(towerType == 3){
-			Tower t = new Tower_Type_2(3, 10, this, p, 6);
+			Tower t = new Tower_Type_2(6, 10, this, p, 5);
 			map[p.y][p.x].setTower(t);
 			towers.add(p);
 		}else if(towerType == 4){
-			Tower t = new Tower_Type_3(2, 10, this, p, 8);
+			Tower t = new Tower_Type_3(6, 10, this, p, 5);
 			map[p.y][p.x].setTower(t);
 			towers.add(p);
 		}

@@ -28,6 +28,8 @@ public abstract class Tower {
 	private final double enemy3Multiplier;
 	private int damageMultiplier;
 	private int level;
+	private List<Point> pointsInRange;
+	private int upgradeCost;
 	
 	public int getlevel(){
 		return level;
@@ -36,10 +38,14 @@ public abstract class Tower {
 	public int getDamageMultiplier(){
 		return damageMultiplier;
 	}
+	
+	public int getUpgradeCost(){
+		return this.upgradeCost;
+	}
 
 	protected Tower(int range, int fireInterval, Map map, Point location,
 			int damageAmount, double enemy1Multiplier, double enemy2Multiplier,
-			double enemy3Multiplier) {
+			double enemy3Multiplier, int upgradeCost) {
 		this.range = range;
 		this.fireInterval = fireInterval;
 		this.map = map;
@@ -53,45 +59,55 @@ public abstract class Tower {
 		this.enemy3Multiplier = enemy3Multiplier;
 		this.damageMultiplier = 1;
 		this.level = 1;
+		this.upgradeCost = upgradeCost;
+		this.pointsInRange = new LinkedList<Point>();
 		for (int i = 1; i <= range; i++) {
 			Point searchLocation;
 			// down
 			searchLocation = new Point(location.x, location.y + i);
+			this.pointsInRange.add(searchLocation);
 			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
 				this.validTargetPoints.add(searchLocation);
 			}
 			// down right
 			searchLocation = new Point(location.x + i, location.y + i);
+			this.pointsInRange.add(searchLocation);
 			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
 				this.validTargetPoints.add(searchLocation);
 			}
 			// right
 			searchLocation = new Point(location.x + i, location.y);
+			this.pointsInRange.add(searchLocation);
 			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
 				this.validTargetPoints.add(searchLocation);
 			}
 			// up right
 			searchLocation = new Point(location.x + i, location.y - i);
+			this.pointsInRange.add(searchLocation);
 			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
 				this.validTargetPoints.add(searchLocation);
 			}
 			// up
 			searchLocation = new Point(location.x, location.y - i);
+			this.pointsInRange.add(searchLocation);
 			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
 				this.validTargetPoints.add(searchLocation);
 			}
 			// up left
 			searchLocation = new Point(location.x - i, location.y - i);
+			this.pointsInRange.add(searchLocation);
 			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
 				this.validTargetPoints.add(searchLocation);
 			}
 			// left
 			searchLocation = new Point(location.x - i, location.y);
+			this.pointsInRange.add(searchLocation);
 			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
 				this.validTargetPoints.add(searchLocation);
 			}
 			// down left
 			searchLocation = new Point(location.x - i, location.y + i);
+			this.pointsInRange.add(searchLocation);
 			if (map.isValid(searchLocation) && map.isPath(searchLocation)) {
 				this.validTargetPoints.add(searchLocation);
 			}
@@ -110,6 +126,7 @@ public abstract class Tower {
 	public void levelUp() {
 		this.level++;
 		this.damageMultiplier *= 2;
+		this.upgradeCost *=2;
 	}
 
 	private void fireTurret() {
@@ -143,7 +160,11 @@ public abstract class Tower {
 	private boolean isInRange(Point p) {
 		return Math.abs(p.distance(location)) <= range;
 	}
-
+	
+	
+	public List<Point> getPointsInRange(){
+		return this.pointsInRange;
+	}
 	/*
 	 * Sets up a basic attack algorithm. Can be modified if the tower requires
 	 * it (the random tower will do so).

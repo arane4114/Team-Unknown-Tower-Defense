@@ -1,13 +1,13 @@
 package view;
 
 import java.awt.Color;
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -16,14 +16,14 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import enemy.Enemy1;
-import enemy.Enemy2;
-import enemy.Enemy3;
+import map.Map;
 import tower.Tower_Type_0;
 import tower.Tower_Type_1;
 import tower.Tower_Type_2;
 import tower.Tower_Type_3;
-import map.*;
+import enemy.Enemy1;
+import enemy.Enemy2;
+import enemy.Enemy3;
 
 public class GamePlayPanel extends JPanel implements Observer{
 
@@ -37,6 +37,8 @@ public class GamePlayPanel extends JPanel implements Observer{
 	private final int DELTA_Y = 15;
 	private final int X_BASE = 0;
 	private final int Y_BASE = 0;
+	
+	private List<Point> pointsInRange;
 
 	public GamePlayPanel(int mapSelected, TowerDefenseGUI towerDefeseGUI){
 		this.setPreferredSize(new Dimension(750, 750));
@@ -64,6 +66,10 @@ public class GamePlayPanel extends JPanel implements Observer{
 			}
 		}
 		
+	}
+	
+	public void setPointsInRange(List<Point> pointsInRange){
+		this.pointsInRange = pointsInRange;
 	}
 
 	@Override
@@ -157,6 +163,13 @@ public class GamePlayPanel extends JPanel implements Observer{
 				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 15, 15);
 			}
 			
+		}
+		
+		if(this.pointsInRange != null){
+			for(Point p: this.pointsInRange){
+				g.setColor(new Color(0,0,0,177));
+				g.fillRect(((p.x * DELTA_X) + X_BASE),((p.y * DELTA_Y) + Y_BASE), 15, 15);
+			}
 		}
 		
 		g.setColor(Color.WHITE);

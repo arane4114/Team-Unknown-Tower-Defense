@@ -42,7 +42,8 @@ public class MainMenuPanel extends JPanel{
 	        g.drawString("Level 2", 475, 370);
 	        g.drawString("Level 3", 475, 440);
 	        g.drawString("2-Player", 475, 510);
-	        g.drawString("Exit Game", 475, 580);
+	        g.drawString("Custom Map", 475, 580);
+	        g.drawString("Exit Game", 475, 650);
 	        
 	}	
 }

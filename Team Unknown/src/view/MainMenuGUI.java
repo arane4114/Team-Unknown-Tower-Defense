@@ -45,6 +45,8 @@ public class MainMenuGUI extends JFrame {
 			}else if(e.getX() >= 475 && e.getX() <= 672 && e.getY() >= 472 && e.getY() <= 510){
 				System.out.println("2 Player");
 			}else if(e.getX() >= 475 && e.getX() <= 720 && e.getY() >= 543 && e.getY() <= 580){
+				System.out.println("Custom");
+			}else if(e.getX() >= 475 && e.getX() <= 690 && e.getY() >= 615 && e.getY() <= 655){
 				System.exit(0);
 			}
 		}

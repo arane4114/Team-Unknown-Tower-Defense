@@ -12,7 +12,7 @@ public class Tower_Type_3 extends Tower{
 	public Tower_Type_3(int range, int fireInterval, Map map,
 			Point location, int damageAmount) {
 		super(range, fireInterval, map, location, damageAmount, 1.0,
-				0.5, 2.0);
+				0.5, 2.0, 10);
 	}
 
 	@Override
