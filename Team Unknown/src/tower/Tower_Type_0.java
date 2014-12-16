@@ -31,6 +31,6 @@ public class Tower_Type_0 extends Tower {
 		return "This is the standard\n tower. \n Damage to all enemies: "
 				+ this.damageAmount + "\n Shots per second: " + 1000
 				/ this.fireInterval + "\n Current level: " + this.level
-				+ "\n Upgrade cost: " + this.upgradeCost;
+				+ "\n Upgrade cost: " + this.upgradeCost + "\n Upgrades doubles damage!";
 	}
 }
