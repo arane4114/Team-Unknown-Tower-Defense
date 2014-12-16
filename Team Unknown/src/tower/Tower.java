@@ -27,9 +27,9 @@ public abstract class Tower {
 	private final double enemy2Multiplier;
 	private final double enemy3Multiplier;
 	private int damageMultiplier;
-	private int level;
+	protected int level;
 	private List<Point> pointsInRange;
-	private int upgradeCost;
+	protected int upgradeCost;
 	
 	public int getlevel(){
 		return level;
@@ -126,7 +126,7 @@ public abstract class Tower {
 	public void levelUp() {
 		this.level++;
 		this.damageMultiplier *= 2;
-		this.upgradeCost *=2;
+		this.upgradeCost += upgradeCost / 5;
 	}
 
 	private void fireTurret() {

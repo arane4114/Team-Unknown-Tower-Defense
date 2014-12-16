@@ -42,7 +42,7 @@ public class TowerDefenseGUI extends JFrame {
 	private ChatPanel chatPanel;
 	private MiniMapPanel miniMapPanel;
 	private MainMenuGUI mainMenuGUI;
-	private TowerInfoPanel towerInfoPanel;
+	private CellInfoPanel cellInfoPanel;
 
 	private JPanel buttonPanel;
 
@@ -117,7 +117,7 @@ public class TowerDefenseGUI extends JFrame {
 
 		towerSelectionPanel = new TowerSelectionPanel();
 		playerInfoPanel = new PlayerInfoPanel();
-		this.towerInfoPanel = new TowerInfoPanel();
+		this.cellInfoPanel = new CellInfoPanel(this.map);
 
 		JPanel gamePanel = new JPanel();
 		gamePanel.add(gamePlayPanel);
@@ -126,7 +126,7 @@ public class TowerDefenseGUI extends JFrame {
 		infoPanel.setPreferredSize(new Dimension(250, 750));
 		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
 		infoPanel.add(buttonPanel, BorderLayout.CENTER);
-		infoPanel.add(towerInfoPanel, BorderLayout.SOUTH);
+		infoPanel.add(cellInfoPanel, BorderLayout.SOUTH);
 
 		// infoPanel.add(chatPanel);
 
@@ -158,18 +158,6 @@ public class TowerDefenseGUI extends JFrame {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
 			Point p = new Point(e.getX() / 15, e.getY() / 15);
 			if (map.isValid(p)) {
 				if (SwingUtilities.isLeftMouseButton(e)) {
@@ -202,23 +190,33 @@ public class TowerDefenseGUI extends JFrame {
 							repaint();
 						}
 					}
-					if (map.isTower(p)
-							&& map.getPlayer().canBuy(
-									map.getTower(p).getUpgradeCost())) {
-						map.getPlayer().buy(map.getTower(p).getUpgradeCost());
-						map.getTower(p).levelUp();
-					}
 				} else if (SwingUtilities.isRightMouseButton(e)) {
+					cellInfoPanel.setPoint(p);
 					if (map.isTower(p)) {
 						List<Point> pointsInRange = map.getTower(p)
 								.getPointsInRange();
 						gamePlayPanel.setPointsInRange(pointsInRange);
+						repaint();
 					} else {
 						gamePlayPanel.setPointsInRange(null);
+						repaint();
 					}
 				} else {
 				}
 			}
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+
 		}
 
 		@Override

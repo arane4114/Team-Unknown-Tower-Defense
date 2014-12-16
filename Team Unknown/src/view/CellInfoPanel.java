@@ -1,0 +1,65 @@
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+import map.Map;
+
+public class CellInfoPanel extends JPanel {
+	private JTextArea text;
+	private Map map;
+	private JButton upgrade;
+	private Point currentPoint;
+
+	public void setPoint(Point point) {
+		if (map.isValid(point)) {
+			this.currentPoint = point;
+			if (map.isTower(point)) {
+				text.setText(" " + map.getTower(point));
+				this.upgrade.setEnabled(true);
+			}else if(map.isPath(point)){
+				text.setText(" Enemes can go here!");
+			}
+			else {
+				this.upgrade.setEnabled(false);
+				text.setText(" Nothing to see here!");
+			}
+		}
+	}
+
+	public CellInfoPanel(Map map) {
+		this.map = map;
+		this.upgrade = new JButton("Upgrade!");
+		this.setPreferredSize(new Dimension(250, 275));
+		this.text = new JTextArea();
+		this.text.setPreferredSize(new Dimension(250, 175));
+		this.text.setFont(new Font("Courier", Font.PLAIN, 16));
+		this.upgrade.addActionListener(new upgradeListener());
+		this.add(text, BorderLayout.NORTH);
+		this.add(upgrade, BorderLayout.SOUTH);
+		this.upgrade.setEnabled(false);
+	}
+
+	private class upgradeListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (map.isTower(currentPoint)
+					&& map.getPlayer().canBuy(
+							map.getTower(currentPoint).getUpgradeCost())) {
+				map.getPlayer().buy(map.getTower(currentPoint).getUpgradeCost());
+				map.getTower(currentPoint).levelUp();
+				text.setText(" " + map.getTower(currentPoint));
+			}
+		}
+	}
+
+}
