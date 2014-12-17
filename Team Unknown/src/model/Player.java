@@ -7,7 +7,7 @@ public class Player {
 	private int points;
 	private Map map;
 	
-	private final int WIN_POINTS = 25;
+	private final int WIN_POINTS = 100;
 	
 	public Player(Map map){
 		this.health = 10;

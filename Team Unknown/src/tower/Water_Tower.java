@@ -13,7 +13,7 @@ import enemy.Fire_Enemy;
  * @author Bryce Hammod
  * @author Sean Gallardo
  */
-public class Tower_Type_2 extends Tower {
+public class Water_Tower extends Tower {
 	
 	/**
 	 * Public constructor for this tower.
@@ -23,7 +23,7 @@ public class Tower_Type_2 extends Tower {
 	 * @param location Its location on the {@link Map}
 	 * @param damageAmount The base damage of this tower
 	 */
-	public Tower_Type_2(int range, int fireInterval, Map map, Point location,
+	public Water_Tower(int range, int fireInterval, Map map, Point location,
 			int damageAmount) {
 		super(range, fireInterval, map, location, damageAmount, 0.5, 2.0, 1.0,
 				10);
@@ -45,11 +45,11 @@ public class Tower_Type_2 extends Tower {
 	 * Provides a description of the current tower and its stats.
 	 */
 	public String toString() {
-		return "This is the third\n tower. \n Damage to enemy 1: "
+		return "This is the Water\n tower. \n Damage to Fire Enemy: "
 				+ this.damageAmount * this.enemy1Multiplier
-				* this.damageMultiplier + "\n Damage to enemy 2: "
+				* this.damageMultiplier + "\n Damage to Water Enemy: "
 				+ this.damageAmount * this.enemy2Multiplier
-				* this.damageMultiplier + "\n Damage to enemy 3: "
+				* this.damageMultiplier + "\n Damage to Stone Enemy: "
 				+ this.damageAmount * this.enemy3Multiplier
 				* this.damageMultiplier + "\n Shots per second: " + 1000
 				/ this.fireInterval + "\n Current level: " + this.level

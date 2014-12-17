@@ -13,12 +13,12 @@ import enemy.Enemy;
  * @author Abhishek
  *
  */
-public class Tower_Type_4 extends Tower {
+public class Super_Tower extends Tower {
 
-	public Tower_Type_4(int range, int fireInterval, Map map, Point location) {
+	public Super_Tower(int range, int fireInterval, Map map, Point location) {
 		super(range, fireInterval, map, location, 0, 0, 0, 0, 20);
 	}
-	
+
 	/**
 	 * Will either kill an enemy or restore it to full health.
 	 */
@@ -31,11 +31,26 @@ public class Tower_Type_4 extends Tower {
 			this.currentTarget.restoreHealth();
 		}
 	}
-	
+
 	@Override
 	protected void selectEnemyFromList(List<Enemy> listOfEnemies) {
 		int randomValue = (int) Math.random() * listOfEnemies.size();
 		currentTarget = listOfEnemies.get(randomValue);
+	}
+	
+	public void levelUp(){
+		this.fireInterval /=2;
+		this.timer.setDelay(fireInterval);
+	}
+
+	/**
+	 * Provides a description of the current tower and its stats.
+	 */
+	public String toString() {
+		return "This is the Super\n tower." + "\n 50% to kill an enemy"
+				+ "\n 50% chance to restore it \n to full health" + "\n Shots per second: " + 1000
+				/ this.fireInterval + "\n Upgrades double fire rate"
+				+ "\n Use with cation!";
 	}
 
 }

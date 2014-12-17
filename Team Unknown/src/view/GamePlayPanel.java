@@ -20,11 +20,11 @@ import javax.swing.JPanel;
 import model.Map;
 import network.PointColorObject;
 import network.TowerClient;
-import tower.Tower_Type_0;
-import tower.Tower_Type_1;
-import tower.Tower_Type_2;
-import tower.Tower_Type_3;
-import tower.Tower_Type_4;
+import tower.Neutral_Tower;
+import tower.Fire_Tower;
+import tower.Water_Tower;
+import tower.Stone_Tower;
+import tower.Super_Tower;
 import enemy.Stone_Enemy;
 import enemy.Fire_Enemy;
 import enemy.Water_Enemy;
@@ -208,27 +208,27 @@ public class GamePlayPanel extends JPanel implements Observer {
 		}
 
 		for (Point p : this.map.getTowers()) {
-			if (map.getTower(p) instanceof Tower_Type_0) {
+			if (map.getTower(p) instanceof Neutral_Tower) {
 				g.setColor(Color.red);
 				g.fillRect(((p.x * DELTA_X) + X_BASE),
 						((p.y * DELTA_Y) + Y_BASE), 15, 15);
 				pointColorList.add(new PointColorObject(new Point(p), g.getColor()));
-			} else if (map.getTower(p) instanceof Tower_Type_1) {
+			} else if (map.getTower(p) instanceof Fire_Tower) {
 				g.setColor(Color.yellow);
 				g.fillRect(((p.x * DELTA_X) + X_BASE),
 						((p.y * DELTA_Y) + Y_BASE), 15, 15);
 				pointColorList.add(new PointColorObject(new Point(p), g.getColor()));
-			} else if (map.getTower(p) instanceof Tower_Type_2) {
+			} else if (map.getTower(p) instanceof Water_Tower) {
 				g.setColor(Color.green);
 				g.fillRect(((p.x * DELTA_X) + X_BASE),
 						((p.y * DELTA_Y) + Y_BASE), 15, 15);
 				pointColorList.add(new PointColorObject(new Point(p), g.getColor()));
-			} else if (map.getTower(p) instanceof Tower_Type_3) {
+			} else if (map.getTower(p) instanceof Stone_Tower) {
 				g.setColor(Color.blue);
 				g.fillRect(((p.x * DELTA_X) + X_BASE),
 						((p.y * DELTA_Y) + Y_BASE), 15, 15);
 				pointColorList.add(new PointColorObject(new Point(p), g.getColor()));
-			} else if (map.getTower(p) instanceof Tower_Type_4) {
+			} else if (map.getTower(p) instanceof Super_Tower) {
 				g.setColor(Color.black);
 				g.fillRect(((p.x * DELTA_X) + X_BASE),
 						((p.y * DELTA_Y) + Y_BASE), 15, 15);

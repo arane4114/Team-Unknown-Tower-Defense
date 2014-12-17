@@ -13,7 +13,7 @@ import enemy.Enemy;
  * @author Bryce Hammod
  * @author Sean Gallardo
  */
-public class Tower_Type_0 extends Tower {
+public class Neutral_Tower extends Tower {
 	
 	/**
 	 * Public constructor for this tower.
@@ -23,7 +23,7 @@ public class Tower_Type_0 extends Tower {
 	 * @param location Its location on the {@link Map}
 	 * @param damageAmount The base damage of this tower
 	 */
-	public Tower_Type_0(int range, int fireInterval, Map map, Point location,
+	public Neutral_Tower(int range, int fireInterval, Map map, Point location,
 			int damageAmount) {
 		super(range, fireInterval, map, location, damageAmount, 1.0, 1.0, 1.0,
 				5);

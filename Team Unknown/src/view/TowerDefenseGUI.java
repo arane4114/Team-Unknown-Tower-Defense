@@ -42,13 +42,13 @@ public class TowerDefenseGUI extends JFrame {
 
 	private Map map;
 
-	private String currentString = "Tower One";
+	private String currentString = "Neutral Tower";
 
-	private static String towerOne = "Tower One";
-	private static String towerTwo = "Tower Two";
-	private static String towerThree = "Tower Three";
-	private static String towerFour = "Tower Four";
-	private static String towerFive = "Tower Five";
+	private static String neutralTower = "Neutral Tower";
+	private static String fireTower = "Fire Tower";
+	private static String waterTower = "Water Tower";
+	private static String stoneTower = "Stone Tower";
+	private static String superTower = "Super Tower";
 
 	private GamePlayPanel gamePlayPanel;
 	private TowerSelectionPanel towerSelectionPanel;
@@ -150,33 +150,33 @@ public class TowerDefenseGUI extends JFrame {
 		ButtonGroup group = new ButtonGroup();
 		buttonPanel = new JPanel(new GridLayout(3, 0));
 
-		JRadioButton towerOneButton = new JRadioButton(towerOne);
-		towerOneButton.setActionCommand(towerOne);
+		JRadioButton towerOneButton = new JRadioButton(neutralTower);
+		towerOneButton.setActionCommand(neutralTower);
 		towerOneButton.setSelected(true);
 		towerOneButton.addActionListener(new towerButtonListener());
 		group.add(towerOneButton);
 		buttonPanel.add(towerOneButton);
 
-		JRadioButton towerTwoButton = new JRadioButton(towerTwo);
-		towerTwoButton.setActionCommand(towerTwo);
+		JRadioButton towerTwoButton = new JRadioButton(fireTower);
+		towerTwoButton.setActionCommand(fireTower);
 		towerTwoButton.addActionListener(new towerButtonListener());
 		group.add(towerTwoButton);
 		buttonPanel.add(towerTwoButton);
 
-		JRadioButton towerThreeButton = new JRadioButton(towerThree);
-		towerThreeButton.setActionCommand(towerThree);
+		JRadioButton towerThreeButton = new JRadioButton(waterTower);
+		towerThreeButton.setActionCommand(waterTower);
 		towerThreeButton.addActionListener(new towerButtonListener());
 		group.add(towerThreeButton);
 		buttonPanel.add(towerThreeButton);
 
-		JRadioButton towerFourButton = new JRadioButton(towerFour);
-		towerFourButton.setActionCommand(towerFour);
+		JRadioButton towerFourButton = new JRadioButton(stoneTower);
+		towerFourButton.setActionCommand(stoneTower);
 		towerFourButton.addActionListener(new towerButtonListener());
 		group.add(towerFourButton);
 		buttonPanel.add(towerFourButton);
 
-		JRadioButton towerFiveButton = new JRadioButton(towerFive);
-		towerFiveButton.setActionCommand(towerFive);
+		JRadioButton towerFiveButton = new JRadioButton(superTower);
+		towerFiveButton.setActionCommand(superTower);
 		towerFiveButton.addActionListener(new towerButtonListener());
 		group.add(towerFiveButton);
 		buttonPanel.add(towerFiveButton);
@@ -240,38 +240,38 @@ public class TowerDefenseGUI extends JFrame {
 			Point p = new Point(e.getX() / 15, e.getY() / 15);
 			if (map.isValid(p)) {
 				if (SwingUtilities.isLeftMouseButton(e)) {
-					if (currentString == "Tower One") {
+					if (currentString.equals(neutralTower)) {
 						if (!map.isPath(p) && !map.isTower(p)
 								&& map.getPlayer().canBuy(5)) {
 							map.getPlayer().buy(5);
 							map.setTower(1, p);
 							repaint();
 						}
-					} else if (currentString == "Tower Two") {
+					} else if (currentString.equals(fireTower)) {
 						if (!map.isPath(p) && !map.isTower(p)
 								&& map.getPlayer().canBuy(10)) {
 							map.getPlayer().buy(10);
 							map.setTower(2, p);
 							repaint();
 						}
-					} else if (currentString == "Tower Three") {
+					} else if (currentString.equals(waterTower)) {
 						if (!map.isPath(p) && !map.isTower(p)
 								&& map.getPlayer().canBuy(10)) {
-							map.getPlayer().buy(15);
+							map.getPlayer().buy(10);
 							map.setTower(3, p);
 							repaint();
 						}
-					} else if (currentString == "Tower Four") {
+					} else if (currentString.equals(stoneTower)) {
 						if (!map.isPath(p) && !map.isTower(p)
 								&& map.getPlayer().canBuy(10)) {
-							map.getPlayer().buy(20);
+							map.getPlayer().buy(10);
 							map.setTower(4, p);
 							repaint();
 						}
-					} else if (currentString == "Tower Five") {
+					} else if (currentString.equals(superTower)) {
 						if (!map.isPath(p) && !map.isTower(p)
 								&& map.getPlayer().canBuy(20)) {
-							map.getPlayer().buy(10);
+							map.getPlayer().buy(15);
 							map.setTower(5, p);
 							repaint();
 						}
@@ -346,7 +346,12 @@ public class TowerDefenseGUI extends JFrame {
 										+ "at them as they pass. Enemies and towers \n"
 										+ "have varied abilities, costs, and upgrade prices. \n"
 										+ "When an enemy is defeated, the player earns money, \n"
-										+ "which can be used to buy or upgrade towers.",
+										+ "which can be used to buy or upgrade towers.\n"
+										+ "Fire towers are good against stone enemies (grey) \n"
+										+ "Water towers are good against fire enemies (red) \n"
+										+ "Stone towers are good againt water enemies (blue) \n"
+										+ "Nuetral towers are average agains all types \n"
+										+ "Super towers can one shot kill or restore an\n enemy to full health. Use with caution!",
 								"Rules", JOptionPane.PLAIN_MESSAGE);
 			} else if (e.getSource() == menuItemSpeed) {
 				System.out.println("SPEED");

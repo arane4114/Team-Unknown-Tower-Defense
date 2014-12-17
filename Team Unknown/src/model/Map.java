@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import tower.Tower;
-import tower.Tower_Type_0;
-import tower.Tower_Type_1;
-import tower.Tower_Type_2;
-import tower.Tower_Type_3;
-import tower.Tower_Type_4;
+import tower.Neutral_Tower;
+import tower.Fire_Tower;
+import tower.Water_Tower;
+import tower.Stone_Tower;
+import tower.Super_Tower;
 import view.TowerDefenseGUI;
 import enemy.Enemy;
 import enemy.EnemySpawner;
@@ -268,23 +268,23 @@ public class Map extends Observable {
 			spawner = true;
 		}
 		if (towerType == 1) {
-			Tower t = new Tower_Type_0(6, 10, this, p, 4);
+			Tower t = new Neutral_Tower(6, 10, this, p, 4);
 			map[p.y][p.x].setTower(t);
 			towers.add(p);
 		} else if (towerType == 2) {
-			Tower t = new Tower_Type_1(6, 10, this, p, 5);
+			Tower t = new Fire_Tower(6, 10, this, p, 5);
 			map[p.y][p.x].setTower(t);
 			towers.add(p);
 		} else if (towerType == 3) {
-			Tower t = new Tower_Type_2(6, 10, this, p, 5);
+			Tower t = new Water_Tower(6, 10, this, p, 5);
 			map[p.y][p.x].setTower(t);
 			towers.add(p);
 		} else if (towerType == 4) {
-			Tower t = new Tower_Type_3(6, 10, this, p, 5);
+			Tower t = new Stone_Tower(6, 10, this, p, 5);
 			map[p.y][p.x].setTower(t);
 			towers.add(p);
 		} else if (towerType == 5) {
-			Tower t = new Tower_Type_4(10, 1000, this, p);
+			Tower t = new Super_Tower(10, 250, this, p);
 			map[p.y][p.x].setTower(t);
 			towers.add(p);
 		}
