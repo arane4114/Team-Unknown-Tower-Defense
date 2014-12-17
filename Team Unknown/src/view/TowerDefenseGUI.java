@@ -268,6 +268,11 @@ public class TowerDefenseGUI extends JFrame {
 		}
 	}
 
+	/**
+	 * Allows other classes to get access to the multiplayer client.
+	 * 
+	 * @return The tower client object. Null if not in multiplayer.
+	 */
 	public TowerClient getTowerClient() {
 		return this.towerClient;
 	}
@@ -493,6 +498,13 @@ public class TowerDefenseGUI extends JFrame {
 		}
 	}
 
+	/**
+	 * Used in a multiplayer scenario where player two needs to find what map
+	 * the host is playing on. This method sets of the finish setting up GUI
+	 * method as the second half of init depends on map id being valid. 
+	 * @param mapId2
+	 *            The map id of the host.
+	 */
 	public void setMapId(Integer mapId2) {
 		this.mapId = mapId2;
 		this.finishSettingUpGUI();

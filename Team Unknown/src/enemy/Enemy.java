@@ -32,7 +32,11 @@ public abstract class Enemy implements Serializable{
 	protected boolean alive;
 	protected int baseHealth;
 
-	
+	/**
+	 * This is the base enemy spawner. Take the health and map its on.
+	 * @param h base health
+	 * @param m map this enemy will be on
+	 */
 	public Enemy(int h, Map m) {
 		health = h;
 		points = health / 10;
