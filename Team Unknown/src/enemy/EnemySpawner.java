@@ -1,8 +1,8 @@
 package enemy;
 
 import java.awt.event.ActionEvent;
-
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.Timer;
 
@@ -17,11 +17,11 @@ import model.Map;
  * @author Sean Gallardo
  *
  */
-public class EnemySpawner {
+public class EnemySpawner implements Serializable{
 
 	private Map map;
-	private Timer timer;
-	private Timer timerTwo;
+	transient private Timer timer;
+	transient private Timer timerTwo;
 	private int spawnInterval = 15000;
 	private int enemyInterval = 150;
 	private int numberOfEnemies;
@@ -70,6 +70,11 @@ public class EnemySpawner {
 	public void resume(){
 		timer.start();
 		timerTwo.start();
+	}
+	
+	public void wasLoadedFromDisk(){
+		this.timer = new Timer(this.spawnInterval, new SpawnTimer());
+		this.timerTwo = new Timer(this.enemyInterval, new EmenyTimer());
 	}
 	
 	/**

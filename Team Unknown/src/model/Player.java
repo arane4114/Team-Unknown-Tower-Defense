@@ -1,6 +1,6 @@
 package model;
 
-import enemy.Enemy;
+import java.io.Serializable;
 
 /**
  * Player object holds information about the players statistics.
@@ -10,7 +10,7 @@ import enemy.Enemy;
  * @author Sean Gallardo
  *
  */
-public class Player {
+public class Player implements Serializable{
 
 	private int health;
 	private int money;

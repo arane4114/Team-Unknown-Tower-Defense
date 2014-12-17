@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import tower.*;
-import enemy.*;
+import tower.Tower;
+import enemy.Enemy;
 
 /**
  * Cell objects are placed in the {@link Map}. They link  enemies {@link Enemy}
@@ -14,7 +15,7 @@ import enemy.*;
  * @author Sean Gallardo
  *
  */
-public class Cell {
+public class Cell implements Serializable{
 	private boolean path;
 	private boolean isTower;
 	private ArrayList<Enemy> enemies;

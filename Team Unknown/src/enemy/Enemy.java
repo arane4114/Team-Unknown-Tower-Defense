@@ -3,6 +3,7 @@ package enemy;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.Timer;
@@ -19,18 +20,19 @@ import network.TowerClient;
  * @author Sean Gallardo
  *
  */
-public abstract class Enemy {
+public abstract class Enemy implements Serializable{
 
 	protected int health, points, i;
 	protected Point current;
 	protected Map map;
 	protected ArrayList<Point> path;
-	protected Timer timer;
+	transient protected Timer timer;
 	protected int walkInterval = 100;
 
 	protected boolean alive;
 	protected int baseHealth;
 
+	
 	public Enemy(int h, Map m) {
 		health = h;
 		points = health / 10;
@@ -161,7 +163,10 @@ public abstract class Enemy {
 	public void resume() {
 		this.timer.restart();
 	}
-
+	
+	public void wasLoadedFromDisk(){
+		this.timer = new Timer(this.walkInterval, new EnemyTimer());
+	}
 	/**
 	 * Enemy timer action listener for movement of enemies. 
 	 * @author Bryce Hammond

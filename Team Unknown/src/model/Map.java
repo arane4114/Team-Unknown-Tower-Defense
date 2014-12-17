@@ -1,20 +1,21 @@
 package model;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 
-import tower.Tower;
-import tower.Neutral_Tower;
 import tower.Fire_Tower;
-import tower.Water_Tower;
+import tower.Neutral_Tower;
 import tower.Stone_Tower;
 import tower.Super_Tower;
+import tower.Tower;
+import tower.Water_Tower;
 import view.TowerDefenseGUI;
 import enemy.Enemy;
 import enemy.EnemySpawner;
 
-public class Map extends Observable {
+public class Map extends Observable implements Serializable{
 
 	private Cell[][] map;
 	private ArrayList<Point> leftPath;
@@ -26,7 +27,7 @@ public class Map extends Observable {
 	private EnemySpawner enemySpawner;
 	private boolean spawner;
 	private int mapId;
-	private TowerDefenseGUI gui;
+	transient private TowerDefenseGUI gui;
 
 	public Map(TowerDefenseGUI gui) {
 		map = new Cell[50][50];
@@ -349,7 +350,34 @@ public class Map extends Observable {
 			System.out.println();
 		}
 	}
-
+	
+	public void wasLoadedFromDisk(TowerDefenseGUI gui){
+		this.gui = gui;
+		for(Point p: towers){
+			this.getTower(p).wasLoadedFromDisk();
+		}
+		
+		for(Point p: leftPath){
+			for(Enemy e: this.getListOfEnemies(p)){
+				e.wasLoadedFromDisk();
+			}
+		}
+		
+		for(Point p: middlePath){
+			for(Enemy e: this.getListOfEnemies(p)){
+				e.wasLoadedFromDisk();
+			}
+		}
+		
+		for(Point p: rightPath){
+			for(Enemy e: this.getListOfEnemies(p)){
+				e.wasLoadedFromDisk();
+			}
+		}
+		
+		this.enemySpawner.wasLoadedFromDisk();
+	}
+	
 	public boolean hasEnemy(Point p) {
 		return !map[p.y][p.x].getEnemies().isEmpty();
 	}

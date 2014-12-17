@@ -3,6 +3,7 @@ package tower;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,8 +11,8 @@ import javax.swing.Timer;
 
 import model.Map;
 import enemy.Enemy;
-import enemy.Stone_Enemy;
 import enemy.Fire_Enemy;
+import enemy.Stone_Enemy;
 
 /**
  * Tower objects are placed on the {@link Map}. They shoot at {@link Enemy}
@@ -22,10 +23,10 @@ import enemy.Fire_Enemy;
  * @author Sean Gallardo
  *
  */
-public abstract class Tower {
+public abstract class Tower implements Serializable{
 	protected int range;
 	protected int fireInterval;
-	protected Timer timer;
+	transient protected Timer timer;
 	protected Map map;
 	protected boolean isTargeting;
 	protected Point location;
@@ -213,6 +214,10 @@ public abstract class Tower {
 	 * @param listOfEnemies A list of all enemies in range.
 	 */
 	protected abstract void selectEnemyFromList(List<Enemy> listOfEnemies);
+	
+	public void wasLoadedFromDisk(){
+		timer = new Timer(fireInterval, new TowerTimer());
+	}
 	
 	/**
 	 * Private inner class for the fire tower. 
