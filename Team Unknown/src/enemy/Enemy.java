@@ -8,29 +8,31 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 
 import model.Map;
+import network.TowerClient;
 
 public abstract class Enemy {
-	
+
 	protected int health, points, i;
-	//private final static Image sprite;
-	//Will need to set sprites for each enemy
+	// private final static Image sprite;
+	// Will need to set sprites for each enemy
 	protected Point current;
 	protected Map map;
 	protected ArrayList<Point> path;
 	protected Timer timer;
-	protected int walkInterval = 100; 	// Not sure what the interval needs to be, adding 100 as a placeholder
+	protected int walkInterval = 100; // Not sure what the interval needs to be,
+										// adding 100 as a placeholder
 	protected boolean alive;
 	protected int baseHealth;
-	
+
 	public Enemy(int h, Map m) {
 		health = h;
-		points = health/10;
+		points = health / 10;
 		i = 0;
 		map = m;
 		this.baseHealth = health;
 		int random = (int) (Math.random() * 3);
-		
-		switch(random){
+
+		switch (random) {
 		case 0:
 			path = map.getLeftPath();
 			break;
@@ -41,65 +43,79 @@ public abstract class Enemy {
 			path = map.getRightPath();
 			break;
 		}
-	
+
 		current = path.get(i);
-		map.addEnemy(current, this); //Added by Bryce
+		map.addEnemy(current, this); // Added by Bryce
 		this.timer = new Timer(this.walkInterval, new EnemyTimer());
 		this.alive = true;
 		timer.start();
 	}
 
-	abstract public void doDamage(double damage);	
+	abstract public void doDamage(double damage);
+
 	// Tower sends this command to an enemy to deal damage
 	// Making it abstract so we can change how much damage each enemy takes
-	//  to account for armor or something
-	
-	public int getPoints(){
-		return points; 					//Preliminary number of points given when enemy is killed
+	// to account for armor or something
+
+	public int getPoints() {
+		return points; // Preliminary number of points given when enemy is
+						// killed
 	}
 
-	public int getHealth(){
+	public int getHealth() {
 		return health;
 	}
 
-	public Point getCurrent(){
+	public Point getCurrent() {
 		return current;
 	}
-	
-	public boolean getAlive(){
+
+	public boolean getAlive() {
 		return alive;
 	}
 
-	public void moveToNext(){
+	public void moveToNext() {
 		i++;
-		if(health <= 0){
+		if (health <= 0) {
 			map.getPlayer().addPoints(1);
 			map.getPlayer().earn(2);
 			map.removeEnemy(current, this);
 			this.alive = false;
 			timer.stop();
-		}else if(i < path.size()){
+		} else if (i < path.size()) {
 			map.removeEnemy(current, this);
 			current = path.get(i);
 			map.addEnemy(current, this);
-		}else{
+		} else {
 			map.getPlayer().damage(1);
+			TowerClient client = map.getTowerDefenseGUI().getTowerClient();
+			if (client != null) {
+				client.hasBeenHit();
+			}
 			map.removeEnemy(current, this);
 			this.alive = false;
 			timer.stop();
 		}
 	}
 
-	public boolean isDead(){
+	public boolean isDead() {
 		return health <= 0;
 	}
-	
-	public void kill(){
+
+	public void kill() {
 		this.health = 0;
 	}
-	
-	public void restoreHealth(){
+
+	public void restoreHealth() {
 		this.health = this.baseHealth;
+	}
+
+	public void pause() {
+		this.timer.stop();
+	}
+
+	public void resume() {
+		this.timer.restart();
 	}
 
 	private class EnemyTimer implements ActionListener {

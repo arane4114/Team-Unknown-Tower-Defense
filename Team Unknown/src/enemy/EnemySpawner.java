@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 import model.Map;
+import view.TowerDefenseGUI;
 
 public class EnemySpawner {
 
@@ -37,6 +38,16 @@ public class EnemySpawner {
 			count = 0;
 			timerTwo.start();
 		}
+	}
+	
+	public void pause(){
+		timer.stop();
+		timerTwo.stop();
+	}
+	
+	public void resume(){
+		timer.start();
+		timerTwo.start();
 	}
 	
 	private class EmenyTimer implements ActionListener {

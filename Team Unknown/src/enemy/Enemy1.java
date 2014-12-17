@@ -1,6 +1,7 @@
 package enemy;
 
 import model.Map;
+import view.TowerDefenseGUI;
 
 public class Enemy1 extends Enemy{
 

@@ -10,6 +10,7 @@ import tower.Tower_Type_1;
 import tower.Tower_Type_2;
 import tower.Tower_Type_3;
 import tower.Tower_Type_4;
+import view.TowerDefenseGUI;
 import enemy.Enemy;
 import enemy.EnemySpawner;
 
@@ -25,9 +26,11 @@ public class Map extends Observable {
 	private EnemySpawner enemySpawner;
 	private boolean spawner;
 	private int mapNumber;
+	private TowerDefenseGUI gui;
 
-	public Map(int mapNumber) {
+	public Map(int mapNumber, TowerDefenseGUI gui) {
 		map = new Cell[50][50];
+		this.gui = gui;
 		for (int i = 0; i < 50; i++) {
 			for (int j = 0; j < 50; j++) {
 				map[i][j] = new Cell();
@@ -46,7 +49,7 @@ public class Map extends Observable {
 
 		this.towers = new ArrayList<Point>();
 		this.ghostTower = new Point(-1, -1);
-		this.player = new Player();
+		this.player = new Player(this);
 		this.spawner = false;
 	}
 
@@ -326,6 +329,10 @@ public class Map extends Observable {
 
 	public EnemySpawner getEnemySpawner() {
 		return enemySpawner;
+	}
+	
+	public TowerDefenseGUI getTowerDefenseGUI(){
+		return this.gui;
 	}
 
 	public void mapToString() {

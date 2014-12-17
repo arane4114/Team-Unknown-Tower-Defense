@@ -19,6 +19,7 @@ public class UpdateChatClient extends Command<TowerClient> {
 	 */
 	public UpdateChatClient(List<String> messages){
 		this.messages = new LinkedList<String>(messages); // note: we are making a copy of the given list
+
 	}
 
 	public void execute(TowerClient executeOn) {

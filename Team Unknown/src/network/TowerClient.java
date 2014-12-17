@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -58,12 +59,15 @@ public class TowerClient {
 
 	/**
 	 * Creates a tower client and connects to the server.
+	 * 
+	 * @param host
+	 * @param clientName
 	 */
-	public TowerClient() {
+	public TowerClient(String clientName, String host, Player player) {
 		// ask the user for a host, port, and user name
-		String host = JOptionPane.showInputDialog("Host address:");
-		String port = "9000";
-		clientName = JOptionPane.showInputDialog("User name:");
+		String port = "9001";
+		this.clientName = clientName;
+		this.player = player;
 
 		if (host == null || port == null || clientName == null)
 			return;
@@ -79,6 +83,10 @@ public class TowerClient {
 
 			// start a thread for handling server events
 			new Thread(new ServerHandler()).start();
+
+			if (chatPanel == null) {
+				chatPanel = new ChatPanel(clientName, out);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -103,7 +111,6 @@ public class TowerClient {
 	 * Creates a ChatPanel and adds it to this frame
 	 */
 	public ChatPanel getChatPanel() {
-		chatPanel = new ChatPanel(clientName, out);
 		return chatPanel;
 	}
 
@@ -112,7 +119,11 @@ public class TowerClient {
 	 * the {@link TowerServer}.
 	 */
 	public void hasBeenHit() {
-
+		try {
+			out.writeObject(new HasBeenHitCommand(clientName));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -150,7 +161,11 @@ public class TowerClient {
 	 *            the log of messages to display
 	 */
 	public void update(List<String> messages) {
+		if (chatPanel == null) {
+			chatPanel = new ChatPanel(clientName, out);
+		}
 		chatPanel.update(messages);
+
 	}
 
 	/**

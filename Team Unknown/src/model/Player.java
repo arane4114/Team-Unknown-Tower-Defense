@@ -5,13 +5,15 @@ public class Player {
 	private int health;
 	private int money;
 	private int points;
+	private Map map;
 	
 	private final int WIN_POINTS = 25;
 	
-	public Player(){
+	public Player(Map map){
 		this.health = 10;
 		this.money = 10;
 		this.points = 0;
+		this.map = map;
 	}
 	
 	public int getHealth(){
@@ -36,6 +38,7 @@ public class Player {
 	
 	public void damage(int damage){
 		this.health -= damage;
+		map.forceUpdate();
 	}
 	
 	public int getPoints(){
