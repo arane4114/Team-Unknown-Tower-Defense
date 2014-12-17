@@ -3,6 +3,7 @@ package model;
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 import tower.Fire_Tower;
@@ -14,14 +15,24 @@ import tower.Water_Tower;
 import view.TowerDefenseGUI;
 import enemy.Enemy;
 import enemy.EnemySpawner;
+import view.CustomGameGUI;
 
-public class Map extends Observable implements Serializable{
+/**
+ * This class is the main model class for this application. It stores the
+ * current state of the application and is the start point for serialization.
+ * 
+ * @author Abhishek Rane
+ * @author Bryce Hammod
+ * @author Sean Gallardo
+ *
+ */
+public class Map extends Observable implements Serializable {
 
 	private Cell[][] map;
-	private ArrayList<Point> leftPath;
-	private ArrayList<Point> middlePath;
-	private ArrayList<Point> rightPath;
-	private ArrayList<Point> towers;
+	private List<Point> leftPath;
+	private List<Point> middlePath;
+	private List<Point> rightPath;
+	private List<Point> towers;
 	private Point ghostTower;
 	private Player player;
 	private EnemySpawner enemySpawner;
@@ -29,6 +40,13 @@ public class Map extends Observable implements Serializable{
 	private int mapId;
 	transient private TowerDefenseGUI gui;
 
+	/**
+	 * Creates a map and links it back to the GUI that is observing it.
+	 * 
+	 * @param gui
+	 *            This is needed when {@link Enemy} objects need to call back to
+	 *            the gui.
+	 */
 	public Map(TowerDefenseGUI gui) {
 		map = new Cell[50][50];
 		this.gui = gui;
@@ -43,8 +61,14 @@ public class Map extends Observable implements Serializable{
 		this.player = new Player(this);
 		this.spawner = false;
 	}
-	
-	public void setMapId(int mapId){
+
+	/**
+	 * Used to set the current map.
+	 * 
+	 * @param mapId
+	 *            map number
+	 */
+	public void setMapId(int mapId) {
 		this.mapId = mapId;
 		if (mapId == 2) {
 			setPathTwo();
@@ -55,7 +79,12 @@ public class Map extends Observable implements Serializable{
 		}
 		this.forceUpdate();
 	}
-	
+
+	/**
+	 * Returns the map number
+	 * 
+	 * @return The map number
+	 */
 	public int getMapNumber() {
 		return mapId;
 	}
@@ -227,22 +256,47 @@ public class Map extends Observable implements Serializable{
 		}
 	}
 
-	public ArrayList<Point> getLeftPath() {
+	/**
+	 * Returns the list containing all points on the left path.
+	 * 
+	 * @return The list with the left path.
+	 */
+	public List<Point> getLeftPath() {
 		return this.leftPath;
 	}
 
-	public ArrayList<Point> getMiddlePath() {
+	/**
+	 * Returns the list containing all points on the middle path.
+	 * 
+	 * @return The list with the middle path.
+	 */
+	public List<Point> getMiddlePath() {
 		return this.middlePath;
 	}
 
-	public ArrayList<Point> getRightPath() {
+	/**
+	 * Returns the list containing all points on the right path.
+	 * 
+	 * @return The list with the right path.
+	 */
+	public List<Point> getRightPath() {
 		return this.rightPath;
 	}
 
-	public ArrayList<Point> getTowers() {
+	/**
+	 * Returns a list of all points where towers are located.
+	 * 
+	 * @return A list of all tower locations.
+	 */
+	public List<Point> getTowers() {
 		return this.towers;
 	}
 
+	/**
+	 * Checks if any towers are currently on the map.
+	 * 
+	 * @return True if there is a tower present, false otherwise.
+	 */
 	public boolean hasTowers() {
 		if (towers.isEmpty()) {
 			return false;
@@ -250,19 +304,47 @@ public class Map extends Observable implements Serializable{
 		return true;
 	}
 
+	/**
+	 * Used to force an update of the model and by extension the GUI.
+	 */
 	public void forceUpdate() {
 		this.setChanged();
 		this.notifyObservers();
 	}
 
+	/**
+	 * Removes an {@link Enemy} from a point
+	 * 
+	 * @param p
+	 *            Location of the enemy
+	 * @param e
+	 *            {@link Enemy} to be removed
+	 */
 	public void removeEnemy(Point p, Enemy e) {
 		map[p.y][p.x].removeEnemy(e);
 	}
 
+	/**
+	 * Adds an {@link Enemy} from a point
+	 * 
+	 * @param p
+	 *            Location of the enemy
+	 * @param e
+	 *            {@link Enemy} to be added
+	 */
 	public void addEnemy(Point p, Enemy e) {
 		map[p.y][p.x].addEnemy(e);
 	}
 
+	/**
+	 * Adds a {@link Tower} to a location. Also starts the {@link EnemySpawner}
+	 * if it isnt started.
+	 * 
+	 * @param towerType
+	 *            Type The type of {@link Tower} to be placed.
+	 * @param p
+	 *            The location to be placed.
+	 */
 	public void setTower(int towerType, Point p) {
 		if (spawner == false) {
 			enemySpawner = new EnemySpawner(this);
@@ -291,10 +373,25 @@ public class Map extends Observable implements Serializable{
 		}
 	}
 
+	/**
+	 * Get a {@link Tower} at a location
+	 * 
+	 * @param p
+	 *            Location
+	 * @return The {@link Tower} at the location.
+	 */
 	public Tower getTower(Point p) {
 		return map[p.y][p.x].getTower();
 	}
 
+	/**
+	 * Checks if a point is in a valid location
+	 * 
+	 * @param p
+	 *            Point to check
+	 * @return True if the point is in a valid location on a map, false
+	 *         otherwise
+	 */
 	public boolean isValid(Point p) {
 		if (p.x < 50 && p.y < 50 && p.x >= 0 && p.y >= 0) {
 			return true;
@@ -302,83 +399,141 @@ public class Map extends Observable implements Serializable{
 		return false;
 	}
 
+	/**
+	 * Checks if a point is a path object.
+	 * 
+	 * @param p
+	 *            Point to check.
+	 * @return True if it is a path, false otherwise.
+	 */
 	public boolean isPath(Point p) {
 		return map[p.y][p.x].isPath();
 	}
 
+	/**
+	 * Checks if a point is a tower
+	 * 
+	 * @param p
+	 *            Point to check
+	 * @return True if it is a {@link Tower}, false otherwise.
+	 */
 	public boolean isTower(Point p) {
 		return map[p.y][p.x].isTower();
 	}
 
+	/**
+	 * Checks if a point is an {@link Enemy}.
+	 * 
+	 * @param p
+	 *            Point to check
+	 * @return True if it is an {@link Enemy}, false otherwise.
+	 */
 	public boolean isEnemy(Point p) {
 		return map[p.y][p.x].isEnemy();
 	}
 
-	public ArrayList<Enemy> getListOfEnemies(Point p) {
+	/**
+	 * Returns a list of {@link Enemy} at a location.
+	 * 
+	 * @param p
+	 *            Location
+	 * @return List of {@link Enemy} at a location. May be empty, will not be
+	 *         null;
+	 */
+	public List<Enemy> getListOfEnemies(Point p) {
 		return map[p.y][p.x].getEnemies();
 	}
 
+	/**
+	 * Sets the location of the current ghost tower.
+	 * 
+	 * @param p
+	 *            Current location of the mouse
+	 */
 	public void setGhostTower(Point p) {
 		ghostTower = p;
 	}
 
+	/**
+	 * Gets the current ghost pointer location.
+	 * 
+	 * @return Ghost pointer location.
+	 */
 	public Point getGhostTower() {
 		return ghostTower;
 	}
 
+	/**
+	 * Gets the {@link Player} attached to the map
+	 * 
+	 * @return The {@link Player}
+	 */
 	public Player getPlayer() {
 		return player;
 	}
 
+	/**
+	 * Gets the {@link EnemySpawner} associated with the map.
+	 * 
+	 * @return The {@link EnemySpawner} associated with the map.
+	 */
 	public EnemySpawner getEnemySpawner() {
 		return enemySpawner;
 	}
-	
-	public TowerDefenseGUI getTowerDefenseGUI(){
+
+	/**
+	 * Returns the GUI linked with this map.
+	 * 
+	 * @return The {@link TowerDefenseGUI} linked to this map.
+	 */
+	public TowerDefenseGUI getTowerDefenseGUI() {
 		return this.gui;
 	}
 
-	public void mapToString() {
-		for (int i = 0; i < 50; i++) {
-			for (int j = 0; j < 50; j++) {
-				if (map[i][j].isPath()) {
-					System.out.print("[P]");
-				} else {
-					System.out.print("[X]");
-				}
-			}
-			System.out.println();
-		}
-	}
-	
-	public void wasLoadedFromDisk(TowerDefenseGUI gui){
+	/**
+	 * Performs operations needed to restart the game after being loaded from
+	 * the game.
+	 * 
+	 * @param gui
+	 *            The new {@link TowerDefenseGUI} object to be linked to.
+	 */
+	public void wasLoadedFromDisk(TowerDefenseGUI gui) {
 		this.gui = gui;
-		for(Point p: towers){
+		for (Point p : towers) {
 			this.getTower(p).wasLoadedFromDisk();
 		}
-		
-		for(Point p: leftPath){
-			for(Enemy e: this.getListOfEnemies(p)){
+
+		for (Point p : leftPath) {
+			for (Enemy e : this.getListOfEnemies(p)) {
 				e.wasLoadedFromDisk();
 			}
 		}
-		
-		for(Point p: middlePath){
-			for(Enemy e: this.getListOfEnemies(p)){
+
+		for (Point p : middlePath) {
+			for (Enemy e : this.getListOfEnemies(p)) {
 				e.wasLoadedFromDisk();
 			}
 		}
-		
-		for(Point p: rightPath){
-			for(Enemy e: this.getListOfEnemies(p)){
+
+		for (Point p : rightPath) {
+			for (Enemy e : this.getListOfEnemies(p)) {
 				e.wasLoadedFromDisk();
 			}
 		}
-		
+
 		this.enemySpawner.wasLoadedFromDisk();
 	}
-	
-	public boolean hasEnemy(Point p) {
-		return !map[p.y][p.x].getEnemies().isEmpty();
+
+	/**
+	 * Overrides the paths for a given map with custom points. Used by the
+	 * {@link CustomGameGUI}
+	 * 
+	 * @param customMapPoints
+	 *            Set of map points to replace the original points.
+	 */
+	public void overridePoints(List<Point> customMapPoints) {
+		this.leftPath = customMapPoints;
+		this.rightPath = customMapPoints;
+		this.middlePath = customMapPoints;
 	}
 }

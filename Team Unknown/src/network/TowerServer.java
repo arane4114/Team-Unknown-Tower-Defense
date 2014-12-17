@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import model.PointColorObject;
+
 /**
  * This is a modified version of the NRC server provided in section. It handles
  * the inter-client connectivity.
@@ -143,7 +145,8 @@ public class TowerServer {
 	public void sendMoney(String sender, Integer money) {
 		for (Entry<String, ObjectOutputStream> hashMapItem : outputs.entrySet()) {
 			if (!hashMapItem.getKey().equals(sender)) {
-				System.out.println("Server: Sending " + money + " to " + hashMapItem.getKey());
+				System.out.println("Server: Sending " + money + " to "
+						+ hashMapItem.getKey());
 				ReceiveMoneyCommand command = new ReceiveMoneyCommand(money);
 				try {
 					hashMapItem.getValue().writeObject(command);
@@ -192,12 +195,21 @@ public class TowerServer {
 		}
 	}
 
+	/**
+	 * Relays mini map date between two clients.
+	 * 
+	 * @param pointColorList
+	 *            List of information used to create a mini map render.
+	 * @param client
+	 *            the client that sent the information.
+	 */
 	public void processSendMiniMapUpdateCommand(
 			List<PointColorObject> pointColorList, String client) {
 		for (Entry<String, ObjectOutputStream> hashMapItem : outputs.entrySet()) {
 			if (!hashMapItem.getKey().equals(client)) {
 				try {
-					hashMapItem.getValue().writeObject(new ReceiveMiniMapUpdateCommand(pointColorList));
+					hashMapItem.getValue().writeObject(
+							new ReceiveMiniMapUpdateCommand(pointColorList));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -205,11 +217,18 @@ public class TowerServer {
 		}
 	}
 
+	/**
+	 * Helps bridge the map id request.
+	 * 
+	 * @param clientId
+	 *            Client that wants the map id.
+	 */
 	public void processMapIdRequestPart1(String clientId) {
 		for (Entry<String, ObjectOutputStream> hashMapItem : outputs.entrySet()) {
 			if (!hashMapItem.getKey().equals(clientId)) {
 				try {
-					hashMapItem.getValue().writeObject(new RequestMapIdPart2Command());
+					hashMapItem.getValue().writeObject(
+							new RequestMapIdPart2Command());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -217,11 +236,20 @@ public class TowerServer {
 		}
 	}
 
+	/**
+	 * Returns a map id.
+	 * 
+	 * @param clientName
+	 *            Senders name
+	 * @param mapId
+	 *            Map id value.
+	 */
 	public void processMapIdRequestPart3(String clientName, int mapId) {
 		for (Entry<String, ObjectOutputStream> hashMapItem : outputs.entrySet()) {
 			if (!hashMapItem.getKey().equals(clientName)) {
 				try {
-					hashMapItem.getValue().writeObject(new RequestMapIdPart4Command(mapId));
+					hashMapItem.getValue().writeObject(
+							new RequestMapIdPart4Command(mapId));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

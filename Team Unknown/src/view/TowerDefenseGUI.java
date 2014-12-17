@@ -78,20 +78,34 @@ public class TowerDefenseGUI extends JFrame {
 	private int mapId;
 	private boolean wasLoadedFromDisk;
 	private JLabel errorLabel;
+	private boolean isCustomMap;
+	private List<Point> customMapPoints;
 
 	/**
-	 * Creates and assembles all the panels needed for a game.
+	 * Creates GUI by request of user.
 	 * 
 	 * @param mapSelected
-	 *            The map that is to be played on.
+	 *            The map to display.
 	 * @param mainMenuGUI
-	 *            A call back for end of game events.
+	 *            A link back to the main menu for end of game events/
+	 * @param isMultiplayer
+	 *            True if a multiplayer game is selected.
+	 * @param clientName
+	 *            The name of the user in a online room.
+	 * @param host
+	 *            The address of the host.
+	 * @param server
+	 *            A link to store the server if it was created on this machine.
+	 * @param isCustomMap
+	 *            Checks if the map is a custom map
+	 * @param customMapPoints
+	 *            A list of custom map points.
 	 */
 	public TowerDefenseGUI(int mapSelected, MainMenuGUI mainMenuGUI,
 			boolean isMultiplayer, String clientName, String host,
-			TowerServer server) {
+			TowerServer server, boolean isCustomMap, List<Point> customMapPoints) {
 		this.mapId = mapSelected;
-		if (!multiplayer) {
+		if (!isMultiplayer && !isCustomMap) {
 			int decision = JOptionPane.showConfirmDialog(null, "Load Data?",
 					"Load Data?", JOptionPane.YES_NO_OPTION);
 			if (!(decision == JOptionPane.YES_OPTION && loadData())) {
@@ -102,9 +116,11 @@ public class TowerDefenseGUI extends JFrame {
 		}
 		this.mainMenuGUI = mainMenuGUI;
 		this.multiplayer = isMultiplayer;
+		this.isCustomMap = isCustomMap;
+		this.customMapPoints = customMapPoints;
 
 		setTitle("Tower Defense");
-		setSize(1010, 810);
+		setSize(1030, 810);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -138,6 +154,10 @@ public class TowerDefenseGUI extends JFrame {
 
 	private void finishSettingUpGUI() {
 		map.setMapId(this.mapId);
+
+		if (isCustomMap && !customMapPoints.isEmpty()) {
+			map.overridePoints(customMapPoints);
+		}
 
 		ActionListener buttonListener = new ButtonListener();
 		JMenuBar menuBar = new JMenuBar();
@@ -228,6 +248,7 @@ public class TowerDefenseGUI extends JFrame {
 			public void windowClosing(WindowEvent arg0) {
 				if (multiplayer) {
 					towerClient.willClose();
+				} else if (isCustomMap) {
 				} else {
 					int decision = JOptionPane.showConfirmDialog(null,
 							"Save Data?", "Save Data?",
@@ -476,7 +497,8 @@ public class TowerDefenseGUI extends JFrame {
 										+ "Water towers are good against fire enemies (red) \n"
 										+ "Stone towers are good againt water enemies (blue) \n"
 										+ "Nuetral towers are average agains all types \n"
-										+ "Super towers can one shot kill or restore an\n enemy to full health. Use with caution!",
+										+ "Super towers can one shot kill or restore an\n enemy to full health. Use with caution!\n"
+										+ "Right clicking on a point will provide information on that point.",
 								"Rules", JOptionPane.PLAIN_MESSAGE);
 			} else if (e.getSource() == menuItemSpeed) {
 				System.out.println("SPEED");
@@ -501,7 +523,8 @@ public class TowerDefenseGUI extends JFrame {
 	/**
 	 * Used in a multiplayer scenario where player two needs to find what map
 	 * the host is playing on. This method sets of the finish setting up GUI
-	 * method as the second half of init depends on map id being valid. 
+	 * method as the second half of init depends on map id being valid.
+	 * 
 	 * @param mapId2
 	 *            The map id of the host.
 	 */

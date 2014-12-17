@@ -52,17 +52,17 @@ public class MainMenuGUI extends JFrame {
 					&& e.getY() <= 300) {
 				setVisible(false);
 				towerDefenseGUI = new TowerDefenseGUI(1, mainMenuGUI, false,
-						null, null, null);
+						null, null, null, false, null);
 			} else if (e.getX() >= 475 && e.getX() <= 645 && e.getY() >= 333
 					&& e.getY() <= 370) {
 				setVisible(false);
 				towerDefenseGUI = new TowerDefenseGUI(2, mainMenuGUI, false,
-						null, null, null);
+						null, null, null, false, null);
 			} else if (e.getX() >= 475 && e.getX() <= 645 && e.getY() >= 404
 					&& e.getY() <= 440) {
 				setVisible(false);
 				towerDefenseGUI = new TowerDefenseGUI(3, mainMenuGUI, false,
-						null, null, null);
+						null, null, null, false, null);
 			} else if (e.getX() >= 475 && e.getX() <= 672 && e.getY() >= 472
 					&& e.getY() <= 510) {
 				String userName = JOptionPane.showInputDialog("User name:");
@@ -85,22 +85,23 @@ public class MainMenuGUI extends JFrame {
 						map = 1;
 					}
 					towerDefenseGUI = new TowerDefenseGUI(map, mainMenuGUI,
-							true, userName, "localhost", server);
+							true, userName, "localhost", server, false, null);
 				} else {
 					String hostAddress = JOptionPane
 							.showInputDialog("Host address: ");
 					towerDefenseGUI = new TowerDefenseGUI(1, mainMenuGUI, true,
-							userName, hostAddress, null);
+							userName, hostAddress, null, false, null);
 				}
 				setVisible(false);
 			} else if (e.getX() >= 475 && e.getX() <= 720 && e.getY() >= 543
 					&& e.getY() <= 580) {
 				Object[] options = { "Map 1", "Map 2", "Map 3" };
-				int map = JOptionPane.showOptionDialog(new JFrame(),
-						"Select your map.", "Multiplayer Setup",
-						JOptionPane.YES_NO_CANCEL_OPTION,
-						JOptionPane.QUESTION_MESSAGE, null, options,
-						options[0]);
+				int map = JOptionPane
+						.showOptionDialog(new JFrame(), "Select your map.",
+								"Multiplayer Setup",
+								JOptionPane.YES_NO_CANCEL_OPTION,
+								JOptionPane.QUESTION_MESSAGE, null, options,
+								options[0]);
 				if (map == 0) {
 					map = 1;
 				} else if (map == 1) {
@@ -108,7 +109,7 @@ public class MainMenuGUI extends JFrame {
 				} else {
 					map = 3;
 				}
-				customGameGUI = new CustomGameGUI(map);
+				customGameGUI = new CustomGameGUI(map, mainMenuGUI);
 				setVisible(false);
 			} else if (e.getX() >= 475 && e.getX() <= 615 && e.getY() >= 600
 					&& e.getY() <= 640) {
@@ -125,7 +126,9 @@ public class MainMenuGUI extends JFrame {
 										+ "Water towers are good against fire enemies (red) \n"
 										+ "Stone towers are good againt water enemies (blue) \n"
 										+ "Nuetral towers are average agains all types \n"
-										+ "Super towers can one shot kill or restore an\n enemy to full health. Use with caution!",
+										+ "Super towers can one shot kill or restore an\n enemy to full health. Use with caution!"
+										+ "Play a custom game to create your own map. Note that saving is not supported for custom games.\n"
+										+ "Right clicking on a point will bring up more information for that point.",
 								"Rules", JOptionPane.PLAIN_MESSAGE);
 			} else if (e.getX() >= 475 && e.getX() <= 680 && e.getY() >= 655
 					&& e.getY() <= 690) {

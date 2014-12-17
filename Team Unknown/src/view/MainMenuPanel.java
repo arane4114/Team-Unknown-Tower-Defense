@@ -54,7 +54,7 @@ public class MainMenuPanel extends JPanel {
 		g.drawString("2-Player", 475, 510);
 		g.drawString("Custom Map", 475, 580);
 		g.drawString("Rules", 475, 635);
-		g.drawString("End game", 475 , 685);
+		g.drawString("End game", 475, 685);
 
 	}
 }

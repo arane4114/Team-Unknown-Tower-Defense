@@ -20,7 +20,7 @@ import model.Map;
 public class PlayerInfoPanel extends JPanel implements Observer {
 
 	private Map map;
-	
+
 	/**
 	 * Public constructor for a Player Info Panel.
 	 */

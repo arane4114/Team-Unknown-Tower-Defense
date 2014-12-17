@@ -7,11 +7,26 @@ import java.awt.event.ActionListener;
 import model.Player;
 import network.TowerClient;
 
+/**
+ * Creates a send money panel. Allows money transfer in mutiplayer game.
+ * 
+ * @author Abhishek Rane
+ * @author Bryce Hammod
+ * @author Sean Gallardo
+ */
 public class SendMoneyPanel extends JPanel {
 	private JTextField field;
 	private Player player;
 	private TowerClient client;
 
+	/**
+	 * Creates a send money panel.
+	 * 
+	 * @param player
+	 *            Current {@link Player}
+	 * @param client
+	 *            Network link.
+	 */
 	public SendMoneyPanel(Player player, TowerClient client) {
 		this.player = player;
 		this.client = client;
@@ -24,11 +39,12 @@ public class SendMoneyPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
-					int amount = Integer.parseInt(field.getText());
-					if (amount >0 && player.canBuy(amount) && client.sendMoney(amount)) {
-						player.buy(amount);
-						System.out.println("Amount");
-					}
+				int amount = Integer.parseInt(field.getText());
+				if (amount > 0 && player.canBuy(amount)
+						&& client.sendMoney(amount)) {
+					player.buy(amount);
+					System.out.println("Amount");
+				}
 			} catch (NumberFormatException event) {
 			}
 		}

@@ -4,28 +4,30 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Timer;
 
 import model.Map;
 import network.TowerClient;
 
+import tower.Super_Tower;
+
 /**
- * Enemy objects are placed on the {@link Map}. They travel 
- * through a path. This is an abstract class.
+ * Enemy objects are placed on the {@link Map}. They travel through a path. This
+ * is an abstract class and can be written to disk.
  * 
  * @author Abhishek Rane
  * @author Bryce Hammod
  * @author Sean Gallardo
  *
  */
-public abstract class Enemy implements Serializable{
+public abstract class Enemy implements Serializable {
 
 	protected int health, points, i;
 	protected Point current;
 	protected Map map;
-	protected ArrayList<Point> path;
+	protected List<Point> path;
 	transient protected Timer timer;
 	protected int walkInterval = 100;
 
@@ -34,8 +36,11 @@ public abstract class Enemy implements Serializable{
 
 	/**
 	 * This is the base enemy spawner. Take the health and map its on.
-	 * @param h base health
-	 * @param m map this enemy will be on
+	 * 
+	 * @param h
+	 *            base health
+	 * @param m
+	 *            map this enemy will be on
 	 */
 	public Enemy(int h, Map m) {
 		health = h;
@@ -64,6 +69,13 @@ public abstract class Enemy implements Serializable{
 		timer.start();
 	}
 
+	/**
+	 * Does damage on an enemy. Is abstract as subclasses may want to handle
+	 * damage differently.
+	 * 
+	 * @param damage
+	 *            Amount of damage taken
+	 */
 	abstract public void doDamage(double damage);
 
 	/**
@@ -72,7 +84,7 @@ public abstract class Enemy implements Serializable{
 	 * @return The points of an enemy.
 	 */
 	public int getPoints() {
-		return points; 
+		return points;
 	}
 
 	/**
@@ -103,9 +115,8 @@ public abstract class Enemy implements Serializable{
 	}
 
 	/**
-	 * Moves enemy to next point in its path.
-	 * Also checks if enemy is alive or has mad it to the 
-	 * end of its path. 
+	 * Moves enemy to next point in its path. Also checks if enemy is alive or
+	 * has mad it to the end of its path.
 	 */
 	public void moveToNext() {
 		i++;
@@ -139,16 +150,16 @@ public abstract class Enemy implements Serializable{
 	public boolean isDead() {
 		return health <= 0;
 	}
-	
+
 	/**
-	 * Kills enemy.
+	 * Kills enemy. Used by the {@link Super_Tower}.
 	 */
 	public void kill() {
 		this.health = 0;
 	}
 
 	/**
-	 * Restores enemy's health.
+	 * Restores enemy's health. Used by the {@link Super_Tower}.
 	 */
 	public void restoreHealth() {
 		this.health = this.baseHealth;
@@ -167,12 +178,17 @@ public abstract class Enemy implements Serializable{
 	public void resume() {
 		this.timer.restart();
 	}
-	
-	public void wasLoadedFromDisk(){
+
+	/**
+	 * Recreates timers after being loaded from disk.
+	 */
+	public void wasLoadedFromDisk() {
 		this.timer = new Timer(this.walkInterval, new EnemyTimer());
 	}
+
 	/**
-	 * Enemy timer action listener for movement of enemies. 
+	 * Enemy timer action listener for movement of enemies.
+	 * 
 	 * @author Bryce Hammond
 	 *
 	 */

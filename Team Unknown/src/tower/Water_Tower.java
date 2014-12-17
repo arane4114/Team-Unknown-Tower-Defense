@@ -9,19 +9,27 @@ import enemy.Fire_Enemy;
 
 /**
  * This tower is better suited to do damgae to {@link Fire_Enemy}.
+ * 
  * @author Abhishek Rane
  * @author Bryce Hammod
  * @author Sean Gallardo
  */
 public class Water_Tower extends Tower {
-	
+
 	/**
 	 * Public constructor for this tower.
-	 * @param range The range it should attack.
-	 * @param fireInterval Its rate of fire.
-	 * @param map A link back to the {@link Map} object that it is on to query it for information.
-	 * @param location Its location on the {@link Map}
-	 * @param damageAmount The base damage of this tower
+	 * 
+	 * @param range
+	 *            The range it should attack.
+	 * @param fireInterval
+	 *            Its rate of fire.
+	 * @param map
+	 *            A link back to the {@link Map} object that it is on to query
+	 *            it for information.
+	 * @param location
+	 *            Its location on the {@link Map}
+	 * @param damageAmount
+	 *            The base damage of this tower
 	 */
 	public Water_Tower(int range, int fireInterval, Map map, Point location,
 			int damageAmount) {

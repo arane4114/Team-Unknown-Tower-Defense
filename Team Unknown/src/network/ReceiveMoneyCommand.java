@@ -4,8 +4,9 @@ package network;
  * Send by a server to a client when the client is to receive a certain amount
  * of money.
  * 
- * @author Abhishek
- *
+ * @author Abhishek Rane
+ * @author Bryce Hammod
+ * @author Sean Gallardo
  */
 public class ReceiveMoneyCommand extends Command<TowerClient> {
 	private Integer money;

@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import model.Player;
+import model.PointColorObject;
 import view.ChatPanel;
 import view.MiniMapPanel;
 import view.TowerDefenseGUI;
@@ -63,12 +64,23 @@ public class TowerClient {
 	}
 
 	/**
-	 * Creates a tower client and connects to the server.
+	 * Creates the client in the multiplayer scenario.
 	 * 
-	 * @param host
 	 * @param clientName
+	 *            The username to attibute all commands to.
+	 * @param host
+	 *            The address of the host {@link TowerServer}.
+	 * @param player
+	 *            A link to the {@link Player} object
+	 * @param miniMap
+	 *            A link to the {@link MiniMapPanel} object
+	 * @param mapId
+	 *            A link to the map id
+	 * @param gui
+	 *            A link to the {@link TowerDefenseGUI}
 	 */
-	public TowerClient(String clientName, String host, Player player, MiniMapPanel miniMap, int mapId, TowerDefenseGUI gui) {
+	public TowerClient(String clientName, String host, Player player,
+			MiniMapPanel miniMap, int mapId, TowerDefenseGUI gui) {
 		// ask the user for a host, port, and user name
 		String port = "9001";
 		this.clientName = clientName;
@@ -116,7 +128,9 @@ public class TowerClient {
 	}
 
 	/**
-	 * Creates a ChatPanel and adds it to this frame
+	 * Returns a chat panel.
+	 * 
+	 * @return A networked chat panel.
 	 */
 	public ChatPanel getChatPanel() {
 		return chatPanel;
@@ -154,7 +168,8 @@ public class TowerClient {
 	}
 
 	/**
-	 * Called when an {@link ReceiveMoneyCommand} was sent by the {@link Server}
+	 * Called when an {@link ReceiveMoneyCommand} was sent by the
+	 * {@link TowerServer}
 	 * 
 	 * @param money
 	 *            The amount of money to be earned.
@@ -184,18 +199,34 @@ public class TowerClient {
 		player.damage(1);
 	}
 
+	/**
+	 * Sends mini map information to the other client.
+	 * 
+	 * @param pointColorList
+	 *            List of points and their color values.
+	 */
 	public void sendMiniMapUpdate(List<PointColorObject> pointColorList) {
 		try {
-			out.writeObject(new SendMiniMapUpdateCommand(pointColorList, clientName));
+			out.writeObject(new SendMiniMapUpdateCommand(pointColorList,
+					clientName));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Forwards mini map information to the mini map renderer.
+	 * 
+	 * @param pointColorList
+	 *            List of points and their associated colors.
+	 */
 	public void receiveMiniMapUpdate(List<PointColorObject> pointColorList) {
 		miniMap.setPointColorList(pointColorList);
 	}
 
+	/**
+	 * Sets of the map id request process.
+	 */
 	public void getMapId() {
 		try {
 			out.writeObject(new RequestMapIdPart1Command(clientName));
@@ -204,6 +235,9 @@ public class TowerClient {
 		}
 	}
 
+	/**
+	 * Sends a map id value back to the server.
+	 */
 	public void processRequestMapIdPart2Command() {
 		try {
 			out.writeObject(new RequestMapIdPart3Command(clientName, mapId));
@@ -212,6 +246,13 @@ public class TowerClient {
 		}
 	}
 
+	/**
+	 * Sends the map id from the other server to the {@link TowerDefenseGUI}
+	 * linked to this client.
+	 * 
+	 * @param mapId2
+	 *            Map id for the multiplayer session.
+	 */
 	public void processRequestMapIdPart4Command(Integer mapId2) {
 		gui.setMapId(mapId2);
 	}

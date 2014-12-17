@@ -23,7 +23,7 @@ import enemy.Stone_Enemy;
  * @author Sean Gallardo
  *
  */
-public abstract class Tower implements Serializable{
+public abstract class Tower implements Serializable {
 	protected int range;
 	protected int fireInterval;
 	transient protected Timer timer;
@@ -179,22 +179,30 @@ public abstract class Tower implements Serializable{
 		}
 
 	}
-	
+
 	/**
 	 * Checks if a point is within range of the tower.
-	 * @param p The point to be checked
+	 * 
+	 * @param p
+	 *            The point to be checked
 	 * @return True if in range, false otherwise.
 	 */
 	private boolean isInRange(Point p) {
 		return Math.abs(p.distance(location)) <= range;
 	}
 
+	/**
+	 * Shows the points where it can lock on to an enemy.
+	 * 
+	 * @return A list of points where the tower can lock on to an enemy.
+	 */
 	public List<Point> getPointsInRange() {
 		return this.pointsInRange;
 	}
 
 	/**
-	 * This is the attack algorithm used by most towers. It is overrided by tower 4.
+	 * This is the attack algorithm used by most towers. It is overrided by
+	 * tower 4.
 	 */
 	protected void attackEnemy() {
 		if (currentTarget instanceof Stone_Enemy) {
@@ -208,19 +216,22 @@ public abstract class Tower implements Serializable{
 					* damageMultiplier);
 		}
 	}
-	
+
 	/**
 	 * Allows a tower to choose its target from a list of enemies in range.
-	 * @param listOfEnemies A list of all enemies in range.
+	 * 
+	 * @param listOfEnemies
+	 *            A list of all enemies in range.
 	 */
 	protected abstract void selectEnemyFromList(List<Enemy> listOfEnemies);
-	
-	public void wasLoadedFromDisk(){
+
+	public void wasLoadedFromDisk() {
 		timer = new Timer(fireInterval, new TowerTimer());
 	}
-	
+
 	/**
-	 * Private inner class for the fire tower. 
+	 * Private inner class for the fire tower.
+	 * 
 	 * @author Abhishek
 	 *
 	 */

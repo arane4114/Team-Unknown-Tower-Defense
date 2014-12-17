@@ -10,6 +10,13 @@ package network;
 public class HasBeenHitCommand extends Command<TowerServer> {
 	private String clientName;
 
+	/**
+	 * Creates a new HasBeenHitCommand with the name of the command that created
+	 * it.
+	 * 
+	 * @param clientName
+	 *            The client that was hit.
+	 */
 	public HasBeenHitCommand(String clientName) {
 		this.clientName = clientName;
 	}

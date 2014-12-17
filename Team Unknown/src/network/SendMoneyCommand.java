@@ -3,7 +3,9 @@ package network;
 /**
  * Sent by a client when it wants to send money to another user.
  * 
- * @author Abhishek
+ * @author Abhishek Rane
+ * @author Bryce Hammod
+ * @author Sean Gallardo
  *
  */
 public class SendMoneyCommand extends Command<TowerServer> {

@@ -32,6 +32,7 @@ public class CellInfoPanel extends JPanel {
 	 * Updates the current panel
 	 * 
 	 * @param point
+	 *            Point for information.
 	 */
 	public void setPoint(Point point) {
 		if (map.isValid(point)) {
