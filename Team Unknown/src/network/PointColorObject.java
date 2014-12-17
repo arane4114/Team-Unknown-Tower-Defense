@@ -13,6 +13,11 @@ public class PointColorObject {
 		
 	}
 	
+	public Point getPoint(){
+		return point;
+	}
 	
-	
+	public Color getColor(){
+		return color;
+	}
 }
