@@ -10,8 +10,8 @@ import javax.swing.Timer;
 
 import model.Map;
 import enemy.Enemy;
-import enemy.Enemy1;
-import enemy.Enemy2;
+import enemy.Stone_Enemy;
+import enemy.Fire_Enemy;
 
 /**
  * Tower objects are placed on the {@link Map}. They shoot at {@link Enemy}
@@ -196,10 +196,10 @@ public abstract class Tower {
 	 * This is the attack algorithm used by most towers. It is overrided by tower 4.
 	 */
 	protected void attackEnemy() {
-		if (currentTarget instanceof Enemy1) {
+		if (currentTarget instanceof Stone_Enemy) {
 			currentTarget.doDamage(damageAmount * enemy1Multiplier
 					* damageMultiplier);
-		} else if (currentTarget instanceof Enemy2) {
+		} else if (currentTarget instanceof Fire_Enemy) {
 			currentTarget.doDamage(damageAmount * enemy2Multiplier
 					* damageMultiplier);
 		} else {

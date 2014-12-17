@@ -5,10 +5,10 @@ import java.util.List;
 
 import model.Map;
 import enemy.Enemy;
-import enemy.Enemy3;
+import enemy.Water_Enemy;
 
 /**
- * This tower is better suited to do damgae to {@link Enemy3}.
+ * This tower is better suited to do damgae to {@link Water_Enemy}.
  * @author Abhishek Rane
  * @author Bryce Hammod
  * @author Sean Gallardo
@@ -32,7 +32,7 @@ public class Tower_Type_3 extends Tower {
 	@Override
 	protected void selectEnemyFromList(List<Enemy> listOfEnemies) {
 		for (Enemy e : listOfEnemies) {
-			if (e instanceof Enemy3) {
+			if (e instanceof Water_Enemy) {
 				currentTarget = e;
 				return;
 			}

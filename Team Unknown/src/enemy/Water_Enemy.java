@@ -3,9 +3,9 @@ package enemy;
 import model.Map;
 import view.TowerDefenseGUI;
 
-public class Enemy3 extends Enemy{
+public class Water_Enemy extends Enemy{
 
-	public Enemy3(int multi, Map m) {
+	public Water_Enemy(int multi, Map m) {
 		super(100 * multi, m);
 	}
 

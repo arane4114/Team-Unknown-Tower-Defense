@@ -25,9 +25,9 @@ import tower.Tower_Type_1;
 import tower.Tower_Type_2;
 import tower.Tower_Type_3;
 import tower.Tower_Type_4;
-import enemy.Enemy1;
-import enemy.Enemy2;
-import enemy.Enemy3;
+import enemy.Stone_Enemy;
+import enemy.Fire_Enemy;
+import enemy.Water_Enemy;
 
 /**
  * This is the gameplay panel that shows the current state of the map.
@@ -121,17 +121,17 @@ public class GamePlayPanel extends JPanel implements Observer {
 					g.fillRect(((p.x * DELTA_X) + X_BASE),
 							((p.y * DELTA_Y) + Y_BASE), 15, 15);
 					pointColorList.add(new PointColorObject(new Point(p), g.getColor()));
-				} else if (map.getListOfEnemies(p).get(0) instanceof Enemy1) {
+				} else if (map.getListOfEnemies(p).get(0) instanceof Stone_Enemy) {
 					g.setColor(Color.YELLOW);
 					g.fillRect(((p.x * DELTA_X) + X_BASE),
 							((p.y * DELTA_Y) + Y_BASE), 15, 15);
 					pointColorList.add(new PointColorObject(new Point(p), g.getColor()));
-				} else if (map.getListOfEnemies(p).get(0) instanceof Enemy2) {
+				} else if (map.getListOfEnemies(p).get(0) instanceof Fire_Enemy) {
 					g.setColor(Color.GREEN);
 					g.fillRect(((p.x * DELTA_X) + X_BASE),
 							((p.y * DELTA_Y) + Y_BASE), 15, 15);
 					pointColorList.add(new PointColorObject(new Point(p), g.getColor()));
-				} else if (map.getListOfEnemies(p).get(0) instanceof Enemy3) {
+				} else if (map.getListOfEnemies(p).get(0) instanceof Water_Enemy) {
 					g.setColor(Color.BLUE);
 					g.fillRect(((p.x * DELTA_X) + X_BASE),
 							((p.y * DELTA_Y) + Y_BASE), 15, 15);
@@ -152,17 +152,17 @@ public class GamePlayPanel extends JPanel implements Observer {
 					g.fillRect(((p.x * DELTA_X) + X_BASE),
 							((p.y * DELTA_Y) + Y_BASE), 15, 15);
 					pointColorList.add(new PointColorObject(new Point(p), g.getColor()));
-				} else if (map.getListOfEnemies(p).get(0) instanceof Enemy1) {
+				} else if (map.getListOfEnemies(p).get(0) instanceof Stone_Enemy) {
 					g.setColor(Color.YELLOW);
 					g.fillRect(((p.x * DELTA_X) + X_BASE),
 							((p.y * DELTA_Y) + Y_BASE), 15, 15);
 					pointColorList.add(new PointColorObject(new Point(p), g.getColor()));
-				} else if (map.getListOfEnemies(p).get(0) instanceof Enemy2) {
+				} else if (map.getListOfEnemies(p).get(0) instanceof Fire_Enemy) {
 					g.setColor(Color.GREEN);
 					g.fillRect(((p.x * DELTA_X) + X_BASE),
 							((p.y * DELTA_Y) + Y_BASE), 15, 15);
 					pointColorList.add(new PointColorObject(new Point(p), g.getColor()));
-				} else if (map.getListOfEnemies(p).get(0) instanceof Enemy3) {
+				} else if (map.getListOfEnemies(p).get(0) instanceof Water_Enemy) {
 					g.setColor(Color.BLUE);
 					g.fillRect(((p.x * DELTA_X) + X_BASE),
 							((p.y * DELTA_Y) + Y_BASE), 15, 15);
@@ -183,17 +183,17 @@ public class GamePlayPanel extends JPanel implements Observer {
 					g.fillRect(((p.x * DELTA_X) + X_BASE),
 							((p.y * DELTA_Y) + Y_BASE), 15, 15);
 					pointColorList.add(new PointColorObject(new Point(p), g.getColor()));
-				} else if (map.getListOfEnemies(p).get(0) instanceof Enemy1) {
+				} else if (map.getListOfEnemies(p).get(0) instanceof Stone_Enemy) {
 					g.setColor(Color.YELLOW);
 					g.fillRect(((p.x * DELTA_X) + X_BASE),
 							((p.y * DELTA_Y) + Y_BASE), 15, 15);
 					pointColorList.add(new PointColorObject(new Point(p), g.getColor()));
-				} else if (map.getListOfEnemies(p).get(0) instanceof Enemy2) {
+				} else if (map.getListOfEnemies(p).get(0) instanceof Fire_Enemy) {
 					g.setColor(Color.GREEN);
 					g.fillRect(((p.x * DELTA_X) + X_BASE),
 							((p.y * DELTA_Y) + Y_BASE), 15, 15);
 					pointColorList.add(new PointColorObject(new Point(p), g.getColor()));
-				} else if (map.getListOfEnemies(p).get(0) instanceof Enemy3) {
+				} else if (map.getListOfEnemies(p).get(0) instanceof Water_Enemy) {
 					g.setColor(Color.BLUE);
 					g.fillRect(((p.x * DELTA_X) + X_BASE),
 							((p.y * DELTA_Y) + Y_BASE), 15, 15);

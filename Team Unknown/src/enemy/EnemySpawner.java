@@ -57,13 +57,13 @@ public class EnemySpawner {
 				int random = (int) (Math.random() * 3);
 				switch(random){
 				case 0:
-					enemyToMake = new Enemy1(1,map);
+					enemyToMake = new Stone_Enemy(1,map);
 					break;
 				case 1:
-					enemyToMake = new Enemy2(2,map);
+					enemyToMake = new Fire_Enemy(2,map);
 					break;
 				case 2:
-					enemyToMake = new Enemy3(3,map);
+					enemyToMake = new Water_Enemy(3,map);
 					break;
 				}
 				count++;
