@@ -30,10 +30,12 @@ public class Player {
 	
 	public void buy(int amount){
 		this.money -= amount;
+		map.forceUpdate();
 	}
 	
 	public void earn(int amount){
 		this.money += amount;
+		map.forceUpdate();
 	}
 	
 	public void damage(int damage){

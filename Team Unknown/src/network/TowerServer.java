@@ -143,6 +143,7 @@ public class TowerServer {
 	public void sendMoney(String sender, Integer money) {
 		for (Entry<String, ObjectOutputStream> hashMapItem : outputs.entrySet()) {
 			if (!hashMapItem.getKey().equals(sender)) {
+				System.out.println("Server: Sending " + money + " to " + hashMapItem.getKey());
 				ReceiveMoneyCommand command = new ReceiveMoneyCommand(money);
 				try {
 					hashMapItem.getValue().writeObject(command);

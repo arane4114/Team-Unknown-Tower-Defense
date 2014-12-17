@@ -100,6 +100,7 @@ public class MainMenuGUI extends JFrame {
 					towerDefenseGUI = new TowerDefenseGUI(map, mainMenuGUI,
 							true, userName, hostAddress, null);
 				}
+				setVisible(false);
 			} else if (e.getX() >= 475 && e.getX() <= 720 && e.getY() >= 543
 					&& e.getY() <= 580) {
 				System.out.println("Custom");

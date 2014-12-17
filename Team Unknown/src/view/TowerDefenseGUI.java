@@ -64,6 +64,8 @@ public class TowerDefenseGUI extends JFrame {
 	private JMenuItem menuItemPause;
 	private JMenuItem menuItemSpeed;
 	private JMenuItem menuItemSave;
+	
+	private boolean multiplayer;
 
 	/**
 	 * Creates and assembles all the panels needed for a game.
@@ -77,6 +79,7 @@ public class TowerDefenseGUI extends JFrame {
 			boolean isMultiplayer, String clientName, String host, TowerServer server) {
 		this.map = new Map(mapSelected, this);
 		this.mainMenuGUI = mainMenuGUI;
+		this.multiplayer = multiplayer;
 
 		setTitle("Tower Defense");
 		setSize(1000, 810);
@@ -143,6 +146,8 @@ public class TowerDefenseGUI extends JFrame {
 			JPanel multiplayerPanel = new JPanel();
 			multiplayerPanel.setPreferredSize(new Dimension(250, 750));
 			multiplayerPanel.add(chatPanel, BorderLayout.NORTH);
+			multiplayerPanel.add(new SendMoneyPanel(map.getPlayer(), towerClient), BorderLayout.CENTER);
+			
 			this.add(multiplayerPanel, BorderLayout.EAST);
 			this.setSize(new Dimension(1250, 810));
 			
@@ -326,69 +331,72 @@ public class TowerDefenseGUI extends JFrame {
 			} else if (e.getSource() == menuItemSave) {
 				System.out.println("Save");
 			} else {
-				for (Point p : map.getLeftPath()) {
-					if (map.isEnemy(p)) {
-						for (Enemy enemy : map.getListOfEnemies(p)) {
-							enemy.pause();
+				if(!multiplayer){
+					for (Point p : map.getLeftPath()) {
+						if (map.isEnemy(p)) {
+							for (Enemy enemy : map.getListOfEnemies(p)) {
+								enemy.pause();
+							}
 						}
 					}
-				}
 
-				for (Point p : map.getMiddlePath()) {
-					if (map.isEnemy(p)) {
-						for (Enemy enemy : map.getListOfEnemies(p)) {
-							enemy.pause();
+					for (Point p : map.getMiddlePath()) {
+						if (map.isEnemy(p)) {
+							for (Enemy enemy : map.getListOfEnemies(p)) {
+								enemy.pause();
+							}
 						}
 					}
-				}
 
-				for (Point p : map.getRightPath()) {
-					if (map.isEnemy(p)) {
-						for (Enemy enemy : map.getListOfEnemies(p)) {
-							enemy.pause();
+					for (Point p : map.getRightPath()) {
+						if (map.isEnemy(p)) {
+							for (Enemy enemy : map.getListOfEnemies(p)) {
+								enemy.pause();
+							}
 						}
 					}
-				}
 
-				map.getEnemySpawner().pause();
+					map.getEnemySpawner().pause();
 
-				for (Point t : map.getTowers()) {
-					map.getTower(t).pause();
-				}
+					for (Point t : map.getTowers()) {
+						map.getTower(t).pause();
+					}
 
-				JOptionPane.showMessageDialog(new JFrame(),
-						"Continue to end pause.", "Paused",
-						JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(new JFrame(),
+							"Continue to end pause.", "Paused",
+							JOptionPane.PLAIN_MESSAGE);
 
-				for (Point p : map.getLeftPath()) {
-					if (map.isEnemy(p)) {
-						for (Enemy enemy : map.getListOfEnemies(p)) {
-							enemy.resume();
+					for (Point p : map.getLeftPath()) {
+						if (map.isEnemy(p)) {
+							for (Enemy enemy : map.getListOfEnemies(p)) {
+								enemy.resume();
+							}
 						}
 					}
-				}
 
-				for (Point p : map.getMiddlePath()) {
-					if (map.isEnemy(p)) {
-						for (Enemy enemy : map.getListOfEnemies(p)) {
-							enemy.resume();
+					for (Point p : map.getMiddlePath()) {
+						if (map.isEnemy(p)) {
+							for (Enemy enemy : map.getListOfEnemies(p)) {
+								enemy.resume();
+							}
 						}
 					}
-				}
 
-				for (Point p : map.getRightPath()) {
-					if (map.isEnemy(p)) {
-						for (Enemy enemy : map.getListOfEnemies(p)) {
-							enemy.resume();
+					for (Point p : map.getRightPath()) {
+						if (map.isEnemy(p)) {
+							for (Enemy enemy : map.getListOfEnemies(p)) {
+								enemy.resume();
+							}
 						}
 					}
-				}
 
-				map.getEnemySpawner().resume();
+					map.getEnemySpawner().resume();
 
-				for (Point t : map.getTowers()) {
-					map.getTower(t).resume();
+					for (Point t : map.getTowers()) {
+						map.getTower(t).resume();
+					}
 				}
+				
 			}
 
 		}

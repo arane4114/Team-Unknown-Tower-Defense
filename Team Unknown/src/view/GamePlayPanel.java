@@ -52,6 +52,10 @@ public class GamePlayPanel extends JPanel implements Observer {
 
 	private List<Point> pointsInRange;
 	
+	public BufferedImage getMapImage(){
+		return mapImage;
+	}
+	
 	/**
 	 * Creates a gameplay panel and will attempt to load the relevant assets.
 	 * @param mapSelected The map to be played on.

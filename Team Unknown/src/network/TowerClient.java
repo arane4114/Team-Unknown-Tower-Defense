@@ -137,6 +137,7 @@ public class TowerClient {
 	public boolean sendMoney(Integer money) {
 		try {
 			out.writeObject(new SendMoneyCommand(money, clientName));
+			System.out.println(clientName + ": Sending " + money);
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -151,6 +152,7 @@ public class TowerClient {
 	 *            The amount of money to be earned.
 	 */
 	public void addMoney(Integer money) {
+		System.out.println(clientName + ": Received " + money);
 		player.earn(money);
 	}
 
