@@ -84,20 +84,7 @@ public class MainMenuGUI extends JFrame {
 							true, userName, "localhost", server);
 				} else{
 					String hostAddress = JOptionPane.showInputDialog("Host address: ");
-					Object[] options = { "Map 3", "Map 2", "Map 1" };
-					int map = JOptionPane.showOptionDialog(new JFrame(),
-							"Select your map.", "Multiplayer Setup",
-							JOptionPane.YES_NO_CANCEL_OPTION,
-							JOptionPane.QUESTION_MESSAGE, null, options,
-							options[0]);
-					if(map == 0){
-						map = 3;
-					} else if(map == 1){
-						map = 2;
-					}else{
-						map = 1;
-					}
-					towerDefenseGUI = new TowerDefenseGUI(map, mainMenuGUI,
+					towerDefenseGUI = new TowerDefenseGUI(1, mainMenuGUI,
 							true, userName, hostAddress, null);
 				}
 				setVisible(false);

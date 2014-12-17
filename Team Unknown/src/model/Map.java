@@ -25,10 +25,10 @@ public class Map extends Observable {
 	private Player player;
 	private EnemySpawner enemySpawner;
 	private boolean spawner;
-	private int mapNumber;
+	private int mapId;
 	private TowerDefenseGUI gui;
 
-	public Map(int mapNumber, TowerDefenseGUI gui) {
+	public Map(TowerDefenseGUI gui) {
 		map = new Cell[50][50];
 		this.gui = gui;
 		for (int i = 0; i < 50; i++) {
@@ -37,24 +37,26 @@ public class Map extends Observable {
 			}
 		}
 
-		this.mapNumber = mapNumber;
-
-		if (mapNumber == 2) {
-			setPathTwo();
-		} else if (mapNumber == 3) {
-			setPathThree();
-		} else {
-			setPathOne();
-		}
-
 		this.towers = new ArrayList<Point>();
 		this.ghostTower = new Point(-1, -1);
 		this.player = new Player(this);
 		this.spawner = false;
 	}
-
+	
+	public void setMapId(int mapId){
+		this.mapId = mapId;
+		if (mapId == 2) {
+			setPathTwo();
+		} else if (mapId == 3) {
+			setPathThree();
+		} else {
+			setPathOne();
+		}
+		this.forceUpdate();
+	}
+	
 	public int getMapNumber() {
-		return mapNumber;
+		return mapId;
 	}
 
 	private void setPathOne() {

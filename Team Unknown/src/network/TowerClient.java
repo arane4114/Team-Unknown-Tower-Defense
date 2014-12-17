@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import model.Player;
 import view.ChatPanel;
 import view.MiniMapPanel;
+import view.TowerDefenseGUI;
 
 /**
  * Modified from the NRC code provided in section. This class is the interface
@@ -33,6 +34,8 @@ public class TowerClient {
 	private ObjectInputStream in; // input stream
 	private Player player;
 	private MiniMapPanel miniMap;
+	private int mapId;
+	private TowerDefenseGUI gui;
 
 	/**
 	 * This class reads and executes commands sent from the server
@@ -65,12 +68,14 @@ public class TowerClient {
 	 * @param host
 	 * @param clientName
 	 */
-	public TowerClient(String clientName, String host, Player player, MiniMapPanel miniMap) {
+	public TowerClient(String clientName, String host, Player player, MiniMapPanel miniMap, int mapId, TowerDefenseGUI gui) {
 		// ask the user for a host, port, and user name
 		String port = "9001";
 		this.clientName = clientName;
 		this.player = player;
 		this.miniMap = miniMap;
+		this.mapId = mapId;
+		this.gui = gui;
 
 		if (host == null || port == null || clientName == null)
 			return;
@@ -155,7 +160,6 @@ public class TowerClient {
 	 *            The amount of money to be earned.
 	 */
 	public void addMoney(Integer money) {
-		System.out.println(clientName + ": Received " + money);
 		player.earn(money);
 	}
 
@@ -190,5 +194,25 @@ public class TowerClient {
 
 	public void receiveMiniMapUpdate(List<PointColorObject> pointColorList) {
 		miniMap.setPointColorList(pointColorList);
+	}
+
+	public void getMapId() {
+		try {
+			out.writeObject(new RequestMapIdPart1Command(clientName));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void processRequestMapIdPart2Command() {
+		try {
+			out.writeObject(new RequestMapIdPart3Command(clientName, mapId));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void processRequestMapIdPart4Command(Integer mapId2) {
+		gui.setMapId(mapId2);
 	}
 }

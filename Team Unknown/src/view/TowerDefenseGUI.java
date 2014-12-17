@@ -37,6 +37,7 @@ import enemy.Enemy;
  * @author Sean Gallardo
  *
  */
+@SuppressWarnings("unused")
 public class TowerDefenseGUI extends JFrame {
 
 	private Map map;
@@ -68,6 +69,7 @@ public class TowerDefenseGUI extends JFrame {
 	private JMenuItem menuItemSave;
 
 	private boolean multiplayer;
+	private int mapId;
 
 	/**
 	 * Creates and assembles all the panels needed for a game.
@@ -80,17 +82,55 @@ public class TowerDefenseGUI extends JFrame {
 	public TowerDefenseGUI(int mapSelected, MainMenuGUI mainMenuGUI,
 			boolean isMultiplayer, String clientName, String host,
 			TowerServer server) {
-		this.map = new Map(mapSelected, this);
+		this.map = new Map(this);
 		this.mainMenuGUI = mainMenuGUI;
-		this.multiplayer = multiplayer;
+		this.multiplayer = isMultiplayer;
+		this.mapId = mapSelected;
 
 		setTitle("Tower Defense");
-		setSize(1000, 810);
+		setSize(1010, 810);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		ActionListener buttonListener = new ButtonListener();
+		if (isMultiplayer) {
+			this.server = server;
+			this.miniMapPanel = new MiniMapPanel();
+			this.towerClient = new TowerClient(clientName, host,
+					map.getPlayer(), this.miniMapPanel, mapSelected, this);
+			this.chatPanel = this.towerClient.getChatPanel();
 
+			JPanel multiplayerPanel = new JPanel();
+			multiplayerPanel.setPreferredSize(new Dimension(260, 750));
+			multiplayerPanel.add(chatPanel, BorderLayout.NORTH);
+			multiplayerPanel.add(new SendMoneyPanel(map.getPlayer(),
+					towerClient), BorderLayout.CENTER);
+			multiplayerPanel.add(this.miniMapPanel, BorderLayout.SOUTH);
+
+			this.add(multiplayerPanel, BorderLayout.EAST);
+			this.setSize(new Dimension(1260, 810));
+
+			this.addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent arg0) {
+					towerClient.willClose();
+				}
+			});
+
+			if (server == null) {
+				this.towerClient.getMapId();
+			}
+			else{
+				finishSettingUpGUI();
+			}
+
+		} else {
+			finishSettingUpGUI();
+		}
+	}
+
+	private void finishSettingUpGUI() {
+		map.setMapId(this.mapId);
+		
+		ActionListener buttonListener = new ButtonListener();
 		JMenuBar menuBar = new JMenuBar();
 		JMenuItem menu = new JMenu("Menu");
 		menuItemRules = new JMenuItem("Rules");
@@ -141,32 +181,7 @@ public class TowerDefenseGUI extends JFrame {
 		group.add(towerFiveButton);
 		buttonPanel.add(towerFiveButton);
 
-		if (isMultiplayer) {
-			this.server = server;
-			this.miniMapPanel = new MiniMapPanel();
-			this.towerClient = new TowerClient(clientName, host,
-					map.getPlayer(), this.miniMapPanel);
-			this.chatPanel = this.towerClient.getChatPanel();
-
-			JPanel multiplayerPanel = new JPanel();
-			multiplayerPanel.setPreferredSize(new Dimension(250, 750));
-			multiplayerPanel.add(chatPanel, BorderLayout.NORTH);
-			multiplayerPanel.add(new SendMoneyPanel(map.getPlayer(),
-					towerClient), BorderLayout.CENTER);
-			multiplayerPanel.add(this.miniMapPanel, BorderLayout.SOUTH);
-
-			this.add(multiplayerPanel, BorderLayout.EAST);
-			this.setSize(new Dimension(1250, 810));
-
-			this.addWindowListener(new WindowAdapter() {
-				public void windowClosing(WindowEvent arg0) {
-					towerClient.willClose();
-				}
-			});
-
-		}
-
-		gamePlayPanel = new GamePlayPanel(mapSelected, this, towerClient);
+		gamePlayPanel = new GamePlayPanel(mapId, this, towerClient);
 		gamePlayPanel.addMouseListener(new mouseListener());
 		gamePlayPanel.addMouseMotionListener(new mouseListener());
 
@@ -178,7 +193,7 @@ public class TowerDefenseGUI extends JFrame {
 		gamePanel.add(gamePlayPanel);
 
 		JPanel infoPanel = new JPanel();
-		infoPanel.setPreferredSize(new Dimension(250, 750));
+		infoPanel.setPreferredSize(new Dimension(260, 750));
 		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
 		infoPanel.add(buttonPanel, BorderLayout.CENTER);
 		infoPanel.add(cellInfoPanel, BorderLayout.SOUTH);
@@ -191,7 +206,10 @@ public class TowerDefenseGUI extends JFrame {
 
 		setVisible(true);
 		this.map.forceUpdate();
-		this.miniMapPanel.setBufferedImage(this.gamePlayPanel.getMapImage());
+		if (multiplayer) {
+			this.miniMapPanel
+					.setBufferedImage(this.gamePlayPanel.getMapImage());
+		}
 	}
 
 	public TowerClient getTowerClient() {
@@ -404,5 +422,10 @@ public class TowerDefenseGUI extends JFrame {
 			}
 
 		}
+	}
+
+	public void setMapId(Integer mapId2) {
+		this.mapId = mapId2;
+		this.finishSettingUpGUI();
 	}
 }

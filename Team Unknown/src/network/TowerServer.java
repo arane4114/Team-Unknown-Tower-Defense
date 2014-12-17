@@ -204,4 +204,28 @@ public class TowerServer {
 			}
 		}
 	}
+
+	public void processMapIdRequestPart1(String clientId) {
+		for (Entry<String, ObjectOutputStream> hashMapItem : outputs.entrySet()) {
+			if (!hashMapItem.getKey().equals(clientId)) {
+				try {
+					hashMapItem.getValue().writeObject(new RequestMapIdPart2Command());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	public void processMapIdRequestPart3(String clientName, int mapId) {
+		for (Entry<String, ObjectOutputStream> hashMapItem : outputs.entrySet()) {
+			if (!hashMapItem.getKey().equals(clientName)) {
+				try {
+					hashMapItem.getValue().writeObject(new RequestMapIdPart4Command(mapId));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }
