@@ -10,33 +10,40 @@ import javax.swing.JPanel;
 
 import model.Map;
 
-public class PlayerInfoPanel extends JPanel implements Observer{
+/**
+ * This panel shows upto date information of the panel.
+ * 
+ * @author Abhishek Rane
+ * @author Bryce Hammod
+ * @author Sean Gallardo
+ */
+public class PlayerInfoPanel extends JPanel implements Observer {
 
 	private Map map;
 	
-	public PlayerInfoPanel(){
-		
+	/**
+	 * Public constructor for a Player Info Panel.
+	 */
+	public PlayerInfoPanel() {
 		this.setPreferredSize(new Dimension(250, 375));
-		
 	}
-	
+
 	@Override
 	public void update(Observable o, Object unsed) {
 		Map map = (Map) o;
 		this.map = map;
 		repaint();
 	}
-	
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.fillRect(0, 0, 250, 375);
 		g.setColor(Color.WHITE);
 		g.drawString("Health : " + map.getPlayer().getHealth(), 20, 30);
-		g.drawString("Money : "  + map.getPlayer().getMoney(), 20, 50);
+		g.drawString("Money : " + map.getPlayer().getMoney(), 20, 50);
 		g.drawString("Points : " + map.getPlayer().getPoints(), 20, 70);
-		g.drawString("Points Needed : " + map.getPlayer().getPointsToWin(), 20, 90);
+		g.drawString("Points Needed : " + map.getPlayer().getPointsToWin(), 20,
+				90);
 	}
 }
-
-

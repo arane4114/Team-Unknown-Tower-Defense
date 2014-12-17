@@ -13,6 +13,15 @@ import enemy.Enemy;
 import enemy.Enemy1;
 import enemy.Enemy2;
 
+/**
+ * Tower objects are placed on the {@link Map}. They shoot at {@link Enemy}
+ * objects. This is an abstract class.
+ * 
+ * @author Abhishek Rane
+ * @author Bryce Hammod
+ * @author Sean Gallardo
+ *
+ */
 public abstract class Tower {
 	protected int range;
 	protected int fireInterval;
@@ -23,25 +32,13 @@ public abstract class Tower {
 	protected Enemy currentTarget;
 	protected final int damageAmount;
 	protected List<Point> validTargetPoints;
-	private final double enemy1Multiplier;
-	private final double enemy2Multiplier;
-	private final double enemy3Multiplier;
-	private int damageMultiplier;
+	protected final double enemy1Multiplier;
+	protected final double enemy2Multiplier;
+	protected final double enemy3Multiplier;
+	protected int damageMultiplier;
 	protected int level;
 	private List<Point> pointsInRange;
 	protected int upgradeCost;
-	
-	public int getlevel(){
-		return level;
-	}
-	
-	public int getDamageMultiplier(){
-		return damageMultiplier;
-	}
-	
-	public int getUpgradeCost(){
-		return this.upgradeCost;
-	}
 
 	protected Tower(int range, int fireInterval, Map map, Point location,
 			int damageAmount, double enemy1Multiplier, double enemy2Multiplier,
@@ -114,21 +111,42 @@ public abstract class Tower {
 		}
 		timer.start();
 	}
-	
-	public void pause(){
+
+	/**
+	 * Gets the cost to upgrade the tower.
+	 * 
+	 * @return The cost to upgrade the tower.
+	 */
+	public int getUpgradeCost() {
+		return this.upgradeCost;
+	}
+
+	/**
+	 * Stops the fire timer and allows the game to pause.
+	 */
+	public void pause() {
 		this.timer.stop();
 	}
-	
-	public void upPause(){
+
+	/**
+	 * Restarts the fire timer at the emd of a pause.
+	 */
+	public void resume() {
 		this.timer.start();
 	}
 
+	/**
+	 * Upgrades the towers damage multiplier.
+	 */
 	public void levelUp() {
 		this.level++;
 		this.damageMultiplier *= 2;
-		this.upgradeCost += upgradeCost / 5;
+		this.upgradeCost *= 2;
 	}
 
+	/**
+	 * Called by the fire timer every fireinterval miliseconds.
+	 */
 	private void fireTurret() {
 		selectTarget();
 		if (currentTarget != null) {
@@ -136,6 +154,10 @@ public abstract class Tower {
 		}
 	}
 
+	/**
+	 * Creates a list of targets that are in spots the tower can reach. Sends
+	 * that list to each individual tower to select an enemy.
+	 */
 	private void selectTarget() {
 		if (currentTarget != null) {
 			Point targetLocation = currentTarget.getCurrent();
@@ -156,18 +178,22 @@ public abstract class Tower {
 		}
 
 	}
-
+	
+	/**
+	 * Checks if a point is within range of the tower.
+	 * @param p The point to be checked
+	 * @return True if in range, false otherwise.
+	 */
 	private boolean isInRange(Point p) {
 		return Math.abs(p.distance(location)) <= range;
 	}
-	
-	
-	public List<Point> getPointsInRange(){
+
+	public List<Point> getPointsInRange() {
 		return this.pointsInRange;
 	}
-	/*
-	 * Sets up a basic attack algorithm. Can be modified if the tower requires
-	 * it (the random tower will do so).
+
+	/**
+	 * This is the attack algorithm used by most towers. It is overrided by tower 4.
 	 */
 	protected void attackEnemy() {
 		if (currentTarget instanceof Enemy1) {
@@ -181,9 +207,18 @@ public abstract class Tower {
 					* damageMultiplier);
 		}
 	}
-
+	
+	/**
+	 * Allows a tower to choose its target from a list of enemies in range.
+	 * @param listOfEnemies A list of all enemies in range.
+	 */
 	protected abstract void selectEnemyFromList(List<Enemy> listOfEnemies);
-
+	
+	/**
+	 * Private inner class for the fire tower. 
+	 * @author Abhishek
+	 *
+	 */
 	private class TowerTimer implements ActionListener {
 
 		@Override

@@ -14,15 +14,18 @@ import model.Player;
 import view.ChatPanel;
 
 /**
- * The client side of NRC. This class displays the current chat log and
- * sends AddMessageCommands to the server.
+ * Modified from the NRC code provided in section. This class is the interface
+ * between the game and the server.
  * 
  * @author Gabriel Kishi
+ * @author Abhishek Rane
+ * @author Bryce Hammod
+ * @author Sean Gallardo
  */
 public class TowerClient {
 	private String clientName; // user name of the client
 	private ChatPanel chatPanel;
-	
+
 	private Socket server; // connection to server
 	private ObjectOutputStream out; // output stream
 	private ObjectInputStream in; // input stream
@@ -34,54 +37,59 @@ public class TowerClient {
 	 * @author Gabriel Kishi
 	 *
 	 */
-	private class ServerHandler implements Runnable{
+	private class ServerHandler implements Runnable {
 		public void run() {
-			try{
-				while(true){
+			try {
+				while (true) {
 					// read a command from server and execute it
-					Command<TowerClient> c = (Command<TowerClient>)in.readObject();
+					Command<TowerClient> c = (Command<TowerClient>) in
+							.readObject();
 					c.execute(TowerClient.this);
 				}
-			}
-			catch(SocketException e){
+			} catch (SocketException e) {
 				return; // "gracefully" terminate after disconnect
-			}
-			catch (EOFException e) {
+			} catch (EOFException e) {
 				return; // "gracefully" terminate
-			}
-			catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
-	public TowerClient(){
+
+	/**
+	 * Creates a tower client and connects to the server.
+	 */
+	public TowerClient() {
 		// ask the user for a host, port, and user name
 		String host = JOptionPane.showInputDialog("Host address:");
 		String port = "9000";
 		clientName = JOptionPane.showInputDialog("User name:");
-		
+
 		if (host == null || port == null || clientName == null)
 			return;
-		
-		try{
+
+		try {
 			// Open a connection to the server
 			server = new Socket(host, Integer.parseInt(port));
 			out = new ObjectOutputStream(server.getOutputStream());
 			in = new ObjectInputStream(server.getInputStream());
-			
+
 			// write out the name of this client
 			out.writeObject(clientName);
-			
+
 			// start a thread for handling server events
 			new Thread(new ServerHandler()).start();
-			
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void willClose(){
+
+	/**
+	 * Tells the client that it is about to close, allowing a clean disconnect
+	 * from the server.
+	 */
+	public void willClose() {
 		try {
 			out.writeObject(new DisconnectCommand(clientName));
 			out.close();
@@ -90,21 +98,32 @@ public class TowerClient {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	/**
-	 * 	Creates a ChatPanel and adds it to this frame
+	 * Creates a ChatPanel and adds it to this frame
 	 */
 	public ChatPanel getChatPanel() {
 		chatPanel = new ChatPanel(clientName, out);
 		return chatPanel;
 	}
-	
-	public void hasBeenHit(){
-		
+
+	/**
+	 * Occurs when the client has been hit. Sends a {@link HasBeenHitCommand} to
+	 * the {@link TowerServer}.
+	 */
+	public void hasBeenHit() {
+
 	}
-	
-	public boolean sendMoney(Integer money){
+
+	/**
+	 * Sends a certain amount of money to another player.
+	 * 
+	 * @param money
+	 *            The amount of money to be sent.
+	 * @return Checks if the sending was successful. Allows the client to be
+	 *         refunded if not.
+	 */
+	public boolean sendMoney(Integer money) {
 		try {
 			out.writeObject(new SendMoneyCommand(money, clientName));
 			return true;
@@ -113,20 +132,30 @@ public class TowerClient {
 			return false;
 		}
 	}
-	
-	public void addMoney(Integer money){
+
+	/**
+	 * Called when an {@link ReceiveMoneyCommand} was sent by the {@link Server}
+	 * 
+	 * @param money
+	 *            The amount of money to be earned.
+	 */
+	public void addMoney(Integer money) {
 		player.earn(money);
 	}
 
 	/**
 	 * Updates the ChatPanel with the updated message log
 	 * 
-	 * @param messages	the log of messages to display
+	 * @param messages
+	 *            the log of messages to display
 	 */
 	public void update(List<String> messages) {
 		chatPanel.update(messages);
 	}
 
+	/**
+	 * Damages the player if the other player was hit.
+	 */
 	public void otherPlayerHasBeenHit() {
 		player.damage(1);
 	}

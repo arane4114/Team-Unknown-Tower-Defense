@@ -22,9 +22,17 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingUtilities;
 
-import network.TowerClient;
 import model.Map;
+import network.TowerClient;
 
+/**
+ * This handles all interactions between the player and a running game.
+ * 
+ * @author Abhishek Rane
+ * @author Bryce Hammod
+ * @author Sean Gallardo
+ *
+ */
 public class TowerDefenseGUI extends JFrame {
 
 	private Map map;
@@ -54,6 +62,14 @@ public class TowerDefenseGUI extends JFrame {
 	private JMenuItem menuItemSpeed;
 	private JMenuItem menuItemSave;
 
+	/**
+	 * Creates and assembles all the panels needed for a game.
+	 * 
+	 * @param mapSelected
+	 *            The map that is to be played on.
+	 * @param mainMenuGUI
+	 *            A call back for end of game events.
+	 */
 	public TowerDefenseGUI(int mapSelected, MainMenuGUI mainMenuGUI) {
 		this.map = new Map(mapSelected);
 		this.mainMenuGUI = mainMenuGUI;
@@ -108,7 +124,7 @@ public class TowerDefenseGUI extends JFrame {
 		towerFourButton.addActionListener(new towerButtonListener());
 		group.add(towerFourButton);
 		buttonPanel.add(towerFourButton);
-		
+
 		JRadioButton towerFiveButton = new JRadioButton(towerFive);
 		towerFiveButton.setActionCommand(towerFive);
 		towerFiveButton.addActionListener(new towerButtonListener());
@@ -153,16 +169,25 @@ public class TowerDefenseGUI extends JFrame {
 		this.map.forceUpdate();
 	}
 
+	/**
+	 * A way to hide this panel.
+	 */
 	public void visibleFalse() {
 		setVisible(false);
 	}
 
+	/**
+	 * Displays the main menu at end of game.
+	 */
 	public void mainMenuVisible() {
 		mainMenuGUI.setVisible(true);
 	}
 
 	private class mouseListener implements MouseListener, MouseMotionListener {
 
+		/**
+		 * Handles all mouse clicks on the game map.
+		 */
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			Point p = new Point(e.getX() / 15, e.getY() / 15);

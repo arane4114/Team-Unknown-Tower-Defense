@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import tower.Tower;
 import enemy.Enemy;
 
 public class MiniMap extends Observable{
@@ -25,6 +26,7 @@ public class MiniMap extends Observable{
 	public void receiveUpdates(Cell[][] map, ArrayList<Point> towers){
 		this.towers = null;
 		this.towers = towers;
+		this.notifyObservers();
 	}
 	
 	public ArrayList<Point> getTowers(){
@@ -34,7 +36,6 @@ public class MiniMap extends Observable{
 	public ArrayList<Point> getLeftPath(){
 		return this.leftPath;
 	}
-
 
 	public ArrayList<Point> getRightPath(){
 		return this.rightPath;
@@ -46,5 +47,13 @@ public class MiniMap extends Observable{
 	
 	public ArrayList<Enemy> getListOfEnemies(Point p) {
 		return map[p.y][p.x].getEnemies();
+	}
+
+	public boolean isEnemy(Point p) {
+		return map[p.y][p.x].isEnemy();
+	}
+
+	public Tower getTower(Point p) {
+		return map[p.y][p.x].getTower();
 	}
 }

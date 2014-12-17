@@ -10,19 +10,28 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-
+/**
+ * Allows a user to select the tower they want to use.
+ * 
+ * @author Abhishek Rane
+ * @author Bryce Hammod
+ * @author Sean Gallardo
+ */
 public class TowerSelectionPanel extends JPanel {
 
 	private String currentString = "Tower One";
-	
+
 	private static String towerOne = "Tower One";
 	private static String towerTwo = "Tower Two";
 	private static String towerThree = "Tower Three";
-	
-	public TowerSelectionPanel(){
-		
+
+	/**
+	 * Creates the buttons select a tower.
+	 */
+	public TowerSelectionPanel() {
+
 		this.setPreferredSize(new Dimension(250, 250));
-		
+
 		ButtonGroup group = new ButtonGroup();
 		JPanel buttonPanel = new JPanel(new GridLayout(0, 3));
 
@@ -45,7 +54,7 @@ public class TowerSelectionPanel extends JPanel {
 		group.add(towerThreeButton);
 		buttonPanel.add(towerThreeButton);
 	}
-	
+
 	private class buttonListener implements ActionListener {
 
 		@Override
