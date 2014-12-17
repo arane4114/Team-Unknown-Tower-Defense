@@ -21,6 +21,7 @@ public class MainMenuGUI extends JFrame {
 	private MainMenuPanel mainMenuPanel;
 	private TowerDefenseGUI towerDefenseGUI;
 	private MainMenuGUI mainMenuGUI;
+	private CustomGameGUI customGameGUI;
 
 	/**
 	 * Constructor for the main menu.
@@ -94,7 +95,21 @@ public class MainMenuGUI extends JFrame {
 				setVisible(false);
 			} else if (e.getX() >= 475 && e.getX() <= 720 && e.getY() >= 543
 					&& e.getY() <= 580) {
-				System.out.println("Custom");
+				Object[] options = { "Map 1", "Map 2", "Map 3" };
+				int map = JOptionPane.showOptionDialog(new JFrame(),
+						"Select your map.", "Multiplayer Setup",
+						JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE, null, options,
+						options[0]);
+				if (map == 0) {
+					map = 1;
+				} else if (map == 1) {
+					map = 2;
+				} else {
+					map = 3;
+				}
+				customGameGUI = new CustomGameGUI(map);
+				setVisible(false);
 			} else if (e.getX() >= 475 && e.getX() <= 615 && e.getY() >= 600
 					&& e.getY() <= 640) {
 				JOptionPane
