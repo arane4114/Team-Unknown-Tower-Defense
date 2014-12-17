@@ -17,8 +17,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import network.PointColorObject;
 import model.Map;
+import network.PointColorObject;
+import network.TowerClient;
 import tower.Tower_Type_0;
 import tower.Tower_Type_1;
 import tower.Tower_Type_2;
@@ -43,7 +44,8 @@ public class GamePlayPanel extends JPanel implements Observer {
 	private Map map;
 	private BufferedImage mapImage;
 	private TowerDefenseGUI towerDefeseGUI;
-	private LinkedList<PointColorObject> pointColorList;
+	private List<PointColorObject> pointColorList;
+	private TowerClient client;
 
 	private final int DELTA_X = 15;
 	private final int DELTA_Y = 15;
@@ -61,9 +63,10 @@ public class GamePlayPanel extends JPanel implements Observer {
 	 * @param mapSelected The map to be played on.
 	 * @param towerDefeseGUI A link to for end of game events.
 	 */
-	public GamePlayPanel(int mapSelected, TowerDefenseGUI towerDefeseGUI) {
+	public GamePlayPanel(int mapSelected, TowerDefenseGUI towerDefeseGUI, TowerClient client) {
 		this.setPreferredSize(new Dimension(750, 750));
 		this.towerDefeseGUI = towerDefeseGUI;
+		this.client = client;
 		if (mapSelected == 2) {
 			try {
 				mapImage = ImageIO.read(new File("Pictures" + File.separator
@@ -255,6 +258,10 @@ public class GamePlayPanel extends JPanel implements Observer {
 			JOptionPane.showMessageDialog(new JFrame(), "Game Over",
 					"Game Over", JOptionPane.PLAIN_MESSAGE);
 			towerDefeseGUI.mainMenuVisible();
+		}
+		
+		if(client != null){
+			client.sendMiniMapUpdate(pointColorList);
 		}
 
 	}

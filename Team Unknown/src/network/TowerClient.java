@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import model.Player;
 import view.ChatPanel;
+import view.MiniMapPanel;
 
 /**
  * Modified from the NRC code provided in section. This class is the interface
@@ -31,6 +32,7 @@ public class TowerClient {
 	private ObjectOutputStream out; // output stream
 	private ObjectInputStream in; // input stream
 	private Player player;
+	private MiniMapPanel miniMap;
 
 	/**
 	 * This class reads and executes commands sent from the server
@@ -63,11 +65,12 @@ public class TowerClient {
 	 * @param host
 	 * @param clientName
 	 */
-	public TowerClient(String clientName, String host, Player player) {
+	public TowerClient(String clientName, String host, Player player, MiniMapPanel miniMap) {
 		// ask the user for a host, port, and user name
 		String port = "9001";
 		this.clientName = clientName;
 		this.player = player;
+		this.miniMap = miniMap;
 
 		if (host == null || port == null || clientName == null)
 			return;
@@ -175,5 +178,17 @@ public class TowerClient {
 	 */
 	public void otherPlayerHasBeenHit() {
 		player.damage(1);
+	}
+
+	public void sendMiniMapUpdate(List<PointColorObject> pointColorList) {
+		try {
+			out.writeObject(new SendMiniMapUpdateCommand(pointColorList, clientName));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void receiveMiniMapUpdate(List<PointColorObject> pointColorList) {
+		miniMap.setPointColorList(pointColorList);
 	}
 }

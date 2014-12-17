@@ -191,4 +191,17 @@ public class TowerServer {
 			}
 		}
 	}
+
+	public void processSendMiniMapUpdateCommand(
+			List<PointColorObject> pointColorList, String client) {
+		for (Entry<String, ObjectOutputStream> hashMapItem : outputs.entrySet()) {
+			if (!hashMapItem.getKey().equals(client)) {
+				try {
+					hashMapItem.getValue().writeObject(new ReceiveMiniMapUpdateCommand(pointColorList));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }

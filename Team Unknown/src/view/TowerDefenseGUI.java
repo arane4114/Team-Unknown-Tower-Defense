@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import java.util.Observer;
 
@@ -64,7 +66,7 @@ public class TowerDefenseGUI extends JFrame {
 	private JMenuItem menuItemPause;
 	private JMenuItem menuItemSpeed;
 	private JMenuItem menuItemSave;
-	
+
 	private boolean multiplayer;
 
 	/**
@@ -76,7 +78,8 @@ public class TowerDefenseGUI extends JFrame {
 	 *            A call back for end of game events.
 	 */
 	public TowerDefenseGUI(int mapSelected, MainMenuGUI mainMenuGUI,
-			boolean isMultiplayer, String clientName, String host, TowerServer server) {
+			boolean isMultiplayer, String clientName, String host,
+			TowerServer server) {
 		this.map = new Map(mapSelected, this);
 		this.mainMenuGUI = mainMenuGUI;
 		this.multiplayer = multiplayer;
@@ -140,20 +143,30 @@ public class TowerDefenseGUI extends JFrame {
 
 		if (isMultiplayer) {
 			this.server = server;
-			this.towerClient = new TowerClient(clientName, host, map.getPlayer());
+			this.miniMapPanel = new MiniMapPanel();
+			this.towerClient = new TowerClient(clientName, host,
+					map.getPlayer(), this.miniMapPanel);
 			this.chatPanel = this.towerClient.getChatPanel();
-			
+
 			JPanel multiplayerPanel = new JPanel();
 			multiplayerPanel.setPreferredSize(new Dimension(250, 750));
 			multiplayerPanel.add(chatPanel, BorderLayout.NORTH);
-			multiplayerPanel.add(new SendMoneyPanel(map.getPlayer(), towerClient), BorderLayout.CENTER);
-			
+			multiplayerPanel.add(new SendMoneyPanel(map.getPlayer(),
+					towerClient), BorderLayout.CENTER);
+			multiplayerPanel.add(this.miniMapPanel, BorderLayout.SOUTH);
+
 			this.add(multiplayerPanel, BorderLayout.EAST);
 			this.setSize(new Dimension(1250, 810));
-			
+
+			this.addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent arg0) {
+					towerClient.willClose();
+				}
+			});
+
 		}
 
-		gamePlayPanel = new GamePlayPanel(mapSelected, this);
+		gamePlayPanel = new GamePlayPanel(mapSelected, this, towerClient);
 		gamePlayPanel.addMouseListener(new mouseListener());
 		gamePlayPanel.addMouseMotionListener(new mouseListener());
 
@@ -169,10 +182,6 @@ public class TowerDefenseGUI extends JFrame {
 		infoPanel.add(playerInfoPanel, BorderLayout.NORTH);
 		infoPanel.add(buttonPanel, BorderLayout.CENTER);
 		infoPanel.add(cellInfoPanel, BorderLayout.SOUTH);
-		
-		
-		
-		// infoPanel.add(chatPanel);
 
 		this.add(gamePanel, BorderLayout.CENTER);
 		this.add(infoPanel, BorderLayout.WEST);
@@ -180,20 +189,15 @@ public class TowerDefenseGUI extends JFrame {
 		map.addObserver((Observer) playerInfoPanel); // ADDed observer
 		map.addObserver((Observer) gamePlayPanel);
 
-		// this.addWindowListener(new WindowAdapter() {
-		// public void windowClosing(WindowEvent arg0) {
-		// chatClient.willClose();
-		// }
-		// });
-
 		setVisible(true);
 		this.map.forceUpdate();
+		this.miniMapPanel.setBufferedImage(this.gamePlayPanel.getMapImage());
 	}
-	
-	public TowerClient getTowerClient(){
+
+	public TowerClient getTowerClient() {
 		return this.towerClient;
 	}
-	
+
 	/**
 	 * A way to hide this panel.
 	 */
@@ -331,7 +335,7 @@ public class TowerDefenseGUI extends JFrame {
 			} else if (e.getSource() == menuItemSave) {
 				System.out.println("Save");
 			} else {
-				if(!multiplayer){
+				if (!multiplayer) {
 					for (Point p : map.getLeftPath()) {
 						if (map.isEnemy(p)) {
 							for (Enemy enemy : map.getListOfEnemies(p)) {
@@ -396,7 +400,7 @@ public class TowerDefenseGUI extends JFrame {
 						map.getTower(t).resume();
 					}
 				}
-				
+
 			}
 
 		}
