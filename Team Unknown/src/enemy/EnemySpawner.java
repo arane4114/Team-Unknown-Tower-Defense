@@ -1,13 +1,22 @@
 package enemy;
 
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
 import model.Map;
-import view.TowerDefenseGUI;
 
+/**
+ * Enemy Spawner creates random new enemies
+ * to spawn at the beginning of the path.
+ * 
+ * @author Abhishek Rane
+ * @author Bryce Hammod
+ * @author Sean Gallardo
+ *
+ */
 public class EnemySpawner {
 
 	private Map map;
@@ -27,10 +36,17 @@ public class EnemySpawner {
 		timer.start();
 	}
 	
+	/**
+	 * Stops timer.
+	 */
 	public void timerStop(){
 		timer.stop();
 	}
 	
+	/**
+	 * Private inner class for the waves of enemies.
+	 * @author Bryce Hammond
+	 */
 	private class SpawnTimer implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -40,16 +56,26 @@ public class EnemySpawner {
 		}
 	}
 	
+	/**
+	 * Stops timers for pause.
+	 */
 	public void pause(){
 		timer.stop();
 		timerTwo.stop();
 	}
 	
+	/**
+	 * Resumes timers.
+	 */
 	public void resume(){
 		timer.start();
 		timerTwo.start();
 	}
 	
+	/**
+	 * Private inner class for enemies in a wave.
+	 * @author Bryce Hammond
+	 */
 	private class EmenyTimer implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
